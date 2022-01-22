@@ -4,6 +4,7 @@ import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, AddIcon } 
 
 import Logo from "../../assets/logo.webp"
 import MetamaskButton from '../Buttons/MetamaskButton';
+import Colors from '../../constants/Colors';
 
 export default function NavigationBar({...props}) {
 
@@ -30,9 +31,7 @@ export default function NavigationBar({...props}) {
                     <IconButton
                         onClick={onToggle}
                         borderWidth={"1px"}
-                        icon={
-                        isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
+                        icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
                         variant={'ghost'}
                         aria-label={'Toggle Navigation'}
                     />
@@ -40,7 +39,7 @@ export default function NavigationBar({...props}) {
                 <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }}>
                     <Box d="flex" alignItems={"center"} as="button">
                         <Image h={{base: "30px", md: "32px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
-                        <Text fontWeight={"bold"} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
+                        <Text fontFamily={"Montserrat"} fontWeight={"bold"} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
                     </Box>
 
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10} alignItems={"center"}>
@@ -71,17 +70,19 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
-      <Stack direction={'row'} spacing={4}>
+      <Stack direction={'row'} spacing={6}>
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
                 <Link
+			      fontFamily={"Montserrat"} 
                   p={2}
                   href={navItem.href ?? '#'}
                   fontSize={'sm'}
-                  fontWeight={500}
+				  fontWeight={"medium"}
                   color={linkColor}
+				  borderRadius={"5px"}
                   _hover={{
                     textDecoration: 'none',
                     color: linkHoverColor,
@@ -124,12 +125,13 @@ const DesktopNav = () => {
         <Stack direction={'row'} align={'center'}>
           <Box>
             <Text
+			  fontFamily={"Montserrat"} 
               transition={'all .3s ease'}
               _groupHover={{ color: 'pink.400' }}
-              fontWeight={500}>
+              fontWeight={"semibold"}>
               {label}
             </Text>
-            <Text fontSize={'sm'}>{subLabel}</Text>
+            <Text fontFamily={"Montserrat"} fontWeight={"medium"} fontSize={'sm'}>{subLabel}</Text>
           </Box>
           <Flex
             transition={'all .3s ease'}
@@ -174,6 +176,7 @@ const DesktopNav = () => {
             textDecoration: 'none',
           }}>
           <Text
+		  	fontFamily={"Montserrat"} 
             fontWeight={600}
             color={useColorModeValue('gray.600', 'gray.200')}>
             {label}
