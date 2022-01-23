@@ -2,12 +2,12 @@
 import { ChakraProvider } from '@chakra-ui/react'
 
 //Screens
-import HomeScreen from './screens/HomeScreen';
+import HomePage from './pages/HomePage';
 
 function App() {
 	return (
 		<ChakraProvider>
-			<HomeScreen/>
+			<HomePage/>
 		</ChakraProvider>
 	);
 }

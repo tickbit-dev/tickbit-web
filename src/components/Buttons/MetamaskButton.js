@@ -1,7 +1,7 @@
 //Libraries
 import { useState, useEffect, useRef } from 'react';
 import { Box, Image, Text, Button, useToast } from '@chakra-ui/react';
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 //Images & Icons
 import MetamaskLogo from "../../assets/metamask_logo.webp"
@@ -25,8 +25,8 @@ export default function MetamaskButton({...props}) {
     useEffect(() => {
         if(userAddress != null && prevUserAddress.userAddress){
             toast({
-                title: 'Changed user address',
-                description: "The address has been changed to " + shortAddress(userAddress) + ".",
+                title: 'Cambio de dirección',
+                description: "Dirección cambiada a " + shortAddress(userAddress) + ".",
                 status: 'info',
                 duration: 9000,
                 isClosable: true,
@@ -40,8 +40,8 @@ export default function MetamaskButton({...props}) {
                 await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
                     setUserAddress(accounts[0]);
                     toast({
-                        title: 'Connected with Metamask',
-                        description: "Using address " + shortAddress(accounts[0]) + ".",
+                        title: 'Conectado con Metamask',
+                        description: "Conectada la dirección " + shortAddress(accounts[0]) + ".",
                         status: 'success',
                         duration: 9000,
                         isClosable: true,
@@ -54,8 +54,8 @@ export default function MetamaskButton({...props}) {
             await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
                 setUserAddress(accounts[0]);
                 toast({
-                    title: 'Connected with Metamask',
-                    description: "Using address " + shortAddress(accounts[0]) + ".",
+                    title: 'Conectado con Metamask',
+                    description: "Conectada la dirección " + shortAddress(accounts[0]) + ".",
                     status: 'success',
                     duration: 9000,
                     isClosable: true,
@@ -67,7 +67,7 @@ export default function MetamaskButton({...props}) {
     function getCurrentUserAddress() {
         if(isMetamaskInstalled()){
             window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
-                console.log("current account: " + accounts[0])
+                //console.log("current account: " + accounts[0])
                 setUserAddress(accounts[0]);
             });
         }
@@ -78,8 +78,8 @@ export default function MetamaskButton({...props}) {
             window.ethereum.on('accountsChanged', function (accounts) {
                 if(!accounts[0]){
                     toast({
-                        title: 'Disconnected from Metamask',
-                        description: "Please, connect your wallet again.",
+                        title: 'Desconectado de Metamask',
+                        description: "Por favor, vuelve a conectar tu cartera.",
                         status: 'error',
                         duration: 9000,
                         isClosable: true,
