@@ -1,11 +1,15 @@
 //Libraries
 import { useState, useEffect, useRef } from 'react';
-import { Box, Image, Text, Button, useToast } from '@chakra-ui/react';
+import { Box, Image, Text, Button, useToast, Flex, Menu, MenuButton, Avatar, MenuList, MenuItem, MenuDivider, Link } from '@chakra-ui/react';
 //import Cookies from 'js-cookie';
 
 //Images & Icons
 import MetamaskLogo from "../../assets/metamask_logo.webp"
 import {BsFillCheckCircleFill} from "react-icons/bs"
+import {FiChevronDown} from "react-icons/fi"
+import {FaUser} from "react-icons/fa"
+import {IoWallet} from "react-icons/io5"
+import {HiTicket} from "react-icons/hi"
 
 //Contstants
 import Colors from '../../constants/Colors';
@@ -98,40 +102,93 @@ export default function MetamaskButton({...props}) {
     }
 
     return(
-        <Button
-            as="button"
-            pl={"12px"}
-            pr={"14px"}
-            pt={"8px"}
-            pb={"8px"}
-            borderRadius={"6px"}
-            borderWidth={"1px"}
-            transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-            _hover={{ bg: '#ebedf0' }}
-            _active={{
-                bg: '#dddfe2',
-                borderColor: '#bec3c9',
-            }}
-            bg="white"
-            /*_focus={{
-                boxShadow:
-                  '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
-            }}*/
-            onClick={() => userAddress == null ? connectMetamaskWallet() : null}
-            overflow={"hidden"}
-        >
-            {userAddress == null ?
-                <Box d="flex" alignItems={"center"} justifyContent={"center"}>
-                    <Image h="24px" pr="12px" src={MetamaskLogo}/>
-                    <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"}>Conectar con Metamask</Text>
-                </Box>
-            :
-                <Box d="flex" alignItems={"center"} justifyContent={"center"}>
-                    <Image h="24px" pr="12px" src={MetamaskLogo}/>
-                    <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} mr={"16px"}>{shortAddress(userAddress)}</Text>
-                    <BsFillCheckCircleFill color={"#60d16b"}/>
-                </Box>
-            }
-        </Button>
+        userAddress == null ?
+            <Button
+                as="button"
+                pl={"12px"}
+                pr={"14px"}
+                pt={"8px"}
+                pb={"8px"}
+                borderRadius={"6px"}
+                borderWidth={"1px"}
+                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                _hover={{ bg: '#ebedf0' }}
+                _active={{
+                    bg: '#dddfe2',
+                    borderColor: '#bec3c9',
+                }}
+                bg="white"
+                /*_focus={{
+                    boxShadow:
+                    '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
+                }}*/
+                onClick={() => userAddress == null ? connectMetamaskWallet() : null}
+                overflow={"hidden"}
+            >
+                {userAddress == null ?
+                    <Box d="flex" alignItems={"center"} justifyContent={"center"}>
+                        <Image h="24px" pr="12px" src={MetamaskLogo}/>
+                        <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"}>Conectar con Metamask</Text>
+                    </Box>
+                :
+                    <Box d="flex" alignItems={"center"} justifyContent={"center"}>
+                        <Image h="24px" pr="12px" src={MetamaskLogo}/>
+                        <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} mr={"16px"}>{shortAddress(userAddress)}</Text>
+                        <BsFillCheckCircleFill color={"#60d16b"}/>
+                    </Box>
+                }
+            </Button>
+        :
+            <Menu>
+                <MenuButton
+                    pl={"12px"}
+                    pr={"14px"}
+                    pt={"8px"}
+                    pb={"8px"}
+                    borderRadius={"6px"}
+                    borderWidth={"1px"}
+                    _active={{
+                        bg: '#dddfe2',
+                        borderColor: '#bec3c9',
+                    }}
+                    _hover={{ bg: '#ebedf0' }}
+                    transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                    overflow={"hidden"}
+                >
+                    <Box>
+                        <Box d="flex" alignItems={"center"} justifyContent={"center"}>
+                            {/*<Flex w={"26px"} h={"26px"} px={"7px"} borderWidth={"1px"} borderRadius={"full"} mr={"10px"} alignItems={"center"} justifyContent={"center"}>
+                                <FaUser/>
+                            </Flex>*/}
+                            {/*<IoWallet color={"#60d16b"}/>*/}
+                            {/*<BsFillCheckCircleFill color={"#60d16b"}/>*/}
+                            <Image h="24px" src={MetamaskLogo}/>
+                            <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} ml={"12px"} mr={"10px"}>{shortAddress(userAddress)}</Text>
+                            <FiChevronDown color={'#b7bfc9'}/>
+                        </Box>
+                    </Box>
+                </MenuButton> 
+                <MenuList borderWidth={"0px"} boxShadow={"lg"}>
+                    <MenuItem _focus={{bg: 'none'}}>
+                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
+                            <Flex alignItems={"center"}>
+                                <FaUser/>
+                                <Text ml={"10px"} fontFamily={"Montserrat"} fontSize={"15px"} fontWeight={"medium"} _groupHover={{ color: 'pink.400'}} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>Mi cuenta</Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem _focus={{bg: 'none'}}>
+                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
+                            <Flex alignItems={"center"}>
+                                <HiTicket/>
+                                <Text ml={"10px"} fontFamily={"Montserrat"} fontSize={"15px"} fontWeight={"medium"} _groupHover={{ color: 'pink.400'}} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>Mis tickets</Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                    {/*<MenuDivider />
+                    <MenuItem>Link 3</MenuItem>*/}
+                </MenuList>
+            </Menu>
+
     )
 }

@@ -13,7 +13,7 @@ export default function HomePage() {
                     text={"Eventos destacados"}
                 />
             </Flex>
-            <Flex px={{base: "16px", md: "26px"}} py={{base: "16px", md: "26px"}}>
+            <Flex px={{base: "16px", md: "26px"}} mt={"180px"} py={{base: "16px", md: "26px"}}>
                 <TitleHighlighted
                     text={"Próximos eventos"}
                     highlightColor={Colors.primary.pink + '55'}
