@@ -1,5 +1,5 @@
 //Libraries
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, Image, Text, Button, useToast } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
@@ -11,7 +11,8 @@ import {BsFillCheckCircleFill} from "react-icons/bs"
 import Colors from '../../constants/Colors';
 
 export default function MetamaskButton({...props}) {
-    const [userAddress, setUserAddress] = useState(" ");
+    const [userAddress, setUserAddress] = useState(null);
+    const prevUserAddress = usePrevious({userAddress});
     const toast = useToast()
 
     useEffect(() => {
@@ -21,6 +22,18 @@ export default function MetamaskButton({...props}) {
         startUserAddressChangedListener();
     }, []);
 
+    useEffect(() => {
+        if(userAddress != null && prevUserAddress.userAddress){
+            toast({
+                title: 'Changed user address',
+                description: "The address has been changed to " + shortAddress(userAddress) + ".",
+                status: 'info',
+                duration: 9000,
+                isClosable: true,
+              })
+        }
+    }, [userAddress]);
+
     async function connectMetamaskWallet(){
         if(isMobileDevice()){
             if(isMetamaskInstalled()){
@@ -28,7 +41,7 @@ export default function MetamaskButton({...props}) {
                     setUserAddress(accounts[0]);
                     toast({
                         title: 'Connected with Metamask',
-                        description: "You are now conected with the wallet address " + accounts,
+                        description: "Using address " + shortAddress(accounts[0]) + ".",
                         status: 'success',
                         duration: 9000,
                         isClosable: true,
@@ -42,7 +55,7 @@ export default function MetamaskButton({...props}) {
                 setUserAddress(accounts[0]);
                 toast({
                     title: 'Connected with Metamask',
-                    description: "You are now conected with the wallet address " + accounts,
+                    description: "Using address " + shortAddress(accounts[0]) + ".",
                     status: 'success',
                     duration: 9000,
                     isClosable: true,
@@ -63,20 +76,11 @@ export default function MetamaskButton({...props}) {
     function startUserAddressChangedListener() {
         if(isMetamaskInstalled()){
             window.ethereum.on('accountsChanged', function (accounts) {
-                //Acount changed
-                if(accounts[0] == null){
+                if(!accounts[0]){
                     toast({
                         title: 'Disconnected from Metamask',
-                        description: "Please, connect again with Metamask.",
+                        description: "Please, connect your wallet again.",
                         status: 'error',
-                        duration: 9000,
-                        isClosable: true,
-                    })
-                } else {
-                    toast({
-                        title: 'Account changed',
-                        description: "You have changed your account to " + accounts[0],
-                        status: 'info',
                         duration: 9000,
                         isClosable: true,
                     })
@@ -92,6 +96,18 @@ export default function MetamaskButton({...props}) {
 
     function isMetamaskInstalled() {
         return typeof window.ethereum !== 'undefined'
+    }
+
+    function usePrevious(value) {
+        const ref = useRef();
+        useEffect(() => {
+          ref.current = value;
+        });
+        return ref.current;
+    }
+
+    function shortAddress(value){
+        return value.length > 10 ? value.substring(0, 5) + "..." + value.substring(value.length - 4, value.length) : value
     }
 
     return(
@@ -114,10 +130,10 @@ export default function MetamaskButton({...props}) {
                 boxShadow:
                   '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
             }}*/
-            onClick={() => !userAddress ? connectMetamaskWallet() : null}
+            onClick={() => userAddress == null ? connectMetamaskWallet() : null}
             overflow={"hidden"}
         >
-            {!userAddress ?
+            {userAddress == null ?
                 <Box d="flex" alignItems={"center"} justifyContent={"center"}>
                     <Image h="24px" pr="12px" src={MetamaskLogo}/>
                     <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"}>Conectar con Metamask</Text>
@@ -125,7 +141,7 @@ export default function MetamaskButton({...props}) {
             :
                 <Box d="flex" alignItems={"center"} justifyContent={"center"}>
                     <Image h="24px" pr="12px" src={MetamaskLogo}/>
-                    <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} mr={"16px"}>{userAddress.length > 10 ? userAddress.substring(0, 5) + "..." + userAddress.substring(userAddress.length - 4, userAddress.length) : userAddress}</Text>
+                    <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} mr={"16px"}>{shortAddress(userAddress)}</Text>
                     <BsFillCheckCircleFill color={"#60d16b"}/>
                 </Box>
             }
