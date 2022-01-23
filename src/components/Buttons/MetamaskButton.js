@@ -35,22 +35,7 @@ export default function MetamaskButton({...props}) {
     }, [userAddress]);
 
     async function connectMetamaskWallet(){
-        if(isMobileDevice()){
-            if(isMetamaskInstalled()){
-                await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-                    setUserAddress(accounts[0]);
-                    toast({
-                        title: 'Conectado con Metamask',
-                        description: "Conectada la dirección " + shortAddress(accounts[0]) + ".",
-                        status: 'success',
-                        duration: 9000,
-                        isClosable: true,
-                    })
-                });
-            } else {
-                window.open("https://metamask.app.link/dapp/tickb.it")
-            }
-        } else {
+        if(isMetamaskInstalled()){
             await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
                 setUserAddress(accounts[0]);
                 toast({
@@ -61,6 +46,8 @@ export default function MetamaskButton({...props}) {
                     isClosable: true,
                 })
             });
+        } else {
+            window.open("https://metamask.app.link/dapp/tickb.it", "_blank")
         }
     }
 
