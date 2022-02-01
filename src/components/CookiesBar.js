@@ -6,7 +6,7 @@ export default function CookiesBar({...props}) {
     const [useCookies, setUseCookies] = useState(false);
 
     function acceptCookies(){
-        Cookies.set("cookies", true);
+        Cookies.set("cookies", true, {expires: 9999});
         setUseCookies(true)
     }
 
