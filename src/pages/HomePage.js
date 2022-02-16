@@ -2,6 +2,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
+import Ticket from '../components/Ticket';
 import TitleHighlighted from '../components/TitleHighlighted';
 import Colors from '../constants/Colors';
 
@@ -14,6 +15,13 @@ export default function HomePage() {
                     text={"Eventos destacados"}
                 />
                 <MyCalendar/>
+                <Flex>
+                    <Ticket mr={"16px"}/>
+                    <Ticket mr={"16px"}/>
+                    <Ticket mr={"16px"}/>
+                    <Ticket mr={"16px"}/>
+                    <Ticket mr={"0px"}/>
+                </Flex>
             </Flex>
             <Flex px={{base: "16px", md: "26px"}} mt={"180px"} py={{base: "16px", md: "26px"}}>
                 <TitleHighlighted
