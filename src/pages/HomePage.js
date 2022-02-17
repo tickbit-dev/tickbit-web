@@ -13,6 +13,7 @@ import IMAGEN_CTANGANA from "../assets/ctangana.jpg"
 import ContentBox from '../components/ContentBox';
 import Buscador from '../components/Buscador';
 import Categorias from '../components/Categorias';
+import Portada from '../components/Portada';
 
 export default function HomePage() {
     return (
@@ -21,6 +22,7 @@ export default function HomePage() {
             
             <ContentBox>
                 <Buscador/>
+                <Portada imagen={'https://pbs.twimg.com/media/E6mkTCZXsAAVaUg?format=jpg&name=large'}/>
                 <TitleHighlighted
                     text={"Categorías"}
                 />
