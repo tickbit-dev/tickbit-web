@@ -6,7 +6,8 @@ export default {
         pink: '#fb7bbd',
     },
     secondary: {
-        gray: '#F0F1F8'
+        gray: '#F0F1F8',
+        grayborder: '#e1e3ed'
     },
 	text: {
 		title: '#203D46',

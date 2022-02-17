@@ -23,8 +23,12 @@ export default function Buscador({...props}) {
                     pl={"70px"}
                     zIndex={1}
                     fontFamily={"Montserrat"}
+                    _focus={{
+                        boxShadow:
+                            "0 0 0px 1.5px " + Colors.secondary.grayborder + ", 0 0px 0px " + Colors.secondary.grayborder,
+                    }}
                 />
-                <Flex w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"}>
+                <Flex as={"button"} w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"} _hover={{opacity: 0.8}} transition="all .6s ease">
                     <Flex ml={"-3px"} mt={"1px"}><CgSearch color={"white"} size={"20px"}/></Flex>
                 </Flex>
             </Flex>
