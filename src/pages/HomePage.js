@@ -12,6 +12,7 @@ import IMAGEN_ESTOPA from "../assets/estopa.jpg"
 import IMAGEN_CTANGANA from "../assets/ctangana.jpg"
 import ContentBox from '../components/ContentBox';
 import Buscador from '../components/Buscador';
+import Categorias from '../components/Categorias';
 
 export default function HomePage() {
     return (
@@ -24,41 +25,8 @@ export default function HomePage() {
                     text={"Categorías"}
                 />
                 {/*<MyCalendar/>*/}
-                    <Flex mt={"16px"}>
-                        <TicketCard 
-                            mr={"20px"}
-                            titulo={"Aitana"}
-                            imagen={IMAGEN_AITANA}
-                            fecha={"7 de marzo - 16 de marzo"}
-                            sitio={"Barcelona, Palau Sant Jordi"}
-                            url={"/eventos/aitana"}
-                        />
-                        <TicketCard
-                            mr={"20px"}
-                            titulo={"Daddy Yankee"}
-                            imagen={IMAGEN_DADDY_YANKEE}
-                            fecha={"7 de marzo - 16 de marzo"}
-                            sitio={"Barcelona, Palau Sant Jordi"}
-                            url={"/eventos/daddy_jankee"}
-                        />
-                        <TicketCard
-                            mr={"20px"}
-                            titulo={"Estopa"}
-                            imagen={IMAGEN_ESTOPA}
-                            fecha={"7 de marzo - 16 de marzo"}
-                            sitio={"Barcelona, Palau Sant Jordi"}
-                            url={"/eventos/estopa"}
-                        />
-                        <TicketCard
-                            mr={"20px"}
-                            titulo={"C Tangana"}
-                            imagen={IMAGEN_CTANGANA}
-                            fecha={"7 de marzo - 16 de marzo"}
-                            sitio={"Barcelona, Palau Sant Jordi"}
-                            url={"/eventos/estopa"}
-                        />
-                        <TicketCard mr={"0px"}/>
-                    </Flex>
+                <Categorias></Categorias>
+                   
                     <Flex mt={"0px"} py={{base: "16px", md: "26px"}}>
                         <TitleHighlighted
                             text={"Próximos eventos"}
