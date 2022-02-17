@@ -22,7 +22,7 @@ export default function HomePage() {
             
             <ContentBox>
                 <Buscador/>
-                <Portada imagen={'https://pbs.twimg.com/media/E6mkTCZXsAAVaUg?format=jpg&name=large'}/>
+                <Portada src={'https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg'}/>
                 <TitleHighlighted
                     text={"Categorías"}
                 />
