@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Box, Flex, Input, Text } from '@chakra-ui/react';
 import Colors from '../constants/Colors';
 
+import { CgSearch } from 'react-icons/cg'
+
 export default function Buscador({...props}) {
 
     const [state, setState] = useState();
@@ -22,8 +24,8 @@ export default function Buscador({...props}) {
                     zIndex={1}
                     fontFamily={"Montserrat"}
                 />
-                <Flex w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2}>
-
+                <Flex w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"}>
+                    <Flex ml={"-3px"} mt={"1px"}><CgSearch color={"white"} size={"20px"}/></Flex>
                 </Flex>
             </Flex>
             <Flex w={"300px"} ml={"16px"}>
