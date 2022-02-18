@@ -21,24 +21,26 @@ export default function HomePage() {
             <NavigationBar/>
             
             <ContentBox>
+                
                 <Buscador/>
+
                 <Portada 
                     //src={'https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg'}
                     image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"}
                     url={'/portada'}
                 />
+
                 <TitleHighlighted
                     text={"Categorías"}
                 />
-                {/*<MyCalendar/>*/}
-                <Categorias/>
+
+                {/*<Categorias/>*/}
                    
-                    <Flex mt={"0px"} py={{base: "16px", md: "26px"}}>
-                        <TitleHighlighted
-                            text={"Próximos eventos"}
-                            highlightColor={Colors.primary.pink + '55'}
-                        />
-                    </Flex>
+                <TitleHighlighted
+                    text={"Próximos eventos"}
+                    highlightColor={Colors.primary.pink + '55'}
+                    mt={"20px"}
+                />
             </ContentBox>
         </Box>
     )

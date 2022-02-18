@@ -3,7 +3,7 @@ import Colors from '../constants/Colors';
 
 export default function TitleHighlighted({...props}) {
     return(
-        <Heading fontSize={{ base: '3xl', md: '3xl', lg: '3xl' }}>
+        <Heading fontSize={{ base: '3xl', md: '3xl', lg: '3xl' }} {...props}>
             <Text
                 as={'span'}
                 position={'relative'}

@@ -105,19 +105,14 @@ export default function MetamaskButton({...props}) {
         userAddress == null ?
             <Button
                 as="button"
-                pl={"12px"}
-                pr={"14px"}
-                pt={"8px"}
-                pb={"8px"}
-                borderRadius={"6px"}
-                borderWidth={"1px"}
-                transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-                _hover={{ bg: '#ebedf0' }}
-                _active={{
-                    bg: '#dddfe2',
-                    borderColor: '#bec3c9',
-                }}
-                bg="white"
+                pl={"20px"}
+                pr={"20px"}
+                h={"50px"}
+                borderRadius={"16px"}
+                transition="all .6s ease"
+                _hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
+                //_active={{bg: Colors.secondary.grayHover}}
+                bg={Colors.secondary.gray}
                 /*_focus={{
                     boxShadow:
                     '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
@@ -141,18 +136,14 @@ export default function MetamaskButton({...props}) {
         :
             <Menu>
                 <MenuButton
-                    pl={"12px"}
-                    pr={"14px"}
-                    pt={"8px"}
-                    pb={"8px"}
-                    borderRadius={"6px"}
-                    borderWidth={"1px"}
-                    _active={{
-                        bg: '#dddfe2',
-                        borderColor: '#bec3c9',
-                    }}
-                    _hover={{ bg: '#ebedf0' }}
-                    transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                    pl={"20px"}
+                    pr={"12px"}
+                    h={"50px"}
+                    borderRadius={"16px"}
+                    transition="all .6s ease"
+                    _hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
+                    bg={Colors.secondary.gray}
+                    //_active={{bg: '#dddfe2'}}
                     overflow={"hidden"}
                 >
                     <Box>
@@ -163,8 +154,8 @@ export default function MetamaskButton({...props}) {
                             {/*<IoWallet color={"#60d16b"}/>*/}
                             {/*<BsFillCheckCircleFill color={"#60d16b"}/>*/}
                             <Image h="24px" src={MetamaskLogo}/>
-                            <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} ml={"12px"} mr={"10px"}>{shortAddress(userAddress)}</Text>
-                            <FiChevronDown color={'#b7bfc9'}/>
+                            <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} ml={"12px"} mr={"16px"}>{shortAddress(userAddress)}</Text>
+                            <FiChevronDown color={'#b7bfc9'} size={"17px"}/>
                         </Box>
                     </Box>
                 </MenuButton> 

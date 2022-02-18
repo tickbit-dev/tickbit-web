@@ -7,7 +7,7 @@ export default {
     },
     secondary: {
         gray: '#F0F1F8',
-        grayborder: '#e1e3ed'
+        grayHover: '#e1e3ed'
     },
 	text: {
 		title: '#203D46',

@@ -6,26 +6,22 @@ import Logo from "../../assets/logo.webp"
 import MetamaskButton from '../Buttons/MetamaskButton';
 import Colors from '../../constants/Colors';
 
+import ContentBox from '../ContentBox'
+
 export default function NavigationBar({...props}) {
 
     const { isOpen, onToggle } = useDisclosure();
 
     return (
-        <Box>
+        <ContentBox>
             <Flex
-                bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
-                minH={'60px'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                borderBottom={1}
-                borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
                 align={'center'}
+                pt={"16px"}
+                pb={"16px"}
             >
                 <Flex
                     flex={{ base: undefined, md: 'auto' }}
-                    ml={{ base: -2 }}
                     display={{ base: 'flex', md: 'none' }}
                 >
                     <IconButton
@@ -36,21 +32,23 @@ export default function NavigationBar({...props}) {
                         aria-label={'Toggle Navigation'}
                     />
                 </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }}>
+
+                <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }} alignItems={"center"}>
                     <Box d="flex" alignItems={"center"} as="button">
-                        <Image h={{base: "30px", md: "32px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
-                        <Text fontFamily={"Montserrat"} fontWeight={"bold"} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
+                      <Image h={{base: "30px", md: "32px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
+                      <Text fontFamily={"Montserrat"} fontWeight={"bold"} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
                     </Box>
 
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10} alignItems={"center"}>
-                        <DesktopNav />
+                    <Flex display={{base: 'none', md: 'flex'}} h={"30px"} w={"1px"} bg={Colors.secondary.grayHover} ml={"30px"} mr={"30px"}/>
+
+                    <Flex display={{ base: 'none', md: 'flex' }} alignItems={"center"}>
+                        <DesktopNav currentPage={"Inicio"}/>
                     </Flex>
                 </Flex>
 
                 <Stack
                     justify={'flex-end'}
                     direction={'row'}
-                    mr={{ base: -2 }}
                     spacing={6}
                 >
                     <MetamaskButton/>
@@ -60,34 +58,37 @@ export default function NavigationBar({...props}) {
             <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse>
-        </Box>
+        </ContentBox>
     )
 }
 
-const DesktopNav = () => {
-    const linkColor = useColorModeValue('gray.600', 'gray.200');
+function DesktopNav({...props}) {
+    const linkColor = useColorModeValue('gray.400', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
       <Stack direction={'row'} spacing={6}>
         {NAV_ITEMS.map((navItem) => (
-          <Box key={navItem.label}>
+          <Flex key={navItem.label} alignItems="center">
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
                 <Link
-			      fontFamily={"Montserrat"} 
-                  p={2}
+                  fontFamily={"Montserrat"}
                   href={navItem.href ?? '#'}
                   fontSize={'sm'}
-				  fontWeight={"medium"}
+				          fontWeight={"medium"}
                   color={linkColor}
-				  borderRadius={"5px"}
+				          borderRadius={"5px"}
+                  transition={'all .6s ease'}
                   _hover={{
                     textDecoration: 'none',
-                    color: linkHoverColor,
+                    color: "black",
                   }}>
-                  {navItem.label}
+                    <Box d={"flex"} flexDirection={"column"} alignItems={"center"} px={"10px"}>
+                      <Text fontWeight={props.currentPage == navItem.label ? "bold" : "none"} color={props.currentPage == navItem.label ? "black" : "none"} mt={props.currentPage == navItem.label ? "4px" : "0px"}>{navItem.label}</Text>
+                      {props.currentPage == navItem.label ? <Box w={"16px"} h={"2px"} bg={"black"} mt={"4px"}></Box> : null}
+                    </Box>
                 </Link>
               </PopoverTrigger>
   
@@ -107,7 +108,7 @@ const DesktopNav = () => {
                 </PopoverContent>
               )}
             </Popover>
-          </Box>
+          </Flex>
         ))}
       </Stack>
     );
@@ -125,7 +126,7 @@ const DesktopNav = () => {
         <Stack direction={'row'} align={'center'}>
           <Box>
             <Text
-			  fontFamily={"Montserrat"} 
+			        fontFamily={"Montserrat"} 
               transition={'all .3s ease'}
               _groupHover={{ color: 'pink.400' }}
               fontWeight={"semibold"}>
@@ -218,46 +219,11 @@ const DesktopNav = () => {
         href: '#',
     },
     {
-        label: 'Categorías',
-        children: [
-            {
-                id: 1,
-                label: 'Música',
-                subLabel: 'Conciertos, salas...',
-                href: '#',
-            },
-            {
-                id: 2,
-                label: 'Teatros y arte',
-                subLabel: 'Teatro, museos, espectáculos...',
-                href: '#',
-            },
-            {
-                id: 3,
-                label: 'Festivales',
-                subLabel: 'Musica electrónica, Pop, Alternativo...',
-                href: '#',
-            },
-            {
-                id: 4,
-                label: 'Deportes',
-                subLabel: 'Fútbol, tenis, motor...',
-                href: '#',
-            },
-            {
-                id: 5,
-                label: 'Familia y otros',
-                subLabel: 'Parques temáticos, circo, magia...',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Ayuda',
+        label: 'Contacto',
         href: '#',
     },
     {
-        label: 'Contacto',
+        label: 'Sobre nosotros',
         href: '#',
     },
   ];
