@@ -23,7 +23,7 @@ export default function Ticket({...props}) {
             <Box h={ALTURA_TICKET/4 + "px"} transition="all .6s ease" mt={(3*ALTURA_TICKET)/4 + OFFSET_SOMBRA + "px"} /*style={{backgroundImage: `url(${IMAGE})`, filter: 'blur(15px)', zIndex: -1}}*/ filter={'blur(10px)'} borderRadius={16} style={{backgroundImage: `url(${props.imagen})`}} zIndex={-1} _groupHover={{filter: 'blur(15px)'}}>
 
             </Box>
-            <Flex w={"100%"} as={"button"} onClick={() => window.open(props.url,"_self")} transition="all .1s ease" flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} mt={-ALTURA_TICKET - OFFSET_SOMBRA + "px"} borderRadius={16} overflow="hidden">
+            <Flex w={"100%"} as={"button"} /*onClick={() => window.open(props.url,"_self")} */ transition="all .1s ease" flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} mt={-ALTURA_TICKET - OFFSET_SOMBRA + "px"} borderRadius={16} overflow="hidden">
                 
                 {props.imagen ? <Image position={"absolute"} h={"105%"} w={"105%"} objectFit="cover" src={props.imagen}/> : null}
                 <Box style={{backdropFilter: 'saturate(180%) blur(40px)'}} position={"absolute"} borderTopRadius={0} overflow={"hidden"} w={"full"} h={"45%"} top={"55%"} bg={"rgba(0,0,0,0.3)"}/>

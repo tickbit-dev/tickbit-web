@@ -35,6 +35,7 @@ export default function HomePage() {
                 />
 
                 {/*<Categorias/>*/}
+                <Categorias/>
                    
                 <TitleHighlighted
                     text={"Próximos eventos"}

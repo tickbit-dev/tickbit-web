@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -29,5 +29,18 @@ code {
 }
 
 .nice-dates-day.-selected:before {
-  background-color: rgba(66, 153, 225, 0.7)
+  background-color: rgba(66, 153, 225, 0.7);
+}
+.slick-prev {
+  z-index: 1;
+}
+.slick-next {
+  z-index: 1;
+}
+
+.slick-list {
+  margin: 0 -8px;
+}
+.slick-slide > div {
+  padding: 0 8px;
 }
