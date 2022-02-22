@@ -31,16 +31,11 @@ code {
 .nice-dates-day.-selected:before {
   background-color: rgba(66, 153, 225, 0.7);
 }
-.slick-prev {
-  z-index: 1;
-}
-.slick-next {
-  z-index: 1;
+
+.slick-next:before {
+  content: '' !important
 }
 
-.slick-list {
-  margin: 0 -8px;
-}
-.slick-slide > div {
-  padding: 0 8px;
+.slick-prev:before {
+  content: '' !important
 }

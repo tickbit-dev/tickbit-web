@@ -6,7 +6,7 @@ import Logo from "../../assets/logo.webp"
 import MetamaskButton from '../Buttons/MetamaskButton';
 import Colors from '../../constants/Colors';
 
-import ContentBox from '../ContentBox'
+import ContentBox from '../Utils/ContentBox'
 
 export default function NavigationBar({...props}) {
 

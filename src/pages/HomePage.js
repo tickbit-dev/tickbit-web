@@ -2,7 +2,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
-import TicketCard from '../components/TicketCard';
+import TicketCard from '../components/TicketCard3';
 import TitleHighlighted from '../components/TitleHighlighted';
 import Colors from '../constants/Colors';
 
@@ -10,9 +10,9 @@ import IMAGEN_AITANA from "../assets/aitana.jpg"
 import IMAGEN_DADDY_YANKEE from "../assets/dy.jpg"
 import IMAGEN_ESTOPA from "../assets/estopa.jpg"
 import IMAGEN_CTANGANA from "../assets/ctangana.jpg"
-import ContentBox from '../components/ContentBox';
+import ContentBox from '../components/Utils/ContentBox';
 import Buscador from '../components/Buscador';
-import Categorias from '../components/Categorias';
+import Categorias from '../components/Categorias3';
 import Portada from '../components/Portada';
 
 export default function HomePage() {
@@ -35,7 +35,10 @@ export default function HomePage() {
                 />
 
                 {/*<Categorias/>*/}
-                <Categorias/>
+                {/*<Categorias/>*/}
+                <TicketCard
+                    imagen={"https://d3ug125b1x6z49.cloudfront.net/uploads/images/000/002/801/aitana.jpeg"}
+                />
                    
                 <TitleHighlighted
                     text={"Próximos eventos"}

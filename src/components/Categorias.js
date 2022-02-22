@@ -28,11 +28,23 @@ import Slider from "react-slick";
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
+      /*<div
+        //className={className}
         style={{ ...style, display: "block", background: "red" }}
         onClick={onClick}
-      />
+      >
+        <Text>Hola</Text>
+      </div>*/
+      <Flex
+        position={"relative"}
+        top={"-100"}
+        left={"1140px"}
+        right={0}
+        style={{height: 50, width: 50, backgroundColor: "red"}}
+        onClick={onClick}
+      >
+
+      </Flex>
     );
   }
   
