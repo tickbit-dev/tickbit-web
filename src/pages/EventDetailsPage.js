@@ -21,8 +21,14 @@ export default function EventDetailsPage({...props}) {
             <Box mt={10}>
             <Pasos 
                 step0={
-                    <Step0 image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"} artista={'Alberto Bujarrón'} fecha={'25 - 28 junio 2022 '} categoria={'Concierto'} tituloevento={'Melendi el nano tour 2022'}/>}
-                
+                    <Step0
+                        image={"https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg"}
+                        tituloevento={'Melendi el nano tour 2022'}
+                        artista={'El nano'}
+                        fecha={'25 - 28 junio 2022 '}
+                        categoria={'Concierto'}
+                    />
+                }
             />
             </Box>
                
