@@ -1400,7 +1400,7 @@
   dependencies:
     "@chakra-ui/utils" "^1.9.1"
 
-"@chakra-ui/react@^1.7.4":
+"@chakra-ui/react@^1.7.4", "@chakra-ui/react@>=1.6.7":
   "integrity" "sha512-wBxfQRcIz6YGXQh3S2E6sXCVcqrVuUygMeMdkCMMfZQTI2VFLkvn6SDYzLHcm1PtMygZnF1mU30GOcmArpVotA=="
   "resolved" "https://registry.npmjs.org/@chakra-ui/react/-/react-1.7.4.tgz"
   "version" "1.7.4"
@@ -1692,7 +1692,7 @@
   "resolved" "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz"
   "version" "0.7.4"
 
-"@emotion/react@^11.0.0", "@emotion/react@^11.0.0-rc.0", "@emotion/react@^11.7.1", "@emotion/react@>=10.0.35":
+"@emotion/react@^11", "@emotion/react@^11.0.0", "@emotion/react@^11.0.0-rc.0", "@emotion/react@^11.7.1", "@emotion/react@>=10.0.35":
   "integrity" "sha512-DV2Xe3yhkF1yT4uAUoJcYL1AmrnO5SVsdfvu+fBuS7IbByDeTVx9+wFmvx9Idzv7/78+9Mgx2Hcmr7Fex3tIyw=="
   "resolved" "https://registry.npmjs.org/@emotion/react/-/react-11.7.1.tgz"
   "version" "11.7.1"
@@ -1721,7 +1721,7 @@
   "resolved" "https://registry.npmjs.org/@emotion/sheet/-/sheet-1.1.0.tgz"
   "version" "1.1.0"
 
-"@emotion/styled@^11.0.0", "@emotion/styled@^11.6.0":
+"@emotion/styled@^11", "@emotion/styled@^11.0.0", "@emotion/styled@^11.6.0":
   "integrity" "sha512-mxVtVyIOTmCAkFbwIp+nCjTXJNgcz4VWkOYQro87jE2QBTydnkiYusMrRGFtzuruiGK4dDaNORk4gH049iiQuw=="
   "resolved" "https://registry.npmjs.org/@emotion/styled/-/styled-11.6.0.tgz"
   "version" "11.6.0"
@@ -3467,6 +3467,11 @@
   "resolved" "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz"
   "version" "2.4.0"
 
+"chakra-ui-steps@^1.6.2":
+  "integrity" "sha512-xyU9HHpdAVppb752NfiSgTdokxTxN/z9y3BIduLeJGcrQVgfioFl28UpKgk8d5k2yFaXXC4KvwpSflP7SssIcA=="
+  "resolved" "https://registry.npmjs.org/chakra-ui-steps/-/chakra-ui-steps-1.6.2.tgz"
+  "version" "1.6.2"
+
 "chalk@^2.0.0", "chalk@^2.4.1", "chalk@^2.4.2":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz"
@@ -5069,7 +5074,7 @@
   "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.1.2.tgz"
   "version" "4.1.2"
 
-"framer-motion@^5.6.0", "framer-motion@3.x || 4.x || 5.x":
+"framer-motion@^5", "framer-motion@^5.6.0", "framer-motion@3.x || 4.x || 5.x":
   "integrity" "sha512-Y4FtwUU+LUWLKSzoT6Sq538qluvhpe6izdQK8/xZeVjQZ/ORKGfZzyhzcUxNfscqnfEa3dUOA47s+dwrSipdGA=="
   "resolved" "https://registry.npmjs.org/framer-motion/-/framer-motion-5.6.0.tgz"
   "version" "5.6.0"
@@ -5141,11 +5146,6 @@
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
-
-"fsevents@^2.3.2", "fsevents@~2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -8109,7 +8109,7 @@
   dependencies:
     "debounce" "^1.2.1"
 
-"react@*", "react@^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || 17.x", "react@^17.0.2", "react@>= 16", "react@>=16.13", "react@>=16.8", "react@>=16.8 || ^17.0.0", "react@>=16.8.0", "react@>=16.8.6", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || 17.x", "react@^17.0.2", "react@>= 16", "react@>=16", "react@>=16.13", "react@>=16.8", "react@>=16.8 || ^17.0.0", "react@>=16.8.0", "react@>=16.8.6", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

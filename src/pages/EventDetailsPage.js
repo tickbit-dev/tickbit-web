@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Button,Heading } from '@chakra-ui/react';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import ContentBox from '../components/Utils/ContentBox';
+import Portada from '../components/Portada';
 import Colors from '../constants/Colors';
+import { Step, Steps, useSteps } from "chakra-ui-steps"
+import Pasos from '../components/Detailspage/Pasos';
+import Step0 from '../components/Detailspage/Step0';
+
 
 export default function EventDetailsPage({...props}) {
-
-    const [state, setState] = useState();
 
     useEffect(() => {
     }, []);
@@ -15,14 +18,20 @@ export default function EventDetailsPage({...props}) {
         <Box maxW={"100%"} overflow={"hidden"}>
             <NavigationBar/>
             <ContentBox>
-
-                <Text>Josep</Text>
+            <Box mt={10}>
+            <Pasos 
+                step0={
+                    <Step0 image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"} artista={'Alberto Bujarrón'} fecha={'25 junio 2022 '} categoria={'Concierto'}/>}
+                
+            />
+            </Box>
+               
 
             </ContentBox>
 
             
             {/*
-            
+             <Portada image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"}/>
                 PARA EL FOOTER
             
             ContentBox bg={Colors.secondary.gray}>

@@ -10,6 +10,10 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import EventDetailsPage from './pages/EventDetailsPage';
 
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
+
+
+
 const breakpoints = createBreakpoints({
 	sm: '30em',
 	md: '48em',
@@ -19,7 +23,11 @@ const breakpoints = createBreakpoints({
 	'full': '1280px'
 })
 
-const theme = extendTheme({ breakpoints })
+const theme = extendTheme({
+	breakpoints,
+	components: {
+		Steps,
+	  }, })
 
 function App() {
 

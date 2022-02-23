@@ -15,6 +15,7 @@ import Buscador from '../components/Buscador';
 import Categorias from '../components/Categorias3';
 import Portada from '../components/Portada';
 
+
 export default function HomePage() {
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
