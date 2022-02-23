@@ -46,13 +46,13 @@ export default function EventDetailsPage({...props}) {
                 </Flex>
             </Flex>
             <SimpleGrid columns={{base:1,md:2}}  spacing={5} mt={16} mb={20}>
-                <Box  height={{base:310,md:250}}>
+                <Box  height={{base:350,md:250}}>
                     <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={false} />
                 </Box>
-                <Box height={{base:310,md:250}}>
+                <Box height={{base:350,md:250}}>
                     <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={true}/>
                 </Box>
-                <Box  height={{base:310,md:250}}>
+                <Box  height={{base:350,md:250}}>
                     <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'}fecha={'25 diciembre 2022 '} precio={'80'}disponibilidad={true }/>
                 </Box>
                 

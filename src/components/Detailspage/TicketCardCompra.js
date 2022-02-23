@@ -8,7 +8,7 @@ import Colors from '../../constants/Colors';
 
 export default function TicketCardCompra({...props}) {
     return (
-        <Flex direction={{base:"column", md:"row"}} height={{base:310,md:250}} borderRadius={20} borderWidth={1}>
+        <Flex direction={{base:"column", md:"row"}} height={{base:350,md:250}} borderRadius={20} borderWidth={1}>
             <Flex flex={0.25}>
                 {props.disponibilidad === true ? 
                 <Flex borderLeftRadius={20}  borderRightRadius={{base:20, md:0}} h={'full'} w={"full"}  background={"black"} direction={'column'} textAlign={"center"} justifyContent={"center"}>
