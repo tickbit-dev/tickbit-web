@@ -15,13 +15,14 @@ export default function EventDetailsPage({...props}) {
             <Box mt={{base:0,md:10}}  >
                 <Portada image={props.image}/>
             </Box>
+            <Heading fontFamily={'Montserrat'}>{props.tituloevento}</Heading>
             <Flex  direction={{base:"column",md:"row"}} mt={10} >
                 <Flex w={"100%"} direction={"column"} >
                     <Flex>
                         <Center w={50} h={50} backgroundColor={Colors.secondary.gray} borderRadius={12}>
                             <BiUser  strokeWidth="0.2" size={30}/>
                         </Center>
-                        <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'} ml={5}  fontWeight={"bold"}>Artista: &nbsp;</Text>
+                        <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'} ml={5}  fontWeight={"bold"}>Artista/s: &nbsp;</Text>
                         <Text  fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'}> {props.artista}</Text>
                     </Flex>
                     <Flex mt={5}>
@@ -44,11 +45,16 @@ export default function EventDetailsPage({...props}) {
                     <Image  borderRadius={20} w={"full"} h={"full"} fit={'cover'} src={MAPAPRUEBA}/>
                 </Flex>
             </Flex>
-            <SimpleGrid minChildWidth='120px' spacing='40px' mt={16} mb={20}>
-                <Box  height='80px'>
-                    <TicketCardCompra/>
+            <SimpleGrid columns={{base:1,md:2}}  spacing={5} mt={16} mb={20}>
+                <Box  height={{base:310,md:250}}>
+                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={false} />
                 </Box>
-                <Box bg='tomato' height='80px'></Box>
+                <Box height={{base:310,md:250}}>
+                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={true}/>
+                </Box>
+                <Box  height={{base:310,md:250}}>
+                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'}fecha={'25 diciembre 2022 '} precio={'80'}disponibilidad={true }/>
+                </Box>
                 
                 
             </SimpleGrid>
