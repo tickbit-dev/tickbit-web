@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import useWindowDimensions from './Utils/useWindowDimensions';
 import Dimensions from '../constants/Dimensions';
-import TicketCard from './TicketCard2';
+import TicketCard from './TicketCard3';
 import { BsFileX } from 'react-icons/bs';
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 
@@ -16,7 +16,8 @@ import IMAGEN_MELENDI from "../assets/melendi.jpg"
 
 export default function Categorias({...props}) {
 
-	const [state, setState] = useState();
+	const [currentPosition, setCurrentPosition] = useState(0);
+	const [movement, setMovement] = useState(0.875);
 	const { height, width } = useWindowDimensions();
 
 	var settings = {
@@ -27,6 +28,9 @@ export default function Categorias({...props}) {
 		slidesToScroll: 5,
 		initialSlide: 0,
 		swipeToSlide: false,
+		focusOnSelect: true,
+		afterChange: () => setMovement(1),
+      	beforeChange: (current, next) => (setCurrentPosition(current), setNextPosition(next)),
 		responsive: [
 		  {
 			breakpoint: 1180,
@@ -54,7 +58,7 @@ export default function Categorias({...props}) {
 			breakpoint: 580,
 			settings: {
 			  slidesToShow: 1.25,
-			  slidesToScroll: 0.875
+			  slidesToScroll: movement
 			}
 		  }
 		]
@@ -63,11 +67,11 @@ export default function Categorias({...props}) {
 	const ALTURA_TICKET = 320;
 
 	return (
-		<Box w={{base: width - (Dimensions.general.padding.base * 2) + "px", md: width - (Dimensions.general.padding.md * 2) + "px", 'full': '100%'}}>
+		<Box w={{base: "full", md: width - (Dimensions.general.padding.md * 2) + "px", 'full': '100%'}}>
         	<Slider {...settings}>
 				<Box>
 					<TicketCard 
-						pl={"5px"} pr={"5px"}
+						pl={"10px"} pr={"5px"}
 						titulo={"Aitana"}
 						imagen={IMAGEN_AITANA}
 						fecha={"7 de marzo - 16 de marzo"}
