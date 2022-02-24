@@ -5,6 +5,7 @@ import { Box, Text, Flex } from '@chakra-ui/react';
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import ContentBox from '../components/Utils/ContentBox';
+import Footer from '../components/Footer';
 
 //Constants
 
@@ -17,10 +18,13 @@ export default function ContactPage({...props}) {
 
     return (
         <Box>
-            <NavigationBar/>
+            <NavigationBar
+                
+            />
             <ContentBox>
                 <Text>Contact</Text>
             </ContentBox>
+            <Footer/>
         </Box>
     );
 };

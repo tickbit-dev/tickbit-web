@@ -7,6 +7,7 @@ import Colors from '../constants/Colors';
 import { Step, Steps, useSteps } from "chakra-ui-steps"
 import Pasos from '../components/Detailspage/Pasos';
 import Step0 from '../components/Detailspage/Step0';
+import Footer from '../components/Footer';
 
 
 export default function EventDetailsPage({...props}) {
@@ -34,6 +35,8 @@ export default function EventDetailsPage({...props}) {
                
 
             </ContentBox>
+
+            <Footer/>
 
             
             {/*

@@ -14,6 +14,7 @@ import ContentBox from '../components/Utils/ContentBox';
 import Buscador from '../components/Buscador';
 import Categorias from '../components/Categorias2';
 import Portada from '../components/Portada';
+import Footer from '../components/Footer';
 
 
 export default function HomePage() {
@@ -37,7 +38,7 @@ export default function HomePage() {
                 <Text fontWeight={"bold"} fontFamily={"Montserrat"} mb={"16px"} color={"black"}>Categorías</Text>
 
                 {/*<Categorias/>*/}
-                <Categorias/>
+                {/*<Categorias/>*/}
                    
                 <TitleHighlighted
                     text={"Próximos eventos"}
@@ -45,6 +46,8 @@ export default function HomePage() {
                     mt={"20px"}
                 />
             </ContentBox>
+
+            <Footer/>
         </Box>
     )
 }
