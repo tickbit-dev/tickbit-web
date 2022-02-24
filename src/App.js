@@ -45,11 +45,11 @@ function App() {
 				<Routes>
 					<Route path="/" element={<HomePage/>} />
 					<Route path="/details" element={<EventDetailsPage/>} />
-					{!Cookies.get("cookies") ?
-						<CookiesBar/>
-					: null}
 				</Routes>
 			</BrowserRouter>
+			{!Cookies.get("cookies") ?
+				<CookiesBar/>
+			: null}
 		</ChakraProvider>
 	);
 }
