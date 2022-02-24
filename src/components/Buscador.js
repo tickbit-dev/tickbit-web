@@ -39,7 +39,7 @@ export default function Buscador({...props}) {
                 transition="all .6s ease"
             >
                 <Flex position={"absolute"} left={"14px"}>
-                    <MdLocationPin/>
+                    <MdLocationPin size={"18px"}/>
                 </Flex>
                 <Select
                     id='country'
@@ -52,7 +52,7 @@ export default function Buscador({...props}) {
                     borderRadius={"14px"}
                     fontWeight={500}
                     variant='solid'
-                    ml={"20px"}
+                    ml={"24px"}
                     icon={<FiChevronDown color={'#b7bfc9'} size={"17px"}/>}
                     iconColor={'#b7bfc9'}
                     iconSize={"17px"}

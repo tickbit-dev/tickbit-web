@@ -32,7 +32,7 @@ export default function MetamaskButton({...props}) {
                 title: 'Cambio de dirección',
                 description: "Dirección cambiada a " + shortAddress(userAddress) + ".",
                 status: 'info',
-                duration: 9000,
+                duration: 2000,
                 isClosable: true,
               })
         }
@@ -46,7 +46,7 @@ export default function MetamaskButton({...props}) {
                     title: 'Conectado con Metamask',
                     description: "Conectada la dirección " + shortAddress(accounts[0]) + ".",
                     status: 'success',
-                    duration: 9000,
+                    duration: 2000,
                     isClosable: true,
                 })
             });
@@ -72,7 +72,7 @@ export default function MetamaskButton({...props}) {
                         title: 'Desconectado de Metamask',
                         description: "Por favor, vuelve a conectar tu cartera.",
                         status: 'error',
-                        duration: 9000,
+                        duration: 2000,
                         isClosable: true,
                     })
                 }
@@ -117,12 +117,14 @@ export default function MetamaskButton({...props}) {
                     boxShadow:
                     '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
                 }}*/
+                _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}
+                style={{webkitTapHighlightColor: "transparent"}}
                 onClick={() => userAddress == null ? connectMetamaskWallet() : null}
                 overflow={"hidden"}
             >
                 {userAddress == null ?
                     <Box d="flex" alignItems={"center"} justifyContent={"center"}>
-                        <Image h="24px" pr="12px" src={MetamaskLogo}/>
+                        <Image h="24px" w={"36px"} pr="12px" src={MetamaskLogo}/>
                         <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"}>Conectar con Metamask</Text>
                     </Box>
                 :
@@ -153,7 +155,7 @@ export default function MetamaskButton({...props}) {
                             </Flex>*/}
                             {/*<IoWallet color={"#60d16b"}/>*/}
                             {/*<BsFillCheckCircleFill color={"#60d16b"}/>*/}
-                            <Image h="24px" src={MetamaskLogo}/>
+                            <Image h="24px" w={"24px"} src={MetamaskLogo}/>
                             <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} ml={"12px"} mr={"16px"}>{shortAddress(userAddress)}</Text>
                             <FiChevronDown color={'#b7bfc9'} size={"17px"}/>
                         </Box>

@@ -1,6 +1,7 @@
 //Libraries
 import { Box, Flex, Text, Image, IconButton, Button, Stack, Collapse, Icon, Link, Popover, PopoverTrigger, PopoverContent, useColorModeValue, useBreakpointValue, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, AddIcon } from '@chakra-ui/icons';
+import { useLocation } from "react-router-dom";
 
 import Logo from "../../assets/logo.webp"
 import MetamaskButton from '../Buttons/MetamaskButton';
@@ -11,6 +12,7 @@ import ContentBox from '../Utils/ContentBox'
 export default function NavigationBar({...props}) {
 
     const { isOpen, onToggle } = useDisclosure();
+    let location = useLocation();
 
     return (
         <ContentBox>
@@ -34,15 +36,15 @@ export default function NavigationBar({...props}) {
                 </Flex>
 
                 <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }} alignItems={"center"}>
-                    <Box d="flex" alignItems={"center"} as="button">
-                      <Image h={{base: "30px", md: "32px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
-                      <Text fontFamily={"Montserrat"} fontWeight={"bold"} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
+                    <Box d="flex" alignItems={"center"} as="button" onClick={() => window.open("/","_self")} style={{webkitTapHighlightColor: "transparent"}}>
+                      <Image w={{base: "28px", md: "30px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
+                      <Text fontFamily={"Montserrat"} fontWeight={800} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
                     </Box>
 
                     <Flex display={{base: 'none', md: 'flex'}} h={"30px"} w={"1px"} bg={Colors.secondary.grayHover} ml={"30px"} mr={"30px"}/>
 
                     <Flex display={{ base: 'none', md: 'flex' }} alignItems={"center"}>
-                        <DesktopNav currentPage={"Inicio"}/>
+                        <DesktopNav location={location}/>
                     </Flex>
                 </Flex>
 
@@ -84,10 +86,13 @@ function DesktopNav({...props}) {
                   _hover={{
                     textDecoration: 'none',
                     color: "black",
-                  }}>
+                  }}
+                  _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}
+                  style={{webkitTapHighlightColor: "transparent"}}
+                >
                     <Box d={"flex"} flexDirection={"column"} alignItems={"center"} px={"10px"}>
-                      <Text fontWeight={props.currentPage == navItem.label ? "bold" : "none"} color={props.currentPage == navItem.label ? "black" : "none"} mt={props.currentPage == navItem.label ? "4px" : "0px"}>{navItem.label}</Text>
-                      {props.currentPage == navItem.label ? <Box w={"16px"} h={"2px"} bg={"black"} mt={"4px"}></Box> : null}
+                      <Text fontWeight={props.location.pathname == navItem.href ? "bold" : "none"} color={props.location.pathname == navItem.href ? "black" : "none"} mt={props.location.pathname == navItem.href ? "4px" : "0px"}>{navItem.label}</Text>
+                      {props.location.pathname == navItem.href ? <Box w={"16px"} h={"2px"} bg={"black"} mt={"4px"}></Box> : null}
                     </Box>
                 </Link>
               </PopoverTrigger>
@@ -216,14 +221,14 @@ function DesktopNav({...props}) {
   const NAV_ITEMS = [
     {
         label: 'Inicio',
-        href: '#',
+        href: '/',
     },
     {
         label: 'Contacto',
-        href: '#',
+        href: '/contact',
     },
     {
         label: 'Sobre nosotros',
-        href: '#',
+        href: '/about',
     },
   ];
