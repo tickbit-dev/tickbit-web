@@ -1,7 +1,7 @@
 //Libraries
 import { useState, useEffect } from 'react';
 import { Box, Text, Flex, Tab, TabList, Tabs, TabPanels, TabPanel } from '@chakra-ui/react';
-import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+
 
 //Components
 import useWindowDimensions from './Utils/useWindowDimensions';
