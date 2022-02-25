@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Flex, Text, Button,Heading, Center, Image, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, Text, Button,Heading, Center, Image, SimpleGrid, useBreakpointValue, } from '@chakra-ui/react';
 import Portada from '../Portada';
 import { FiUser } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
@@ -16,10 +16,16 @@ export default function EventDetailsPage({...props}) {
                 <Portada image={props.image}/>
             </Box>
             <Heading fontFamily={'Montserrat'}>{props.tituloevento}</Heading>
-            <Flex  direction={{base:"column",md:"row"}} mt={10} >
-                <Flex w={"100%"} direction={"column"} >
-                    <Flex>
-                        <Center w={50} h={50} backgroundColor={Colors.secondary.gray} borderRadius={12}>
+            <Flex  direction={{base:"column",md:"row"}} mt={5} >
+            
+                <Flex w={"100%"} mb={{base:5,md:0}} direction={"column"}   >
+                    <Text fontSize={"3xl"} as='u'>Información</Text>
+                    <Text fontSize={"xl"} mt={2} textAlign={"justify"}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
+                 </Flex> 
+
+                <Flex w={"100%"} direction={"column"} ml={{base:0,md:'20%'}}  mt={2} >
+                    <Flex >
+                        <Center  w={50} h={50} backgroundColor={Colors.secondary.gray} borderRadius={12}>
                             <BiUser  strokeWidth="0.2" size={30}/>
                         </Center>
                         <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'} ml={5}  fontWeight={"bold"}>Artista/s: &nbsp;</Text>
@@ -39,21 +45,41 @@ export default function EventDetailsPage({...props}) {
                         <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'} ml={5} fontWeight={"bold"}>Categoria: &nbsp;</Text>
                         <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'}> {props.categoria}</Text>
                     </Flex>
-
-                </Flex>
-                <Flex w={"100%"} mt={{base:5,md:0}} direction={"column"} backgroundColor={Colors.secondary.gray} overflow={"hidden"} borderRadius={20} >
-                    <Image  borderRadius={20} w={"full"} h={"full"} fit={'cover'} src={MAPAPRUEBA}/>
                 </Flex>
             </Flex>
             <SimpleGrid columns={{base:1,md:2}}  spacing={5} mt={16} mb={20}>
-                <Box  height={{base:350,md:250}}>
-                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={false} />
+                <Box  height={{base:390,md:250}}>
+                    <TicketCardCompra 
+                        lugar={'Barcelona'} 
+                        mes={"JUN"} 
+                        dia={"25"}  
+                        hora={'2:30 h'} 
+                        fecha={'25 diciembre 2022 '}
+                        local={"Pl. Sant Jordi"} 
+                        precio={'80'} 
+                        disponibilidad={false} />
                 </Box>
-                <Box height={{base:350,md:250}}>
-                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'} fecha={'25 diciembre 2022 '} precio={'80'} disponibilidad={true}/>
+                <Box  height={{base:390,md:250}}>
+                    <TicketCardCompra 
+                        lugar={'Barcelona'} 
+                        mes={"JUN"} 
+                        dia={"25"}  
+                        hora={'2:30 h'} 
+                        fecha={'25 diciembre 2022 '}
+                        local={"Pl.Sant Jordi"} 
+                        precio={'80'} 
+                        disponibilidad={true} />
                 </Box>
-                <Box  height={{base:350,md:250}}>
-                    <TicketCardCompra lugar={'Barcelona'} hora={'22:30 h'}fecha={'25 diciembre 2022 '} precio={'80'}disponibilidad={true }/>
+                <Box  height={{base:390,md:250}}>
+                    <TicketCardCompra 
+                        lugar={'Barcelona'} 
+                        mes={"JUN"} 
+                        dia={"25"}  
+                        hora={'2:30 h'} 
+                        fecha={'25 diciembre 2022 '}
+                        local={"Pl.Sant Jordi"} 
+                        precio={'80'} 
+                        disponibilidad={true} />
                 </Box>
                 
                 

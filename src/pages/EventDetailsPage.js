@@ -9,6 +9,7 @@ import Pasos from '../components/Detailspage/Pasos';
 import Step0 from '../components/Detailspage/Step0';
 import Footer from '../components/Footer';
 
+import Step1 from'../components/Detailspage/Step1';
 
 export default function EventDetailsPage({...props}) {
 
@@ -28,6 +29,12 @@ export default function EventDetailsPage({...props}) {
                         artista={'El nano'}
                         fecha={'25 - 28 junio 2022 '}
                         categoria={'Concierto'}
+                    />
+                }
+                step1={
+                    <Step1
+                        image={"https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg"}
+                        tituloevento={'Melendi el nano tour 2022'}
                     />
                 }
             />
