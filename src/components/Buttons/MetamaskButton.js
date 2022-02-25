@@ -108,7 +108,7 @@ export default function MetamaskButton({...props}) {
                 pl={"20px"}
                 pr={"20px"}
                 h={"50px"}
-                borderRadius={"16px"}
+                borderRadius={"10px"}
                 transition="all .6s ease"
                 _hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
                 //_active={{bg: Colors.secondary.grayHover}}
@@ -124,8 +124,8 @@ export default function MetamaskButton({...props}) {
             >
                 {userAddress == null ?
                     <Box d="flex" alignItems={"center"} justifyContent={"center"}>
-                        <Image h="24px" w={"36px"} pr="12px" src={MetamaskLogo}/>
-                        <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"}>Conectar con Metamask</Text>
+                        <Image h="24px" w={"24px"} mr={{base: "0px", md: "12px"}} src={MetamaskLogo}/>
+                        <Text fontFamily={"Montserrat"} color={"black"} display={{base: "none", md: "flex"}} fontWeight={600}>Conectar con Metamask</Text>
                     </Box>
                 :
                     <Box d="flex" alignItems={"center"} justifyContent={"center"}>
@@ -141,7 +141,7 @@ export default function MetamaskButton({...props}) {
                     pl={"20px"}
                     pr={"12px"}
                     h={"50px"}
-                    borderRadius={"16px"}
+                    borderRadius={"10px"}
                     transition="all .6s ease"
                     _hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
                     bg={Colors.secondary.gray}
@@ -156,7 +156,7 @@ export default function MetamaskButton({...props}) {
                             {/*<IoWallet color={"#60d16b"}/>*/}
                             {/*<BsFillCheckCircleFill color={"#60d16b"}/>*/}
                             <Image h="24px" w={"24px"} src={MetamaskLogo}/>
-                            <Text fontFamily={"Montserrat"} fontSize={"sm"} color={Colors.text.title} fontWeight={"semibold"} ml={"12px"} mr={"16px"}>{shortAddress(userAddress)}</Text>
+                            <Text fontFamily={"Montserrat"} color={"black"} fontWeight={600} ml={"12px"} mr={"16px"}>{shortAddress(userAddress)}</Text>
                             <FiChevronDown color={'#b7bfc9'} size={"17px"}/>
                         </Box>
                     </Box>

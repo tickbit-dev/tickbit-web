@@ -224,6 +224,10 @@ function DesktopNav({...props}) {
         href: '/',
     },
     {
+      label: 'Ayuda',
+      href: '/help',
+    },
+    {
         label: 'Contacto',
         href: '/contact',
     },
