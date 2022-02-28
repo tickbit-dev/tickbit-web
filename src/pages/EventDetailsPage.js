@@ -10,6 +10,7 @@ import Step0 from '../components/Detailspage/Step0';
 import Footer from '../components/Footer';
 
 import Step1 from'../components/Detailspage/Step1';
+import Step2 from '../components/Detailspage/Step2';
 
 export default function EventDetailsPage({...props}) {
 
@@ -24,7 +25,7 @@ export default function EventDetailsPage({...props}) {
             <Pasos 
                 step0={
                     <Step0
-                        image={"https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg"}
+                        image={"https://www.diariodecadiz.es/2021/05/21/vivir_en_cadiz/Cartel-anunciador-Melendi-Sancti-Petri_1576053138_138871992_667x375.jpg"}
                         tituloevento={'Melendi el nano tour 2022'}
                         artista={'El nano'}
                         fecha={'25 - 28 junio 2022 '}
@@ -33,9 +34,13 @@ export default function EventDetailsPage({...props}) {
                 }
                 step1={
                     <Step1
-                        image={"https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg"}
+                        image={"https://www.diariodecadiz.es/2021/05/21/vivir_en_cadiz/Cartel-anunciador-Melendi-Sancti-Petri_1576053138_138871992_667x375.jpg"}
                         tituloevento={'Melendi el nano tour 2022'}
                     />
+                }
+
+                step2={
+                  <Step2/>
                 }
             />
             </Box>

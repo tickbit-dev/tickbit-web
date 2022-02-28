@@ -12,7 +12,7 @@ import TicketCardCompra from '../Detailspage/TicketCardCompra';
 export default function EventDetailsPage({...props}) {
     return (
         <Box mb={20}>
-            <Box mt={{base:0,md:10}}  >
+            <Box mt={{base:10,md:10}}  >
                 <Portada image={props.image}/>
             </Box>
             <Heading fontFamily={'Montserrat'}>{props.tituloevento}</Heading>
@@ -47,8 +47,8 @@ export default function EventDetailsPage({...props}) {
                     </Flex>
                 </Flex>
             </Flex>
-            <SimpleGrid columns={{base:1,md:2}}  spacing={5} mt={16} mb={20}>
-                <Box  height={{base:390,md:250}}>
+            <SimpleGrid columns={{base:1,md:1,lg:2}}  spacing={5} mt={16} mb={20}>
+                <Box  height={{base:390,md:390, lg:200}}>
                     <TicketCardCompra 
                         lugar={'Barcelona'} 
                         mes={"JUN"} 
@@ -59,25 +59,25 @@ export default function EventDetailsPage({...props}) {
                         precio={'80'} 
                         disponibilidad={false} />
                 </Box>
-                <Box  height={{base:390,md:250}}>
+                <Box  height={{base:390,md:390, lg:200}}>
                     <TicketCardCompra 
                         lugar={'Barcelona'} 
                         mes={"JUN"} 
                         dia={"25"}  
                         hora={'2:30 h'} 
                         fecha={'25 diciembre 2022 '}
-                        local={"Pl.Sant Jordi"} 
+                        local={"Pl. Sant Jordi"} 
                         precio={'80'} 
                         disponibilidad={true} />
                 </Box>
-                <Box  height={{base:390,md:250}}>
+                <Box  height={{base:390,md:390, lg:200}}>
                     <TicketCardCompra 
                         lugar={'Barcelona'} 
                         mes={"JUN"} 
                         dia={"25"}  
                         hora={'2:30 h'} 
                         fecha={'25 diciembre 2022 '}
-                        local={"Pl.Sant Jordi"} 
+                        local={"Pl. Sant Jordi"} 
                         precio={'80'} 
                         disponibilidad={true} />
                 </Box>
