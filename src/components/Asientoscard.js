@@ -3,8 +3,15 @@ import { Box, Flex, Text, Button,Heading, Center, Image, useBreakpointValue,Sele
 import Portada from '../components/Portada';
 import Colors from '../constants/Colors';
 
+  
 
+  
 export default function Asientoscard({...props}) {
+
+
+    const [num_entradas, setnum_entradas] = useState('');
+    
+    useEffect(() => console.log(num_entradas), [num_entradas]);
     return (
         <Flex h={{base:220,md:220, lg:150}}  mt={2.5} mb={2.5}  backgroundColor={Colors.secondary.gray} rounded={20} _hover={{ backgroundColor: "#e1e3ed"}}direction={{base:"column", md:"row"}} >
             <Flex  margin={"auto"}  flex={{base:0.4,md:0.4}}>
@@ -14,11 +21,12 @@ export default function Asientoscard({...props}) {
             </Flex>
             </Flex>
             <Flex flex={{base:0.3,md:0.2}}>
-                <Select variant='outline' placeholder='nº' w={20} margin={"auto"} backgroundColor={"white"} _focus={{ boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white,}} >
-                    <option value='option1'>1</option>
-                    <option value='option2'>2</option>
-                    <option value='option3'>3</option>
-                    <option value='option3'>4</option>
+                <Select  onChange={(e) => setnum_entradas((e.target.value))} variant='outline' placeholder='nº' w={20} margin={"auto"} backgroundColor={"white"} _focus={{ boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white,}} >
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    
                 </Select>
             </Flex>
             <Flex paddingTop={{base:0,md:7}}  flex={{base:0.3,md:0.3}} marginTop={"auto"} marginBottom={{base:2,md:"auto"}} direction={"column"} >
@@ -33,4 +41,10 @@ export default function Asientoscard({...props}) {
         
         );
     };
-        
+   {/*     const handleSelect=(e)=>{
+        console.log("Hola");
+        setnum_entradas((e.target.value));
+        console.log(num_entradas);
+      }
+
+   */}     
