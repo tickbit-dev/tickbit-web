@@ -164,7 +164,7 @@ export default function ContactPage({...props}) {
                             name={name}
                             email={email}
                             phone={phone}
-                            subject={subject == "" ? "Sin asunto" : subject.substring(2, subject.length -1)}
+                            subject={subject == "" ? "Sin asunto" : subject.substring(2, subject.length)}
                             message={message}
                         />
                         <Center mt={"10px"}>

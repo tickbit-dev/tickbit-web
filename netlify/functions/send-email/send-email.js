@@ -106,7 +106,7 @@ const handler = async (event) => {
     subject: "✉️ [FORM] " + body.subject, // Subject line
     replyTo: '"' + body.name + '" <' + body.email + '>',
     //text: body.message + "\n", // plain text body
-    html: "<b>De:</b> " + body.name + " &#60;" + body.email + "&#62; &#40;" + body.phone + "&#41; " + "<br><b>Para:</b> " + process.env.FORM_MAIL + "<br><hr><br>" + body.message.replace(/\n/g, "<br />") + "<br><br>", // html body
+    html: "<b>De:</b> " + body.name + " &#60;" + body.email + "&#62; &#40;" + body.phone + "&#41; " + /*"<br><b>Para:</b> " + process.env.FORM_MAIL + */"<br><hr><br>" + body.message.replace(/\n/g, "<br />") + "<br><br>", // html body
   }
 
   try {
