@@ -15,13 +15,14 @@ import { HiOutlineMailOpen } from "react-icons/hi"
 import { FaRegUser } from "react-icons/fa"
 import { BiBookmark } from "react-icons/bi"
 import { BsInstagram } from "react-icons/bs"
+import SendMailButton from '../components/Buttons/SendMailButton';
 
 //Constants
 
 export default function ContactPage({...props}) {
 
     const [name, setName] = useState("");
-    const [mail, setMail] = useState("");
+    const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
@@ -63,13 +64,15 @@ export default function ContactPage({...props}) {
         }
     ];
 
+
+
     return (
         <Box>
             <NavigationBar/>
             <ContentBox>
                 <Flex direction={{base: "column", md: "row"}} pt={{base: "6px", md: "16px"}} pb={"32px"}>
                     <Flex direction={"column"} flex={1} justifyContent={"center"} pr={{base: "0px", md: "60px"}}>
-                        <Heading fontFamily={"Montserrat"} fontFamily={"Montserrat"}>Contáctanos</Heading>
+                        <Heading fontFamily={"Montserrat"}>Contáctanos</Heading>
                         <Text fontFamily={"Montserrat"} fontWeight={500} mt={"16px"}>Puedes contactarnos a través del formulario o puedes hacerlo a través de:</Text>
                         <Stack spacing={{base: "16px", md: "16px"}} py={"16px"} px={{base: "6px", md: "0px"}} mt={"16px"} mb={{base: "16px", md: "0px"}}>
                             <Stack direction={"row"} spacing={{base: "16px", md: "16px"}}>
@@ -101,7 +104,7 @@ export default function ContactPage({...props}) {
                                     </Flex>
                                     <TextInput
                                         placeholder={"peter@avengers.com"}
-                                        onChange={(event) => setMail(event.target.value)}
+                                        onChange={(event) => setEmail(event.target.value)}
                                     />
                                 </Flex>
                             </Stack>
@@ -112,7 +115,7 @@ export default function ContactPage({...props}) {
                                 </Flex>
                                 <TextInput
                                     placeholder={"peter@avengers.com"}
-                                    onChange={(event) => setMail(event.target.value)}
+                                    onChange={(event) => setEmail(event.target.value)}
                                 />
                             </Flex>
                             <Stack direction={"row"} spacing={"16px"}>
@@ -138,8 +141,8 @@ export default function ContactPage({...props}) {
                                             <SubjectBox
                                                 text={item.title}
                                                 color={item.color}
-                                                addSubject={(new_subject) => setSubject(subject + new_subject + ",")}
-                                                quitSubject={(old_subject) => setSubject(subject.replace(old_subject + ",",""))}
+                                                addSubject={(new_subject) => setSubject(subject + new_subject)}
+                                                quitSubject={(old_subject) => setSubject(subject.replace(old_subject,""))}
                                             />
                                         </WrapItem>
                                     ))}
@@ -157,9 +160,13 @@ export default function ContactPage({...props}) {
                                 />
                             </Flex>
                         </Stack>
-                        <Center as={"button"} h={"50px"} w={"full"} bg={"black"} borderRadius={"10px"} mt={"26px"} _hover={{bg: "#262626", transform: "scale(1.01)"}} style={{webkitTapHighlightColor: "transparent"}} transition="all .6s ease">
-                            <Text color={"white"} fontFamily={"Montserrat"} fontWeight={600}>Enviar mensaje</Text>
-                        </Center>
+                        <SendMailButton
+                            name={name}
+                            email={email}
+                            phone={phone}
+                            subject={subject == "" ? "Sin asunto" : subject.substring(2, subject.length -1)}
+                            message={message}
+                        />
                         <Center mt={"10px"}>
                             <Text fontFamily={"Montserrat"} color={"gray.400"} fontSize={"13px"} fontWeight={500}>Los campos marcados con * son obligatorios</Text>
                         </Center>
@@ -195,7 +202,7 @@ function SubjectBox({...props}) {
             transition="all .3s ease"
             style={{webkitTapHighlightColor: "transparent"}}
             _hover={{transform: "scale(1.02)"}}
-            onClick={() => (onToggle(), isOpen ? props.quitSubject(props.text) : props.addSubject(props.text))}
+            onClick={() => (onToggle(), isOpen ? props.quitSubject(', ' + props.text) : props.addSubject(', ' + props.text))}
         >
             <Text fontWeight={isOpen ? "bold" : 500} color={isOpen ? "white" : "undefined"} fontSize={isOpen ? "15.27px" : "undefined"} _groupHover={{fontWeight: 'bold', fontSize: "15.27px"}}>{props.text}</Text>
         </Center>

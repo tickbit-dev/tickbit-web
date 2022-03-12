@@ -103,10 +103,10 @@ const handler = async (event) => {
   const descriptor = {
     from: '"' + body.name + '" <' + process.env.USER_SMTP + '>', // sender address
     to: process.env.FORM_MAIL, // list of receivers
-    subject: "✉️ Mensaje enviado a través del formulario web", // Subject line
+    subject: "✉️ [FORM] " + body.subject, // Subject line
     replyTo: '"' + body.name + '" <' + body.email + '>',
     //text: body.message + "\n", // plain text body
-    html: "<b>De:</b> " + body.name + " &#60;" + body.email + "&#62; &#40;" + body.telephone + "&#41; " + "<br><b>Para:</b> " + process.env.FORM_MAIL + "<br><br><hr><br><br>" + body.message.replace(/\n/g, "<br />") + "<br><br>", // html body
+    html: "<b>De:</b> " + body.name + " &#60;" + body.email + "&#62; &#40;" + body.phone + "&#41; " + "<br><b>Para:</b> " + process.env.FORM_MAIL + "<br><hr><br>" + body.message.replace(/\n/g, "<br />") + "<br><br>", // html body
   }
 
   try {
