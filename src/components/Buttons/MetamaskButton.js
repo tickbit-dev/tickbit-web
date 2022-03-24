@@ -118,7 +118,7 @@ export default function MetamaskButton({...props}) {
                     '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
                 }}*/
                 _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}
-                style={{webkitTapHighlightColor: "transparent"}}
+                style={{WebkitTapHighlightColor: "transparent"}}
                 onClick={() => userAddress == null ? connectMetamaskWallet() : null}
                 overflow={"hidden"}
             >

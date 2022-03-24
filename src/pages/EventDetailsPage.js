@@ -11,11 +11,46 @@ import Footer from '../components/Footer';
 
 import Step1 from'../components/Detailspage/Step1';
 import Step2 from '../components/Detailspage/Step2';
+import { useParams } from 'react-router-dom';
+
+//Solidity
+import { ethers, BigNumber } from 'ethers'
+import { contractAddress } from '../solidity/config';
+import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
+    const [event, setEvent] = useState([]);
+    const [loadingState, setLoadingState] = useState('not-loaded');
+    let params = useParams();
 
     useEffect(() => {
+        loadEvent(params.eventId);
     }, []);
+
+    async function loadEvent(eventId) {
+        const provider = new ethers.providers.JsonRpcProvider()
+        const contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
+        const data = await contract.readEvent(BigNumber.from(String(eventId)));
+
+        const item_data = await Promise.all(data);
+
+        let item = {
+            id: item_data[0].toNumber(),
+            contractAddress: item_data[1],
+            title: item_data[2],
+            city: item_data[3],
+            description: item_data[4],
+            artist: item_data[5],
+            coverImageUrl: item_data[6],
+            category: item_data[7].toNumber()
+        }
+
+        console.log(data)
+        setEvent(item)
+        setLoadingState('loaded') 
+    }
+
+    const eventImage = loadingState != 'not-loaded' ? event.coverImageUrl : '';
 
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
@@ -25,9 +60,9 @@ export default function EventDetailsPage({...props}) {
             <Pasos 
                 step0={
                     <Step0
-                        image={"https://www.diariodecadiz.es/2021/05/21/vivir_en_cadiz/Cartel-anunciador-Melendi-Sancti-Petri_1576053138_138871992_667x375.jpg"}
-                        tituloevento={'Melendi el nano tour 2022'}
-                        artista={'El nano'}
+                        image={loadingState != 'not-loaded' ? event.coverImageUrl : ''}
+                        tituloevento={loadingState != 'not-loaded' ? event.title : ''}
+                        artista={loadingState != 'not-loaded' ? event.artist : ''}
                         fecha={'25 - 28 junio 2022 '}
                         categoria={'Concierto'}
                     />

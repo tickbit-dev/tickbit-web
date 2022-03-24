@@ -47,7 +47,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<HomePage/>} />
-					<Route path="/event/:idEvent" element={<EventDetailsPage/>} />
+					<Route path="/event/:eventId" element={<EventDetailsPage/>} />
 					<Route path="/help" element={<HelpPage/>} />
 					<Route path="/contact" element={<ContactPage/>} />
 					<Route path="/about" element={<AboutUsPage/>} />

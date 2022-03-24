@@ -81,7 +81,7 @@ export default function SendMailButton({...props}) {
     }
 
     return (
-        <Center as={"button"} h={"50px"} w={"full"} bg={"black"} borderRadius={"10px"} mt={"26px"} _hover={{bg: "#262626", transform: "scale(1.01)"}} style={{webkitTapHighlightColor: "transparent"}} onClick={() => _handleSendMessage()} transition="all .6s ease">
+        <Center as={"button"} h={"50px"} w={"full"} bg={"black"} borderRadius={"10px"} mt={"26px"} _hover={{bg: "#262626", transform: "scale(1.01)"}} style={{WebkitTapHighlightColor: "transparent"}} onClick={() => _handleSendMessage()} transition="all .6s ease">
             <Text color={"white"} fontFamily={"Montserrat"} fontWeight={600}>Enviar mensaje</Text>
         </Center>
     )

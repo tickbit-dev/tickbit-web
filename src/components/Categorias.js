@@ -31,16 +31,16 @@ import React, { Component } from "react";
     <Flex direction={'row'}    >
     <Flex direction={'row'} flex={1} >
     <TabList >
-        <Tab _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{webkitTapHighlightColor: "transparent", marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+        <Tab _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
             <IoMusicalNotes size={"20px"}/> &nbsp; Conciertos
         </Tab>
-        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{webkitTapHighlightColor: "transparent", marginRight:"20px"}} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px"}} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
             <HiStar size={"20px"}/>&nbsp; Festivales
         </Tab>
-        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{webkitTapHighlightColor: "transparent",marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent",marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
             <FaTheaterMasks size={"20px"}/>&nbsp; Teatro
         </Tab>
-        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{webkitTapHighlightColor: "transparent",marginRight:"0px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+        <Tab  _selected={{ color: 'black', bg: '#F0F1F8'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent",marginRight:"0px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
             <MdTheaters size={"20px"}/>&nbsp; Películas
         </Tab>
     </TabList>

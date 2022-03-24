@@ -64,7 +64,7 @@ import Colors from '../constants/Colors';
             templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
             spacing={8}>
             <Stack spacing={6}>
-              <Box d="flex" alignItems={"center"} as="button" onClick={() => window.open("/","_self")} style={{webkitTapHighlightColor: "transparent"}}>
+              <Box d="flex" alignItems={"center"} as="button" onClick={() => window.open("/","_self")} style={{WebkitTapHighlightColor: "transparent"}}>
                 <Image w={{base: "28px", md: "30px"}} ml={{base: "16px", md: "0px"}} src={LOGO_TICKBIT}/>
                 <Text fontFamily={"Montserrat"} fontWeight={800} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
               </Box>

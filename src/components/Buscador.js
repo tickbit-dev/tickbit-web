@@ -30,7 +30,7 @@ export default function Buscador({...props}) {
                     transition="all .6s ease"
                     _focus={{base: {boxShadow: "0 0 0px 0px " + Colors.secondary.grayHover}, md: {boxShadow: "0 0 0px 0px " + Colors.secondary.grayHover}}}
                 />
-                <Flex as={"button"} _focus={{boxShadow: "0 0 0px 3px " + Colors.secondary.grayHover}} style={{webkitTapHighlightColor: "transparent"}} w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"} _hover={{transform: 'scale(1.08)'}} transition="all .6s ease">
+                <Flex as={"button"} _focus={{boxShadow: "0 0 0px 3px " + Colors.secondary.grayHover}} style={{WebkitTapHighlightColor: "transparent"}} w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"} _hover={{transform: 'scale(1.08)'}} transition="all .6s ease">
                     <Flex ml={"-3px"} mt={"1px"}><CgSearch color={"white"} size={"20px"}/></Flex>
                 </Flex>
             </Flex>
@@ -64,7 +64,7 @@ export default function Buscador({...props}) {
             <Button 
                 w={"50px"}
                 h={"50px"}
-                style={{webkitTapHighlightColor: "transparent"}}
+                style={{WebkitTapHighlightColor: "transparent"}}
                 _pressed={{bg: Colors.secondary.grayHover}}
                 overflow="hidden"
                 ml={"10px"}

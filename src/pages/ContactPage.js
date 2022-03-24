@@ -180,7 +180,7 @@ export default function ContactPage({...props}) {
 
 function SocialBox({...props}) {
     return(
-        <Flex flex={1} as="button" direction={"column"} p={"16px"} borderRadius={"16px"} borderWidth={1} onClick={() => window.open(props.link,'_blank')} _hover={{bg: "gray.50", transform: "scale(1.01)"}} style={{webkitTapHighlightColor: "transparent"}} transition="all .6s ease">
+        <Flex flex={1} as="button" direction={"column"} p={"16px"} borderRadius={"16px"} borderWidth={1} onClick={() => window.open(props.link,'_blank')} _hover={{bg: "gray.50", transform: "scale(1.01)"}} style={{WebkitTapHighlightColor: "transparent"}} transition="all .6s ease">
             {props.icon}
             <Text fontFamily={"Montserrat"} fontWeight={800} mt={"16px"}>{props.text}</Text>
         </Flex>
@@ -200,7 +200,7 @@ function SubjectBox({...props}) {
             borderWidth={1}
             px={"16px"}
             transition="all .3s ease"
-            style={{webkitTapHighlightColor: "transparent"}}
+            style={{WebkitTapHighlightColor: "transparent"}}
             _hover={{transform: "scale(1.02)"}}
             onClick={() => (onToggle(), isOpen ? props.quitSubject(', ' + props.text) : props.addSubject(', ' + props.text))}
         >

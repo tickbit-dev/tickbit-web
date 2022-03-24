@@ -36,7 +36,7 @@ export default function NavigationBar({...props}) {
                 </Flex>
 
                 <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }} alignItems={"center"}>
-                    <Box d="flex" alignItems={"center"} as="button" onClick={() => window.open("/","_self")} style={{webkitTapHighlightColor: "transparent"}}>
+                    <Box d="flex" alignItems={"center"} as="button" onClick={() => window.open("/","_self")} style={{WebkitTapHighlightColor: "transparent"}}>
                       <Image w={{base: "28px", md: "30px"}} ml={{base: "16px", md: "0px"}} src={Logo}/>
                       <Text fontFamily={"Montserrat"} fontWeight={800} color={Colors.text.title} ml="10px" display={{ base: 'none', md: 'flex' }}>Tickbit</Text>
                     </Box>
@@ -88,7 +88,7 @@ function DesktopNav({...props}) {
                     color: "black",
                   }}
                   _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}
-                  style={{webkitTapHighlightColor: "transparent"}}
+                  style={{WebkitTapHighlightColor: "transparent"}}
                 >
                     <Box d={"flex"} flexDirection={"column"} alignItems={"center"} px={"10px"}>
                       <Text fontWeight={props.location.pathname == navItem.href ? "bold" : "none"} color={props.location.pathname == navItem.href ? "black" : "none"} mt={props.location.pathname == navItem.href ? "4px" : "0px"}>{navItem.label}</Text>
