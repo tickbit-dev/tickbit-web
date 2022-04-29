@@ -35,10 +35,10 @@ export default function EventDetailsPage({...props}) {
         const item_data = await Promise.all(data);
 
         let item = {
-            id: item_data[0].toNumber(),
-            contractAddress: item_data[1],
+            _owner: item_data[0],
+            _id: item_data[1].toNumber(),
             title: item_data[2],
-            city: item_data[3],
+            city: item_data[3].toNumber(),
             description: item_data[4],
             artist: item_data[5],
             coverImageUrl: item_data[6],
@@ -49,8 +49,6 @@ export default function EventDetailsPage({...props}) {
         setEvent(item)
         setLoadingState('loaded') 
     }
-
-    const eventImage = loadingState != 'not-loaded' ? event.coverImageUrl : '';
 
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
@@ -65,6 +63,7 @@ export default function EventDetailsPage({...props}) {
                         artista={loadingState != 'not-loaded' ? event.artist : ''}
                         fecha={'25 - 28 junio 2022 '}
                         categoria={'Concierto'}
+                        description={event.description}
                     />
                 }
                 step1={

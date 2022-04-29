@@ -20,7 +20,7 @@ export default function EventDetailsPage({...props}) {
             
                 <Flex w={"100%"} mb={{base:5,md:0}} direction={"column"}   >
                     <Text fontSize={"3xl"} as='u'>Información</Text>
-                    <Text fontSize={"xl"} mt={2} textAlign={"justify"}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Text>
+                    <Text fontSize={"xl"} mt={2} textAlign={"justify"}>{props.description}</Text>
                  </Flex> 
 
                 <Flex w={"100%"} direction={"column"} ml={{base:0,md:'20%'}}  mt={2} >
