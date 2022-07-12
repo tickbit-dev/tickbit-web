@@ -15,8 +15,8 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
-import { contractAddress } from '../solidity/config';
-import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
+//import { contractAddress } from '../solidity/config';
+//import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
     const [event, setEvent] = useState([]);
@@ -24,10 +24,10 @@ export default function EventDetailsPage({...props}) {
     let params = useParams();
 
     useEffect(() => {
-        loadEvent(params.eventId);
+        //loadEvent(params.eventId);
     }, []);
 
-    async function loadEvent(eventId) {
+    /*async function loadEvent(eventId) {
         const provider = new ethers.providers.JsonRpcProvider()
         const contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
         const data = await contract.readEvent(BigNumber.from(String(eventId)));
@@ -48,7 +48,7 @@ export default function EventDetailsPage({...props}) {
         console.log(data)
         setEvent(item)
         setLoadingState('loaded') 
-    }
+    }*/
 
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
