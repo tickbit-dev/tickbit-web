@@ -29,3 +29,4 @@ yarn-error.log*
 
 # Netlify unnecessary
 /netlify/functions/send-email/node_modules
+src/utils/secretConfigValues.js
