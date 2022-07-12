@@ -1,1 +1,0 @@
-export const contractAddress = window.location.hostname === 'localhost' ? "0x5FbDB2315678afecb367f032d93F642f64180aa3" : "0xEB8CcB9C7a5FecF3326a1Ae35A08686641ad3cE3";
