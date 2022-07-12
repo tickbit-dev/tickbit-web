@@ -1,5 +1,5 @@
 export default {
-    ownerAddress: window.location.hostname === 'localhost' ? "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" : "0x5234d2a3f8C208F95AaE4D2b332378fF1Cad2503",
+    ownerAddress: window.location.hostname === 'localhost' ? "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" : "0xc6470C454CedAC588184719368e6C66e99fFE85a",
     cities: [
         {
             "id": 0,

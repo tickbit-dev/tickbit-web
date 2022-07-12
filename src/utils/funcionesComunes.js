@@ -543,14 +543,22 @@ export async function restoreEventBlockchain(eventId) {
     }
 }
 
-export async function readEventbyId(eventId, isPublic) {
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(contractAddress, Tickbit.abi, signer)
+export async function readEventbyId(eventId, isPublicRead) {
+    let contract = null;
 
-    const data = await contract.readEvent(BigNumber.from(String(eventId)), isPublic);
+    if(isPublicRead == false){
+        const web3Modal = new Web3Modal()
+        const connection = await web3Modal.connect()
+        const provider = new ethers.providers.Web3Provider(connection)
+        const signer = provider.getSigner()
+        contract = new ethers.Contract(contractAddress, Tickbit.abi, signer)
+    } else{
+        /* create a generic provider and query for unsold market items */
+        const provider = new ethers.providers.Web3Provider(window.ethereum.currentProvider)
+        contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
+    }
+
+    const data = await contract.readEvent(BigNumber.from(String(eventId)), isPublicRead);
     const item_data = await Promise.all(data);
     let item = newEvent(item_data[0], item_data[1].toNumber(), item_data[2].toNumber(), item_data[3], item_data[4].toNumber(), item_data[5].toNumber(), item_data[6].toNumber(), item_data[7], item_data[8], item_data[9].toNumber(), item_data[10].toNumber(), item_data[11], item_data[12].toNumber(), item_data[13].toNumber(), item_data[14].toNumber(), item_data[15], item_data[16]);
 
