@@ -10,6 +10,7 @@ import { contractAddress } from '../solidity/config';
 import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 import Web3Modal from 'web3modal';
 import moment from 'moment';
+import { RPC_URL_PROCIVER } from './secretConfigValues';
 
 export function truncateAddress(address) {
     return address.length > 10 ? address.substring(0, 5) + "..." + address.substring(address.length - 4, address.length) : address
@@ -554,7 +555,7 @@ export async function readEventbyId(eventId, isPublicRead) {
         contract = new ethers.Contract(contractAddress, Tickbit.abi, signer)
     } else{
         /* create a generic provider and query for unsold market items */
-        const provider = new ethers.providers.Web3Provider(window.ethereum.currentProvider)
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL_PROCIVER)
         contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
     }
 
