@@ -15,16 +15,24 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
+import { readEventbyId } from '../utils/funcionesComunes';
 //import { contractAddress } from '../solidity/config';
 //import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
     const [event, setEvent] = useState([]);
-    const [loadingState, setLoadingState] = useState('not-loaded');
+    const [isLoaded, setIsLoaded] = useState(false);
     let params = useParams();
 
+    async function getData(){
+        const item = await readEventbyId(params.eventId, true);
+
+        setEvent(item)
+        setIsLoaded(true)
+    }
+
     useEffect(() => {
-        //loadEvent(params.eventId);
+        getData();
     }, []);
 
     /*async function loadEvent(eventId) {
@@ -58,12 +66,12 @@ export default function EventDetailsPage({...props}) {
             <Pasos 
                 step0={
                     <Step0
-                        image={loadingState != 'not-loaded' ? event.coverImageUrl : ''}
-                        tituloevento={loadingState != 'not-loaded' ? event.title : ''}
-                        artista={loadingState != 'not-loaded' ? event.artist : ''}
+                        image={event.coverImageUrl}
+                        tituloevento={""}
+                        artista={''}
                         fecha={'25 - 28 junio 2022 '}
                         categoria={'Concierto'}
-                        description={event.description}
+                        description={''}
                     />
                 }
                 step1={
