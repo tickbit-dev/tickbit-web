@@ -35,29 +35,6 @@ export default function EventDetailsPage({...props}) {
         getData();
     }, []);
 
-    /*async function loadEvent(eventId) {
-        const provider = new ethers.providers.JsonRpcProvider()
-        const contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
-        const data = await contract.readEvent(BigNumber.from(String(eventId)));
-
-        const item_data = await Promise.all(data);
-
-        let item = {
-            _owner: item_data[0],
-            _id: item_data[1].toNumber(),
-            title: item_data[2],
-            city: item_data[3].toNumber(),
-            description: item_data[4],
-            artist: item_data[5],
-            coverImageUrl: item_data[6],
-            category: item_data[7].toNumber()
-        }
-
-        console.log(data)
-        setEvent(item)
-        setLoadingState('loaded') 
-    }*/
-
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
             <NavigationBar/>

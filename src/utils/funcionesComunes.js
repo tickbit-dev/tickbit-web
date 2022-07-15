@@ -6,11 +6,10 @@ import Data from '../data/Data';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers';
-import { contractAddress } from '../solidity/config';
+import { contractAddress, RPC_URL_PROCIVER } from '../solidity/config';
 import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 import Web3Modal from 'web3modal';
 import moment from 'moment';
-import { RPC_URL_PROCIVER } from './secretConfigValues';
 
 export function truncateAddress(address) {
     return address.length > 10 ? address.substring(0, 5) + "..." + address.substring(address.length - 4, address.length) : address
@@ -725,22 +724,13 @@ export async function getTicketsListFromTest() {
 }
 
 export async function createTicketOnBlockchain() {
-    /* needs the user to sign the transaction, so will use Web3Provider and sign it */
-    await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-
-    });
-
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, Tickbit.abi, signer)
 
-    const transaction = await contract.createTicket(
-        "MDR",
-        1,
-        1,
-        50);
+    const transaction = await contract.createTicket(1, 1, 50);
 
     await transaction.wait()
 }
