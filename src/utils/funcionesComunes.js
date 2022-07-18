@@ -362,14 +362,14 @@ function createEventItem(title, idCity, idVenue, idCategory, description, artist
     return { title, idCity, idVenue, idCategory, description, artist, capacity, price, coverImageUrl, initialSaleDate, initialDate, finalDate };
 }
 
-export async function getEventsListFromBlockchain() {
+export async function getEventsListFromBlockchain(isPublic) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
 
     const contract = new ethers.Contract(contractAddress, Tickbit.abi, signer);
-    const data = await contract.readEvents();
+    const data = await contract.readEvents(isPublic);
     const item_data = await Promise.all(data);
 
     let itemsArray = [];

@@ -1,5 +1,6 @@
 //Libraries
 import { Box, Flex, Text } from '@chakra-ui/react';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import TicketCard from '../components/TicketCard';
@@ -15,9 +16,14 @@ import Buscador from '../components/Buscador';
 import Categorias from '../components/Categorias2';
 import Portada from '../components/Portada';
 import Footer from '../components/Footer';
+import ProximosEventos from '../components/ProximosEventos';
+import DestacadosEventos from '../components/DestacadosEventos';
 
 
 export default function HomePage() {
+    
+    const navigate = useNavigate();
+    
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
             <NavigationBar/>
@@ -39,12 +45,31 @@ export default function HomePage() {
 
                 {/*<Categorias/>*/}
                 {/*<Categorias/>*/}
-                   
-                <TitleHighlighted
-                    text={"Próximos eventos"}
-                    highlightColor={Colors.primary.pink + '55'}
-                    mt={"20px"}
-                />
+
+                <Flex direction={'row'} mb={'20px'} mt={"20px"}  justifyContent={'space-between'} > 
+                    <TitleHighlighted
+                        text={"Eventos destacados"}
+                        highlightColor={Colors.primary.skyblue + '55'}
+                        mb={'20px'}
+                    />
+                    <Text fontWeight={'bold'} textDecoration={'underline'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
+                </Flex> 
+
+                <DestacadosEventos/>
+
+                 <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
+                    <TitleHighlighted
+                        text={"Próximos eventos"}
+                        highlightColor={Colors.primary.pink + '55'}
+                        mb={'20px'}
+                    />
+                    <Text fontWeight={'bold'} textDecoration={'underline'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
+                </Flex> 
+
+                <ProximosEventos/>
+
+              
+                
             </ContentBox>
 
             <Footer/>
