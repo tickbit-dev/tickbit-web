@@ -27,7 +27,7 @@ export default function ProximosEventos() {
                 return a.initialDate - b.initialDate;
         });
 
-         setEvents(item_list.slice(0,4));
+        setEvents(item_list.slice(0,4));
        
 
     }

@@ -26,7 +26,7 @@ export default function HomePage() {
     
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
-            <NavigationBar/>
+           <NavigationBar/>
             
             <ContentBox>
                 
@@ -41,7 +41,7 @@ export default function HomePage() {
                 {/*<TitleHighlighted
                     text={"Categorías"}
                 />*/}
-                <Text fontWeight={"bold"} fontFamily={"Montserrat"} mb={"16px"} color={"black"}>Categorías</Text>
+                {/*<Text fontWeight={"bold"} fontFamily={"Montserrat"} mb={"16px"} color={"black"}>Categorías</Text>*/}
 
                 {/*<Categorias/>*/}
                 {/*<Categorias/>*/}
