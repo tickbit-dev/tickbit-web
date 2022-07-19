@@ -35,7 +35,7 @@ export default function HomePage() {
                 <Portada 
                     //src={'https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg'}
                     image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"}
-                    eventId={2}
+                    eventId={1}
                 />
 
                 {/*<TitleHighlighted
@@ -68,8 +68,6 @@ export default function HomePage() {
 
                 <ProximosEventos/>
 
-              
-                
             </ContentBox>
 
             <Footer/>

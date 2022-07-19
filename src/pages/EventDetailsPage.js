@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Flex, Text, Button,Heading } from '@chakra-ui/react';
+import moment from 'moment';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import ContentBox from '../components/Utils/ContentBox';
 import Portada from '../components/Portada';
@@ -15,24 +16,44 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
-import { readEventbyId } from '../utils/funcionesComunes';
+import { changeNumberforNameMonth, cutIntervalDate, getCategoryById, getVenueById, momentDaytoSpanishDay, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
 //import { contractAddress } from '../solidity/config';
 //import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
     const [event, setEvent] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [usdConversion, setUsdConversion] = useState();
+    const [day, setDay] = useState();
+
+    var fecha = new Date();
     let params = useParams();
 
     async function getData(){
         const item = await readEventbyId(params.eventId, true);
 
         setEvent(item)
+        fecha = moment(item.initialDate * 1000);
+        setDay((fecha._d).toString().slice(0,3));
         setIsLoaded(true)
+    }
+
+    function getEurToMaticConversion() {
+        fetch('https://api.binance.com/api/v3/ticker/price?symbol=MATICUSDT')
+            .then(response => response.text())
+            .then(data => {
+                setUsdConversion(JSON.parse(data).price.slice(0,6))
+                //setIsPriceLoaded(true)
+            })
+            .catch(error => {
+                // handle the error
+                console.log(error)
+            });
     }
 
     useEffect(() => {
         getData();
+        getEurToMaticConversion();
     }, []);
 
     return (
@@ -44,11 +65,15 @@ export default function EventDetailsPage({...props}) {
                 step0={
                     <Step0
                         image={event.coverImageUrl}
-                        tituloevento={""}
-                        artista={''}
-                        fecha={'25 - 28 junio 2022 '}
-                        categoria={'Concierto'}
-                        description={''}
+                        tituloevento={event.title}
+                        artista={event.artist}
+                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                        categoria={getCategoryById(event.idCategory).name}
+                        description={event.description}
+                        precio={event.price +'$'+' ' + '≈' +' '+(usdConversion * event.price)+ ' ' + 'MATIC' + '/entrada'}
+                        recinto={getVenueById(event.idVenue).name}
+                       fecha2={momentDaytoSpanishDay(day) + ',' + ' ' + cutIntervalDate(event.initialDate)}
+                       
                     />
                 }
                 step1={

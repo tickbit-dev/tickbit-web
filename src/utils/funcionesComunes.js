@@ -98,6 +98,16 @@ export function getValueFromMonthAbreviation(month) {
     else if (month == 'Dic') return 11;
 }
 
+export function momentDaytoSpanishDay(day){
+    if(day == 'Mon') return 'Lunes';
+    else if(day == 'Tue') return 'Martes';
+    else if(day == 'Wed') return 'Miércoles';
+    else if(day == 'Thu') return 'Jueves';
+    else if(day == 'Fri') return 'Viernes';
+    else if(day == 'Sat') return 'Sábado';
+    else if(day == 'Sun') return 'Domingo';
+}
+
 export function dateValidation(date) {
     if (!date) {
         return false;
