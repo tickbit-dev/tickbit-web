@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
-import { changeNumberforNameMonth, cutIntervalDate, getCategoryById, getVenueById, momentDaytoSpanishDay, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
+import { buyTicket, changeNumberforNameMonth, cutIntervalDate, getCategoryById, getVenueById, momentDaytoSpanishDay, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
 //import { contractAddress } from '../solidity/config';
 //import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
@@ -61,6 +61,7 @@ export default function EventDetailsPage({...props}) {
             <NavigationBar/>
             <ContentBox>
             <Box mt={10}>
+            <Button onClick={()=> buyTicket(params.eventId, event.price)}>Comprar</Button>
             <Pasos 
                 step0={
                     <Step0

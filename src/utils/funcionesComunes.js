@@ -578,8 +578,8 @@ export async function readEventbyId(eventId, isPublicRead) {
 
 ///////// TICKETS /////////
 
-function newTicket(_owner, _id, _purchaseDate, idVenue, idEvent, idZona, price) {
-    return { _owner, _id, _purchaseDate, idVenue, idEvent, idZona, price };
+function newTicket(_owner, _id, _purchaseDate, idVenue, idEvent, price) {
+    return { _owner, _id, _purchaseDate, idVenue, idEvent, price };
 }
 
 export async function getTicketsListFromBlockchain() {
@@ -600,14 +600,13 @@ export async function getTicketsListFromBlockchain() {
     [2] uint256 _purchaseDate;
     [3] uint256 idVenue;
     [4] uint256 idEvent;
-    [5] uint256 idZona;
     [6] uint256 price;
     */
 
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6].toNumber()
+                item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber()
             )
         );
     }
@@ -744,6 +743,26 @@ export async function createTicketOnBlockchain() {
     const transaction = await contract.createTicket(1, 1, 50);
 
     await transaction.wait()
+}
+
+export async function buyTicket(idEvent, price) {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
+
+    try {
+        var myprice = price;
+        const finalprice = ethers.utils.parseUnits(myprice.toString())
+        console.log("finalprice:", finalprice);
+        const transaction = await contract.buyTicket(idEvent, {value: finalprice});
+        await transaction.wait()
+
+        return transaction;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 ////// CAMPAIGNS
