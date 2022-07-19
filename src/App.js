@@ -14,6 +14,7 @@ import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import ContactPage from './pages/ContactPage';
 import AboutUsPage from './pages/AboutUsPage';
 import HelpPage from './pages/HelpPage';
+import MyTicketsPage from './pages/MyTicketsPage';
 
 
 
@@ -51,6 +52,7 @@ function App() {
 					<Route path="/help" element={<HelpPage/>} />
 					<Route path="/contact" element={<ContactPage/>} />
 					<Route path="/about" element={<AboutUsPage/>} />
+					<Route path="/tickets" element={<MyTicketsPage/>} />
 				</Routes>
 			</BrowserRouter>
 			{!Cookies.get("cookies") ?
