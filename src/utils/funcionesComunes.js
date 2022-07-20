@@ -578,8 +578,8 @@ export async function readEventbyId(eventId, isPublicRead) {
 
 ///////// TICKETS /////////
 
-function newTicket(_owner, _id, _purchaseDate, idVenue, idEvent, price) {
-    return { _owner, _id, _purchaseDate, idVenue, idEvent, price };
+function newTicket(_owner, _eventOwner, _id, _purchaseDate, idEvent, price) {
+    return { _owner, _eventOwner, _id, _purchaseDate, idEvent, price };
 }
 
 export async function getTicketsListFromBlockchain() {
@@ -589,24 +589,24 @@ export async function getTicketsListFromBlockchain() {
     const signer = provider.getSigner()
 
     const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer);
-    const data = await contract.readTickets();
+    const data = await contract.readTicketingSales();
     const item_data = await Promise.all(data);
 
     let itemsArray = [];
 
     /*
     [0] address _owner;
-    [1] uint _id;
-    [2] uint256 _purchaseDate;
-    [3] uint256 idVenue;
+    [1] address _eventOwner;
+    [2] uint _id;
+    [3] uint256 _purchaseDate;
     [4] uint256 idEvent;
-    [6] uint256 price;
+    [5] uint256 price;
     */
 
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber()
+                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber()
             )
         );
     }
@@ -753,9 +753,7 @@ export async function buyTicket(idEvent, price) {
     const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
 
     try {
-        var myprice = price;
-        const finalprice = ethers.utils.parseUnits(myprice.toString())
-        console.log("finalprice:", finalprice);
+        const finalprice = ethers.utils.parseUnits(price.toString())
         const transaction = await contract.buyTicket(idEvent, {value: finalprice});
         await transaction.wait()
 
