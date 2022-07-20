@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Flex, Text, Button,Heading } from '@chakra-ui/react';
+import { Box, Flex, Text, Button,Heading, Spacer } from '@chakra-ui/react';
 import moment from 'moment';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import ContentBox from '../components/Utils/ContentBox';
@@ -25,6 +25,7 @@ export default function EventDetailsPage({...props}) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [usdConversion, setUsdConversion] = useState();
     const [day, setDay] = useState();
+    const [numTickets, setNumTickets] = useState(1);
 
     var fecha = new Date();
     let params = useParams();
@@ -57,43 +58,33 @@ export default function EventDetailsPage({...props}) {
     }, []);
 
     return (
-        <Box maxW={"100%"} overflow={"hidden"}>
+        <Box maxW={"100%"} overflow={"hidden"} minH={'100vh'}>
             <NavigationBar/>
             <ContentBox>
             <Box mt={10}>
-            <Button onClick={()=> buyTicket(params.eventId, event.price)}>Comprar</Button>
-            <Pasos 
-                step0={
-                    <Step0
-                        image={event.coverImageUrl}
-                        tituloevento={event.title}
-                        artista={event.artist}
-                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                        categoria={getCategoryById(event.idCategory).name}
-                        description={event.description}
-                        precio={event.price +'$'+' ' + '≈' +' '+(usdConversion * event.price)+ ' ' + 'MATIC' + '/entrada'}
-                        recinto={getVenueById(event.idVenue).name}
-                       fecha2={momentDaytoSpanishDay(day) + ',' + ' ' + cutIntervalDate(event.initialDate)}
-                       
-                    />
-                }
-                step1={
-                    <Step1
-                        image={"https://www.diariodecadiz.es/2021/05/21/vivir_en_cadiz/Cartel-anunciador-Melendi-Sancti-Petri_1576053138_138871992_667x375.jpg"}
-                        tituloevento={'Melendi el nano tour 2022'}
-                    />
-                }
-
-                step2={
-                  <Step2/>
-                }
-            />
+                <Pasos 
+                    image={event.coverImageUrl}
+                    idEvento={params.eventId}
+                    tituloevento={event.title}
+                    artista={event.artist}
+                    fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                    categoria={getCategoryById(event.idCategory).name}
+                    description={event.description}
+                    precio={event.price +'$'+' ' + '≈' +' '+(usdConversion * event.price).toString().slice(0,6)+ ' ' + 'MATIC' + '/entrada'}
+                    recinto={getVenueById(event.idVenue).name}
+                    fecha2={momentDaytoSpanishDay(day) + ',' + ' ' + cutIntervalDate(event.initialDate)}
+                    onChangeNumTickets={(num) => setNumTickets(num)}
+                    numTickets={numTickets}
+                    precio2={(event.price * numTickets) +'$'+' ' + '≈' +' '+(usdConversion * event.price * numTickets)+ ' ' + 'MATIC' + '/entrada'} 
+                    precioMatic={(usdConversion * event.price * numTickets)}     
+                />
             </Box>
                
 
             </ContentBox>
-
+            <Spacer/>
             <Footer/>
+            
 
             
             {/*

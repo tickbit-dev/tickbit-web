@@ -11,6 +11,9 @@ import TicketCardCompra from '../Detailspage/TicketCardCompra';
 import Asientoscard from '../Asientoscard';
 
 export default function EventDetailsPage({...props}) {
+
+    
+
     return (
         <Box mb={20}>
             <Box mt={{base:10,md:10}}  >
@@ -63,7 +66,7 @@ export default function EventDetailsPage({...props}) {
                     </Flex>
                 </Flex>
             </Flex>
-            <Asientoscard recinto={props.recinto} precio={props.precio} fecha2={props.fecha2}/>
+            <Asientoscard recinto={props.recinto} precio={props.precio} fecha2={props.fecha2} onNext={() => {props.onNext()}} onChangeNumTickets={(num) => props.onChangeNumTickets(num)} numTickets={props.numTickets}/>
      
                 
         </Box>

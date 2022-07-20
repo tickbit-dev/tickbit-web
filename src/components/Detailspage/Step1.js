@@ -1,33 +1,69 @@
-import { useState, useEffect } from 'react';
-import { Box, Flex, Text, Button,Heading, Center, Image, useBreakpointValue, } from '@chakra-ui/react';
-import Portada from '../Portada';
-import Colors from '../../constants/Colors';
-import Asientoscard from '../Asientoscard';
+import {
+    Box,
+    Flex,
+    Heading,
+    HStack,
+    Link,
+    Stack,
+    useColorModeValue as mode,
+  } from '@chakra-ui/react'
+  import * as React from 'react'
+  import { CartItem } from './Checkout/CartItem';
+  import { CartOrderSummary } from './Checkout/CartOrderSummary'
+  import { cartData } from './Checkout/_data'
+  
+  export default function EventDetailsPage({...props}) {
+    return(
+    <Box
+      w={'100%'}
+      mx="auto"
+      px={{
+        base: '4',
+        md: '8',
+        lg: '12',
+      }}
+      py={{
+        base: '6',
+        md: '8',
+        lg: '12',
+      }}
+     
+    >
+      <Stack
+        direction={{
+          base: 'column',
+          lg: 'row',
+        }}
+        align={{
+          lg: 'flex-start',
+        }}
+        spacing={{
+          base: '8',
+          md: '16',
+        }}
+      >
+        <Stack
+          spacing={{
+            base: '8',
+            md: '10',
+          }}
+          flex="2"
+        >
+          <Heading fontSize="2xl" fontWeight="extrabold">
+            Tus tickets seleccionados 
+          </Heading>
+  
+          <Stack spacing="6">
+              <CartItem  {...props} />
+          </Stack>
+        </Stack>
+  
+        <Flex direction="column" align="center" flex="1">
+          <CartOrderSummary precio={props.precioMatic} idEvento={props.idEvento} onPrev={() => {props.onPrev()}} onNext={() => {props.onNext()}} />
 
-
-export default function Step1({...props}) {
-    return (
-        <Box>
-            <Box mt={{base:0,md:10}}>
-                <Portada image={props.image}/>
-            </Box>
-            <Heading fontFamily={'Montserrat'} textAlign={"left"}>{props.tituloevento}</Heading>
-            <Text fontFamily={'Montserrat'} color={"gray"} mt={3} textAlign={"left"}>Domingo, 5 jun 2022, 18:00 a sábado, 11 jun 2022, 21:00 </Text>
-            <Text fontFamily={'Montserrat'} textAlign={"left"} fontSize={'2xl'} fontWeight={"bold"} mt={10} mb={2.5}>Entradas disponibles</Text>
-
-            <Flex  direction={{base:"column" ,md:"row"}} >
-                <Flex direction={"column"} flex={0.5}>
-                    <Asientoscard zona={" Segunda graderia zona C1"}/>
-                    <Asientoscard zona={" Segunda graderia zona C1"}/>
-                    <Asientoscard zona={" Segunda graderia zona C1"}/>
-                    <Asientoscard zona={" Segunda graderia zona C1"}/>
-                </Flex> 
-                <Flex flex={0.5} backgroundColor={"red"} ml={5}>
-                    <Image  flex={1} w={"full"} h={"full"} objectFit={'cover'} src={"https://www.sportsevents365.es/images/venues/thumbs/PalauSaintJordiBarcelonaSeating.png"}/>
-                </Flex> 
-            </Flex>
-        </Box> 
-        
-    );
-};
+        </Flex>
+      </Stack>
+    </Box>
+  )
+}
     
