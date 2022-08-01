@@ -21,8 +21,55 @@ import DestacadosEventos from '../components/DestacadosEventos';
 
 
 export default function HomePage() {
-    
     const navigate = useNavigate();
+
+    const [campaigns, setCampaigns] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [frontPageEvent, setFrontPageEvent] = useState({});
+
+    /*async function readCurrentCampaigns() {
+        const WEEK_DAY = new Date().getDay() > 0 ? new Date().getDay() - 1 : 6;
+        const NOW_DATE = moment(new Date()).subtract(WEEK_DAY, 'days').format('YYYY-MM-DD');
+
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL_PROCIVER)
+        const contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
+    
+        const data = await contract.getCurrentCampaigns(moment(NOW_DATE).unix());
+        const item_data = await Promise.all(data);
+
+        let itemsArray = [];
+
+        for (let item of item_data) {
+            itemsArray.push(
+                newCampaign(
+                    item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4], item[5], item[6], item[7]
+                )
+            );
+        }
+
+        return itemsArray;
+    }
+
+    async function getData(){
+        var event = null;
+
+        const items_list = await readCurrentCampaigns();
+
+        for (let item of items_list) {
+            if(item.idType == 1){
+                event = await readEventbyId(item.eventId, false);
+            }
+        }
+
+        setCampaigns(items_list);
+        setFrontPageEvent(event)
+        setIsLoaded(true)
+    }
+
+    useEffect(() => {
+        getData();
+        //readCurrentCampaigns()
+    }, []);*/
     
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
