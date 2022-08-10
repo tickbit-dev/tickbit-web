@@ -73,7 +73,7 @@ export const CartItem = (props) => {
         }}
       >
          <Text>N.º tickets: {props.numTickets}</Text>
-        <Text>{props.precio}</Text>
+        <Text>{props.precio.toString()}</Text>
       </Flex>
     </Flex>
   )

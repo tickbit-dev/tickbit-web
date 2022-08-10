@@ -387,10 +387,11 @@ export async function getEventsListFromBlockchain(isPublic) {
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
-
+    
     const contract = new ethers.Contract(contractAddress, Tickbit.abi, signer);
     const data = await contract.readEvents(isPublic);
     const item_data = await Promise.all(data);
+  
 
     let itemsArray = [];
 

@@ -19,7 +19,7 @@ export default function Ticket({...props}) {
     }, []);
 
     return (
-        <Box minw={"100%"} h={ALTURA_TICKET + 20 + "px"} role={'group'} /*_hover={{transform: 'translateY(2px)'}}*/ transition="all .3s ease" {...props}>
+        <Box minw={"100%"} w={'300px'} h={ALTURA_TICKET + 20 + "px"} role={'group'} mr={4}/*_hover={{transform: 'translateY(2px)'}}*/ transition="all .3s ease" {...props}>
             <Box h={ALTURA_TICKET/4 + "px"} transition="all .6s ease" mt={(3*ALTURA_TICKET)/4 + OFFSET_SOMBRA + "px"} /*style={{backgroundImage: `url(${IMAGE})`, filter: 'blur(15px)', zIndex: -1}}*/ filter={'blur(10px)'} borderRadius={16} style={{backgroundImage: `url(${props.imagen})`}} zIndex={-1} _groupHover={{filter: 'blur(15px)'}}>
 
             </Box>

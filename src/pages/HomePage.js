@@ -52,7 +52,7 @@ export default function HomePage() {
                         highlightColor={Colors.primary.skyblue + '55'}
                         mb={'20px'}
                     />
-                    <Text fontWeight={'bold'} textDecoration={'underline'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
+                    <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
                 </Flex> 
 
                 <DestacadosEventos/>
@@ -63,7 +63,7 @@ export default function HomePage() {
                         highlightColor={Colors.primary.pink + '55'}
                         mb={'20px'}
                     />
-                    <Text fontWeight={'bold'} textDecoration={'underline'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
+                    <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
                 </Flex> 
 
                 <ProximosEventos/>

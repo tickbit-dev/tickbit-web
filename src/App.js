@@ -15,6 +15,7 @@ import ContactPage from './pages/ContactPage';
 import AboutUsPage from './pages/AboutUsPage';
 import HelpPage from './pages/HelpPage';
 import MyTicketsPage from './pages/MyTicketsPage';
+import EventsListPage from './pages/EventsListPage';
 
 
 
@@ -53,6 +54,7 @@ function App() {
 					<Route path="/contact" element={<ContactPage/>} />
 					<Route path="/about" element={<AboutUsPage/>} />
 					<Route path="/tickets" element={<MyTicketsPage/>} />
+					<Route path="/events" element={<EventsListPage/>} />
 				</Routes>
 			</BrowserRouter>
 			{!Cookies.get("cookies") ?
