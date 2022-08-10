@@ -3,7 +3,8 @@ import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/Colors';
 import TicketCard from '../components/TicketCard';
-import { cutIntervalDate, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
+import { cutIntervalDate, getCampaignListFromBlockchain, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
+import moment from 'moment';
 import Flickity from 'react-flickity-component';
 import "../flickity.css";
 
@@ -15,73 +16,95 @@ import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 import Web3Modal from 'web3modal';
 import TicketCardLoading from './TicketCardLoading';
 
+
+
 const flickityOptions = {
     initialIndex: 0,
     pageDots: false,
     contain: true
 }
 
-export default function ProximosEventos() {
+export default function ProximosEventos({...props}) {
 
-    const [events, setEvents] = useState([]);
+    const [featuredEvents, setFeaturedEvents] = useState([]);
+    const [featuredEventsId, setFeaturedEventsId] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
     var number = [1,2,3,4,5,6,7,8];
 
-    async function getData(){
-        var item_list = [];
-        item_list = await getEventsListFromBlockchain(true);
-        console.log(item_list);
-        item_list.sort((a, b) => {
-                return a.initialDate - b.initialDate;
-        });
-
-        setEvents(item_list);
-       
-
-    }
+    useEffect(() => {
+        setIsLoaded(props.isLoaded)
+    }, [props.isLoaded]);
 
     useEffect(() => {
-        getData();
-    }, []);
+        setFeaturedEvents(props.data)
+    }, [props.data]);
 
     return (
-        <Flex maxW={"100%"} direction={'column'}>
-            {events.length == 0 ? 
-               
+        <Flex maxW={"100%"} direction={'row'}>
+            {isLoaded == false ? 
+                number.map((event, index) => (
+                    <TicketCardLoading key={"ticketcardloading" + index} /> 
+                ))
+            :
+                featuredEvents.map((event, index) => (
+                    <TicketCard 
+                        key={"ticketcard" + index} 
+                        mr={"20px"}
+                        titulo={event.title}
+                        imagen={event.coverImageUrl}
+                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                        sitio={getVenueById(event.idVenue).name}
+                        url={"/event/" + event._id}
+                    />
+                ))
+            }
+            {/*isLoaded == false ? 
 
-               <Flickity
+            <Flickity
                 className={'carousel'} // default ''
                 elementType={'div'} // default 'div'
                 options={flickityOptions} // takes flickity options {}
                 disableImagesLoaded={false} // default false
                 reloadOnUpdate // default false
                 static // default false 
-                >
-                    {number.map((event) => (
-                        <TicketCardLoading /> 
-                    )) }
-                </Flickity>
+              >
+                {number.map((event, index) => (
+                    <TicketCardLoading key={"ticketcardloading" + index} /> 
+                )) }
+            </Flickity>
+            
             :
-                <Flickity
-                    className={'carousel'} // default ''
-                    elementType={'div'} // default 'div'
-                    options={flickityOptions} // takes flickity options {}
-                    disableImagesLoaded={false} // default false
-                    reloadOnUpdate // default false
-                    static // default false 
-                >
-                    {events.map((event) => (
-                        <TicketCard 
-                            mr={"20px"}
-                            titulo={event.title}
-                            imagen={event.coverImageUrl}
-                            fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                            sitio={getVenueById(event.idVenue).name}
-                            url={"/eventos/aitana"}
-                        />
+            
+            <Flickity
+                className={'carousel'} // default ''
+                elementType={'div'} // default 'div'
+                options={flickityOptions} // takes flickity options {}
+                disableImagesLoaded={false} // default false
+                reloadOnUpdate // default false
+                static // default false 
+            >
+                {featuredEvents.map((event, index) => (
+                    <TicketCard 
+                        key={"ticketcard" + index} 
+                        mr={"20px"}
+                        titulo={event.title}
+                        imagen={event.coverImageUrl}
+                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                        sitio={getVenueById(event.idVenue).name}
+                        url={"/eventos/aitana"}
+                    />
+                    
                     ))}
-                </Flickity>
-            }
-                
+            </Flickity>
+                */}
+            
         </Flex>
     )
 }
+
+  {/*<SimpleGrid columns={{base:'1', sm:'2', md:'2', lg:'4'}} spacing={'20px'} w={'100%'}>
+                {number.map((event) => (
+                    <TicketCardLoading /> 
+                 )) }
+                </SimpleGrid>*/}

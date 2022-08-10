@@ -38,8 +38,8 @@ function App() {
 
 	useEffect(() => {
 		if(Cookies.get("cookies")){
-			console.log("Renew cookies")
-			Cookies.set("cookies", true, {expires: 9999});
+			//console.log("Renewed cookies")
+			Cookies.set("cookies", true, {expires: 9999, sameSite: 'None', secure: true});
 		}
     }, []);
 

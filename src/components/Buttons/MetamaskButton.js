@@ -20,8 +20,6 @@ export default function MetamaskButton({...props}) {
     const toast = useToast()
 
     useEffect(() => {
-        console.log("componentDidMount")
-
         getCurrentUserAddress();
         startUserAddressChangedListener();
     }, []);

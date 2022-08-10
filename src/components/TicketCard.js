@@ -34,7 +34,7 @@ export default function Ticket({...props}) {
                 <Flex zIndex={1} flex={1} w={"full"} h={"full"} alignItems={"end"}>
                     <Flex flex={1} w={"full"} h={"45%"}>
                         <Flex direction={"column"} pb={"10px"} px={"10px"} flex={1}>
-                            <Flex direction={"column"} flex={1} alignItems={"center"} justifyContent={"center"} alignItems="center">
+                            <Flex direction={"column"} flex={1} alignItems={"center"} justifyContent={"center"}>
                                 <Text color={"white"} fontWeight={"bold"} fontSize={20} mb={"0px"} mt={"-2px"} fontFamily={"Montserrat"}>{props.titulo}</Text>
                                 <Flex alignItems={"center"} justifyContent={"center"}>
                                     <BsFillCalendarFill color={"white"} size={"10px"}/>
@@ -45,7 +45,7 @@ export default function Ticket({...props}) {
                                     <Text color={"white"} fontSize={13} fontFamily={"Montserrat"} ml={"6px"}>{props.sitio}</Text>
                                 </Flex>
                             </Flex>
-                            <Flex as={"button"} _groupHover={{transform: "translateY(-2px)", backgroundColor: "rgba(255,255,255,0.3)"}} transition="all .6s ease" w={"100%"} h={"45px"} bg={"rgba(255,255,255,0.2)"} borderRadius={"12px"} alignItems={"center"} justifyContent={"center"}>
+                            <Flex as={"button"} onClick={() => window.open(props.url, '_self')} _groupHover={{transform: "translateY(-2px)", backgroundColor: "rgba(255,255,255,0.3)"}} transition="all .6s ease" w={"100%"} h={"45px"} bg={"rgba(255,255,255,0.2)"} borderRadius={"12px"} alignItems={"center"} justifyContent={"center"}>
                                 <HiTicket color={"white"}/>
                                 <Text ml={"10px"} color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Comprar tickets</Text>
                             </Flex>

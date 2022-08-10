@@ -2,7 +2,7 @@
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/Colors';
-import TicketCard from '../components/TicketCard';
+import TicketCard from '../components/TicketCard2';
 import { cutIntervalDate, getCampaignListFromBlockchain, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
 import moment from 'moment';
 import Flickity from 'react-flickity-component';
@@ -24,59 +24,42 @@ const flickityOptions = {
     contain: true
 }
 
-export default function DestacadosEventos() {
+export default function DestacadosEventos({...props}) {
 
     const [featuredEvents, setFeaturedEvents] = useState([]);
     const [featuredEventsId, setFeaturedEventsId] = useState([]);
-    const [loaded, setLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     var number = [1,2,3,4,5,6,7,8];
 
-    async function getData(){
-   
-        var event_list = await getEventsListFromBlockchain(true);
-        var campaign_list = await getCampaignListFromBlockchain();
- 
-        var fechaactual = new Date();
-
-        while (fechaactual.getDay() - 1 !== 0) {
-            fechaactual.setDate(fechaactual.getDate() - 1);
-        }
-    
-        //Le pasamos esto para que coja hora las 00:00
-        fechaactual = moment(fechaactual).format('YYYY-MM-DD');
-    
-        var fechainicial = moment(fechaactual);
-        var fechafinal = moment(fechainicial).add(6, 'days');
-        
-        for(let i = 0; i < campaign_list.length; i++){
-            if(campaign_list[i].initialDate == fechainicial.unix() && campaign_list[i].finalDate == fechafinal.unix() && campaign_list[i].idType == 2){
-                featuredEventsId.push(campaign_list[i].eventId)
-            }
-        }
-       
-       for(let i = 0; i < event_list.length; i++){
-            for(let j = 0; j < featuredEventsId.length; j++){
-                if(event_list[i]._id == featuredEventsId[j]){
-                    featuredEvents.push(event_list[i]);        
-                }
-            }
-        }
-        setLoaded(true);
-    }
-
-   
-    
     useEffect(() => {
-        getData();
-    }, [loaded]);
+        setIsLoaded(props.isLoaded)
+    }, [props.isLoaded]);
 
- 
+    useEffect(() => {
+        setFeaturedEvents(props.data)
+    }, [props.data]);
 
     return (
-        <Flex maxW={"100%"} direction={'column'}  >
-            {featuredEvents.length == 0 ? 
-          
+        <Flex maxW={"100%"} direction={'row'}>
+            {isLoaded == false ? 
+                number.map((event, index) => (
+                    <TicketCardLoading key={"ticketcardloading" + index} /> 
+                ))
+            :
+                featuredEvents.map((event, index) => (
+                    <TicketCard 
+                        key={"ticketcard" + index} 
+                        mr={"20px"}
+                        titulo={event.title}
+                        imagen={event.coverImageUrl}
+                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                        sitio={getVenueById(event.idVenue).name}
+                        url={"/event/" + event._id}
+                    />
+                ))
+            }
+            {/*isLoaded == false ? 
 
             <Flickity
                 className={'carousel'} // default ''
@@ -86,8 +69,8 @@ export default function DestacadosEventos() {
                 reloadOnUpdate // default false
                 static // default false 
               >
-                {number.map((event) => (
-                    <TicketCardLoading /> 
+                {number.map((event, index) => (
+                    <TicketCardLoading key={"ticketcardloading" + index} /> 
                 )) }
             </Flickity>
             
@@ -101,8 +84,9 @@ export default function DestacadosEventos() {
                 reloadOnUpdate // default false
                 static // default false 
             >
-                {featuredEvents.map((event) => (
+                {featuredEvents.map((event, index) => (
                     <TicketCard 
+                        key={"ticketcard" + index} 
                         mr={"20px"}
                         titulo={event.title}
                         imagen={event.coverImageUrl}
@@ -113,7 +97,7 @@ export default function DestacadosEventos() {
                     
                     ))}
             </Flickity>
-            }
+                */}
             
         </Flex>
     )

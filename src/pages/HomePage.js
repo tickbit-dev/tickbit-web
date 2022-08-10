@@ -18,12 +18,16 @@ import Portada from '../components/Portada';
 import Footer from '../components/Footer';
 import ProximosEventos from '../components/ProximosEventos';
 import DestacadosEventos from '../components/DestacadosEventos';
+import { useEffect, useState } from 'react';
+import { getCampaignById, getCampaignListFromBlockchain, getEventsListFromBlockchain, getStringFromTimestamp, readCurrentCampaigns, readEventbyId } from '../utils/funcionesComunes';
+import moment from 'moment';
 
 
 export default function HomePage() {
     const navigate = useNavigate();
 
-    const [campaigns, setCampaigns] = useState([]);
+    const [outstandingEvents, setOutstandingEvents] = useState([]);
+    const [events, setEvents] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [frontPageEvent, setFrontPageEvent] = useState({});
 
@@ -70,6 +74,47 @@ export default function HomePage() {
         getData();
         //readCurrentCampaigns()
     }, []);*/
+
+    async function getData(){
+        const WEEK_DAY = new Date().getDay() > 0 ? new Date().getDay() - 1 : 6;
+        const NOW_DATE = moment(new Date()).subtract(WEEK_DAY, 'days').unix();
+
+        const campaigns_list = await getCampaignListFromBlockchain(true);
+        const events_list = await getEventsListFromBlockchain(true);
+
+        var front_page = null;
+        var outstanding = [];
+
+        for(let item of campaigns_list) {
+            if(getStringFromTimestamp(item.initialDate) == getStringFromTimestamp(NOW_DATE)){
+                if(item.idType == 1){
+                    for(let event of events_list){
+                        if(event._id == item.eventId){
+                            front_page = event;
+                            break;
+                        }
+                    }
+                } else {
+                    for(let event of events_list){
+                        if(event._id == item.eventId){
+                            outstanding.push(event);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //setCampaigns(items_list);
+        setEvents(events_list);
+        setFrontPageEvent(front_page)
+        setOutstandingEvents(outstanding)
+        setIsLoaded(true)
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
     
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
@@ -80,9 +125,8 @@ export default function HomePage() {
                 <Buscador/>
 
                 <Portada 
-                    //src={'https://c8.alamy.com/zoomses/9/984bb3c4eae3444e9d3433d1d59470c7/2eg06b6.jpg'}
-                    image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"}
-                    eventId={1}
+                    image={frontPageEvent.coverImageUrl}
+                    eventid={frontPageEvent._id}
                 />
 
                 {/*<TitleHighlighted
@@ -94,26 +138,24 @@ export default function HomePage() {
                 {/*<Categorias/>*/}
 
                 <Flex direction={'row'} mb={'20px'} mt={"20px"}  justifyContent={'space-between'} > 
-                    <TitleHighlighted
-                        text={"Eventos destacados"}
-                        highlightColor={Colors.primary.skyblue + '55'}
-                        mb={'20px'}
-                    />
+                    {/*text={"Eventos destacados"}*/}
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
                 </Flex> 
 
-                <DestacadosEventos/>
+                <DestacadosEventos
+                    isLoaded={isLoaded}
+                    data={outstandingEvents}
+                />
 
                  <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
-                    <TitleHighlighted
-                        text={"Próximos eventos"}
-                        highlightColor={Colors.primary.pink + '55'}
-                        mb={'20px'}
-                    />
+                    {/*text={"Próximos eventos"}*/}
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
                 </Flex> 
 
-                <ProximosEventos/>
+                <ProximosEventos
+                    isLoaded={isLoaded}
+                    data={events.sort((a, b) => {return a.initialDate - b.initialDate;}).slice(0,5)}
+                />
 
             </ContentBox>
 
