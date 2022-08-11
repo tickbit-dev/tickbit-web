@@ -81,6 +81,7 @@ export default function HomePage() {
 
         const campaigns_list = await getCampaignListFromBlockchain(true);
         const events_list = await getEventsListFromBlockchain(true);
+        console.log(events_list);
 
         var front_page = null;
         var outstanding = [];
@@ -109,7 +110,6 @@ export default function HomePage() {
         setEvents(events_list);
         setFrontPageEvent(front_page)
         setOutstandingEvents(outstanding)
-        setIsLoaded(true)
     }
 
     useEffect(() => {
@@ -125,8 +125,10 @@ export default function HomePage() {
                 <Buscador/>
 
                 <Portada 
-                    image={frontPageEvent.coverImageUrl}
-                    eventid={frontPageEvent._id}
+                    //image={frontPageEvent.coverImageUrl}
+                    image={'https://ticketscdn.com/images/events-info/5693/aitana-11-razones-tour-en-santander-61422027886080.75679765.jpeg'}
+                    //eventid={frontPageEvent._id}
+                    eventid={1}
                 />
 
                 {/*<TitleHighlighted
@@ -143,10 +145,10 @@ export default function HomePage() {
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
                 </Flex> 
 
-                <DestacadosEventos
+                {/*<DestacadosEventos
                     isLoaded={isLoaded}
                     data={outstandingEvents}
-                />
+            />*/}
 
                  <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
                     {/*text={"Próximos eventos"}*/}
@@ -155,8 +157,7 @@ export default function HomePage() {
                 </Flex> 
 
                 <ProximosEventos
-                    isLoaded={isLoaded}
-                    data={events.sort((a, b) => {return a.initialDate - b.initialDate;}).slice(0,5)}
+                    data={events.sort((a, b) => {return a.initialDate - b.initialDate;})}
                 />
 
             </ContentBox>
