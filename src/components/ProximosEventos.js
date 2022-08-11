@@ -31,18 +31,21 @@ export default function ProximosEventos({...props}) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     var number = [1,2,3,4,5,6,7,8];
-
+ 
     useEffect(() => {
-        setIsLoaded(props.isLoaded)
-    }, [props.isLoaded]);
-
+        console.log(props)
+    }, []);
+  
     useEffect(() => {
         setFeaturedEvents(props.data)
     }, [props.data]);
+  
+    
+
 
     return (
-        <Flex maxW={"100%"} direction={'row'}>
-            {isLoaded == false ? 
+        <Flex maxW={"100%"} direction={'column'}>
+            {/*isLoaded == false ? 
                 number.map((event, index) => (
                     <TicketCardLoading key={"ticketcardloading" + index} /> 
                 ))
@@ -58,8 +61,9 @@ export default function ProximosEventos({...props}) {
                         url={"/event/" + event._id}
                     />
                 ))
-            }
-            {/*isLoaded == false ? 
+                */}
+
+            {props.data == undefined ? 
 
             <Flickity
                 className={'carousel'} // default ''
@@ -84,20 +88,21 @@ export default function ProximosEventos({...props}) {
                 reloadOnUpdate // default false
                 static // default false 
             >
-                {featuredEvents.map((event, index) => (
+               { featuredEvents.map((event, index) => (
+              
                     <TicketCard 
                         key={"ticketcard" + index} 
-                        mr={"20px"}
+                        mr={"12px"}
                         titulo={event.title}
                         imagen={event.coverImageUrl}
                         fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
                         sitio={getVenueById(event.idVenue).name}
-                        url={"/eventos/aitana"}
+                        url={"/event/" + event._id}
                     />
-                    
-                    ))}
+                
+                ))}
             </Flickity>
-                */}
+                }
             
         </Flex>
     )
