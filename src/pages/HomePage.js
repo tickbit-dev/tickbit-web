@@ -29,7 +29,7 @@ export default function HomePage() {
     const [outstandingEvents, setOutstandingEvents] = useState([]);
     const [events, setEvents] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [frontPageEvent, setFrontPageEvent] = useState({});
+    const [frontPageEvent, setFrontPageEvent] = useState(null);
 
     /*async function readCurrentCampaigns() {
         const WEEK_DAY = new Date().getDay() > 0 ? new Date().getDay() - 1 : 6;
@@ -125,8 +125,8 @@ export default function HomePage() {
                 <Buscador/>
 
                 <Portada 
-                    image={frontPageEvent.coverImageUrl}
-                    eventid={frontPageEvent._id}
+                    image={frontPageEvent != null ? frontPageEvent.coverImageUrl : null}
+                    eventid={frontPageEvent != null ? frontPageEvent._id : 0}
                 />
 
                 {/*<TitleHighlighted
