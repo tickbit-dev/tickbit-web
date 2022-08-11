@@ -21,7 +21,8 @@ import TicketCardLoading from './TicketCardLoading';
 const flickityOptions = {
     initialIndex: 0,
     pageDots: false,
-    contain: true
+    contain: true,
+    cellAlign: 'left'
 }
 
 export default function ProximosEventos({...props}) {
@@ -91,7 +92,8 @@ export default function ProximosEventos({...props}) {
                { featuredEvents.map((event, index) => (
               
                     <TicketCard 
-                        key={"ticketcard" + index} 
+                        key={"ticketcard" + index}
+                        index={index}
                         mr={"12px"}
                         titulo={event.title}
                         imagen={event.coverImageUrl}

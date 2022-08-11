@@ -17,18 +17,18 @@ export default function TicketCard({...props}) {
     const OFFSET_SOMBRA = 10
 
     useEffect(() => {
-        getAverageColor(props.imagen).then(rgb => {
-            console.log(rgb)
+        getAverageColor(document.getElementById("ticketcard" + props.index).src).then(rgb => {
+            console.log(document.getElementById("ticketcard" + props.index).src)
             setState(rgb)
         }) // { r: 66, g: 83, b: 25 }
     }, []);
 
     return (
-        <Box minW={(1280/5) - 12 - 16/4} h={ALTURA_TICKET + 20 + "px"} role={'group'} transition="all .3s ease" {...props}>
-            <Flex w={"100%"} as={"button"} transition="all .4s ease" onClick={() => window.open(props.url, '_self')} _groupHover={{transform: 'scale(1.01)'}} flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} borderRadius={16} overflow="hidden">
+        <Box minW={(1280/5) - 12 - 16/4} h={ALTURA_TICKET + 20 + "px"} {...props}>
+            <Flex w={"100%"} transition="all .4s ease" _hover={{transform: 'scale(1.01)'}} flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} borderRadius={16} overflow="hidden">
                 
-                {props.imagen ? <Image position={"absolute"} h={"55%"} w={"100%"} objectFit="cover" src={props.imagen}/> : null}
-                <Box position={"absolute"} borderTopRadius={0} overflow={"hidden"} w={"full"} h={"45%"} top={"55%"} bg={'rgba(' + (state.r - 10) + ',' + (state.g - 10) + ',' + (state.b - 10) + ')'}/>
+                {props.imagen ? <Image id={"ticketcard" + props.index} position={"absolute"} h={"55%"} w={"100%"} objectFit="cover" src={props.imagen}/> : null}
+                <Box position={"absolute"} borderTopRadius={0} overflow={"hidden"} w={"full"} h={"45%"} top={"55%"} bg={'rgba(' + (state.r) + ',' + (state.g) + ',' + (state.b) + ')'}/>
 
                 <Box position={"absolute"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"} mt={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"}/>
                 <Box position={"absolute"} top={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} left={"100%"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"}/>
@@ -47,7 +47,7 @@ export default function TicketCard({...props}) {
                                     <Text color={"white"} fontSize={13} fontFamily={"Montserrat"} fontWeight={"600"} ml={"6px"} textAlign="left">{props.sitio}</Text>
                                 </Flex>
                             </Flex>
-                            <Flex as={"button"} onClick={() => window.open(props.url, '_self')} _groupHover={{backgroundColor: "rgba(255,255,255,0.3)"}} transition="all .6s ease" w={"100%"} h={"45px"} bg={"rgba(255,255,255,0.2)"} borderRadius={"12px"} alignItems={"center"} justifyContent={"center"}>
+                            <Flex as={"button"} onClick={() => window.open(props.url, '_self')} _hover={{backgroundColor: "rgba(255,255,255,0.3)"}} transition="all .6s ease" w={"100%"} h={"45px"} bg={"rgba(255,255,255,0.2)"} borderRadius={"12px"} alignItems={"center"} justifyContent={"center"}>
                                 <HiTicket color={"white"}/>
                                 <Text ml={"10px"} color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Comprar tickets</Text>
                             </Flex>
