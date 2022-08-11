@@ -17,6 +17,13 @@ import Web3Modal from 'web3modal';
 import TicketCardLoading from './TicketCardLoading';
 
 
+const flickityLoadingOptions = {
+    initialIndex: 0,
+    pageDots: false,
+    contain: true,
+    cellAlign: 'left',
+    prevNextButtons: false
+}
 
 const flickityOptions = {
     initialIndex: 0,
@@ -31,81 +38,63 @@ export default function ProximosEventos({...props}) {
     const [featuredEventsId, setFeaturedEventsId] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    var number = [1,2,3,4,5,6,7,8];
+    var number = [1,2,3,4,5];
  
     useEffect(() => {
-        console.log(props)
+        //console.log(props)
     }, []);
   
     useEffect(() => {
         setFeaturedEvents(props.data)
     }, [props.data]);
   
-    
-
+    useEffect(() => {
+        setIsLoaded(props.isLoaded)
+    }, [props.isLoaded]);
 
     return (
         <Flex maxW={"100%"} direction={'column'}>
-            {/*isLoaded == false ? 
-                number.map((event, index) => (
-                    <TicketCardLoading key={"ticketcardloading" + index} /> 
-                ))
-            :
-                featuredEvents.map((event, index) => (
-                    <TicketCard 
-                        key={"ticketcard" + index} 
-                        mr={"12px"}
-                        titulo={event.title}
-                        imagen={event.coverImageUrl}
-                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                        sitio={getVenueById(event.idVenue).name}
-                        url={"/event/" + event._id}
-                    />
-                ))
-                */}
-
-            {props.data == undefined ? 
-
-            <Flickity
-                className={'carousel'} // default ''
-                elementType={'div'} // default 'div'
-                options={flickityOptions} // takes flickity options {}
-                disableImagesLoaded={false} // default false
-                reloadOnUpdate // default false
-                static // default false 
-              >
-                {number.map((event, index) => (
-                    <TicketCardLoading key={"ticketcardloading" + index} /> 
-                )) }
-            </Flickity>
-            
-            :
-            
-            <Flickity
-                className={'carousel'} // default ''
-                elementType={'div'} // default 'div'
-                options={flickityOptions} // takes flickity options {}
-                disableImagesLoaded={false} // default false
-                reloadOnUpdate // default false
-                static // default false 
-            >
-               { featuredEvents.map((event, index) => (
-              
-                    <TicketCard 
-                        key={"ticketcard" + index}
-                        index={index}
-                        mr={"12px"}
-                        titulo={event.title}
-                        imagen={event.coverImageUrl}
-                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                        sitio={getVenueById(event.idVenue).name}
-                        url={"/event/" + event._id}
-                    />
-                
-                ))}
-            </Flickity>
-                }
-            
+            {featuredEvents.length == 0 ? 
+                <Flickity
+                    key={"FlickityLoading"}
+                    className={'carousel'} // default ''
+                    elementType={'div'} // default 'div'
+                    options={flickityLoadingOptions} // takes flickity options {}
+                    disableImagesLoaded={false} // default false
+                    reloadOnUpdate // default false
+                    static // default false
+                >
+                    {number.map((event, index) => (
+                        <TicketCard 
+                            loading={true}
+                            mr={"12px"}
+                        />
+                    ))}
+                </Flickity>
+            : 
+                <Flickity
+                    key={"Flickity"}
+                    className={'carousel'} // default ''
+                    elementType={'div'} // default 'div'
+                    options={flickityOptions} // takes flickity options {}
+                    disableImagesLoaded={false} // default false
+                    reloadOnUpdate // default false
+                    static // default false
+                >
+                    {featuredEvents.map((event, index) => (
+                        <TicketCard 
+                            key={"ticketcard" + index}
+                            index={index}
+                            mr={"12px"}
+                            titulo={event.title}
+                            imagen={event.coverImageUrl}
+                            fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                            sitio={getVenueById(event.idVenue).name}
+                            url={"/event/" + event._id}
+                        />
+                    ))}
+                </Flickity>
+            }
         </Flex>
     )
 }

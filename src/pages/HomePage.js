@@ -31,57 +31,12 @@ export default function HomePage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [frontPageEvent, setFrontPageEvent] = useState(null);
 
-    /*async function readCurrentCampaigns() {
-        const WEEK_DAY = new Date().getDay() > 0 ? new Date().getDay() - 1 : 6;
-        const NOW_DATE = moment(new Date()).subtract(WEEK_DAY, 'days').format('YYYY-MM-DD');
-
-        const provider = new ethers.providers.JsonRpcProvider(RPC_URL_PROCIVER)
-        const contract = new ethers.Contract(contractAddress, Tickbit.abi, provider)
-    
-        const data = await contract.getCurrentCampaigns(moment(NOW_DATE).unix());
-        const item_data = await Promise.all(data);
-
-        let itemsArray = [];
-
-        for (let item of item_data) {
-            itemsArray.push(
-                newCampaign(
-                    item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4], item[5], item[6], item[7]
-                )
-            );
-        }
-
-        return itemsArray;
-    }
-
-    async function getData(){
-        var event = null;
-
-        const items_list = await readCurrentCampaigns();
-
-        for (let item of items_list) {
-            if(item.idType == 1){
-                event = await readEventbyId(item.eventId, false);
-            }
-        }
-
-        setCampaigns(items_list);
-        setFrontPageEvent(event)
-        setIsLoaded(true)
-    }
-
-    useEffect(() => {
-        getData();
-        //readCurrentCampaigns()
-    }, []);*/
-
     async function getData(){
         const WEEK_DAY = new Date().getDay() > 0 ? new Date().getDay() - 1 : 6;
         const NOW_DATE = moment(new Date()).subtract(WEEK_DAY, 'days').unix();
 
         const campaigns_list = await getCampaignListFromBlockchain(true);
         const events_list = await getEventsListFromBlockchain(true);
-        console.log(events_list);
 
         var front_page = null;
         var outstanding = [];
@@ -139,18 +94,19 @@ export default function HomePage() {
 
                 <Flex direction={'row'} mb={'20px'} mt={"20px"}  justifyContent={'space-between'} > 
                     {/*text={"Eventos destacados"}*/}
-                    <Heading>Eventos destacados</Heading>
+                    <Heading mb={"-10px"}>Eventos destacados</Heading>
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
                 </Flex> 
 
-                {/*<DestacadosEventos
+
+                <DestacadosEventos
                     isLoaded={isLoaded}
                     data={outstandingEvents}
-            />*/}
+                />
 
                  <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
                     {/*text={"Próximos eventos"}*/}
-                    <Heading>Próximos eventos</Heading>
+                    <Heading mb={"-10px"}>Próximos eventos</Heading>
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
                 </Flex> 
 
