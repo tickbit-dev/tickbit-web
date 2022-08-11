@@ -1,5 +1,5 @@
 //Libraries
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -139,6 +139,7 @@ export default function HomePage() {
 
                 <Flex direction={'row'} mb={'20px'} mt={"20px"}  justifyContent={'space-between'} > 
                     {/*text={"Eventos destacados"}*/}
+                    <Heading>Eventos destacados</Heading>
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
                 </Flex> 
 
@@ -149,6 +150,7 @@ export default function HomePage() {
 
                  <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
                     {/*text={"Próximos eventos"}*/}
+                    <Heading>Próximos eventos</Heading>
                     <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
                 </Flex> 
 

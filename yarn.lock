@@ -5650,6 +5650,11 @@
   "resolved" "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"
   "version" "1.0.0-beta.2"
 
+"get-average-color@^0.0.6":
+  "integrity" "sha512-rYV3yYW8JfLvPFRfZvlyQC/fOO6sjxSiXu3SnmDP5pRZIyBHYKw0jU52hAGFelZgScDAOcYhua0L3lbTZQg3Mg=="
+  "resolved" "https://registry.npmjs.org/get-average-color/-/get-average-color-0.0.6.tgz"
+  "version" "0.0.6"
+
 "get-caller-file@^2.0.5":
   "integrity" "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="
   "resolved" "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz"

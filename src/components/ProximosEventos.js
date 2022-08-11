@@ -2,7 +2,7 @@
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/Colors';
-import TicketCard from '../components/TicketCard';
+import TicketCard from '../components/TicketCard2';
 import { cutIntervalDate, getCampaignListFromBlockchain, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
 import moment from 'moment';
 import Flickity from 'react-flickity-component';
@@ -50,7 +50,7 @@ export default function ProximosEventos({...props}) {
                 featuredEvents.map((event, index) => (
                     <TicketCard 
                         key={"ticketcard" + index} 
-                        mr={"20px"}
+                        mr={"12px"}
                         titulo={event.title}
                         imagen={event.coverImageUrl}
                         fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}

@@ -50,7 +50,7 @@ export default function DestacadosEventos({...props}) {
                 featuredEvents.map((event, index) => (
                     <TicketCard 
                         key={"ticketcard" + index} 
-                        mr={"20px"}
+                        mr={"12px"}
                         titulo={event.title}
                         imagen={event.coverImageUrl}
                         fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
