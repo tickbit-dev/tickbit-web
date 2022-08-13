@@ -17,9 +17,11 @@ export default function TicketCard({...props}) {
     const OFFSET_SOMBRA = 10
 
     useEffect(() => {
-        getAverageColor(props.imagen).then(rgb => {
-            setState(rgb)
-        }) // { r: 66, g: 83, b: 25 }
+        if(!props.loading){
+            getAverageColor(props.imagen).then(rgb => {
+                setState(rgb)
+            }) // { r: 66, g: 83, b: 25 }
+        }
     }, []);
 
     return (
@@ -27,11 +29,11 @@ export default function TicketCard({...props}) {
             <Flex w={"100%"} transition="all .4s ease" _hover={{transform: 'scale(1.01)'}} flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} borderRadius={16} overflow="hidden">
                 
 
-                {props.imagen ? <Image id={"ticketcard" + props.index} position={"absolute"} h={"55%"} w={"100%"} objectFit="cover" src={props.imagen}/> : null}
-                <Box position={"absolute"} borderTopRadius={0} overflow={"hidden"} w={"full"} h={"45%"} top={"55%"} bg={'rgba(' + (state.r) + ',' + (state.g) + ',' + (state.b) + ')'}/>
+                {!props.loading ? props.imagen ? <Image id={"ticketcard" + props.index} position={"absolute"} h={"55%"} w={"100%"} objectFit="cover" src={props.imagen}/> : null : null}
+                {!props.loading ? <Box position={"absolute"} borderTopRadius={0} overflow={"hidden"} w={"full"} h={"45%"} top={"55%"} bg={'rgba(' + (state.r) + ',' + (state.g) + ',' + (state.b) + ')'}/> : null}
 
-                <Box position={"absolute"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"} mt={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"}/>
-                <Box position={"absolute"} top={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} left={"100%"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"}/>
+                {!props.loading ? <Box position={"absolute"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"} mt={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"}/> : null}
+                {!props.loading ? <Box position={"absolute"} top={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} left={"100%"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"}/> : null}
                 
                 {!props.loading ?
                     <Flex zIndex={1} flex={1} w={"full"} h={"full"} alignItems={"end"}>

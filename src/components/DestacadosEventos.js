@@ -1,5 +1,5 @@
 //Libraries
-import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/Colors';
 import TicketCard from '../components/TicketCard2';
@@ -66,7 +66,8 @@ export default function ProximosEventos({...props}) {
                 >
                     {number.map((event, index) => (
                         <TicketCard 
-                            loading={true}
+                            key={"ticketcardloading" + index}
+                            loading={1}
                             mr={"12px"}
                         />
                     ))}

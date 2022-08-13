@@ -66,7 +66,8 @@ export default function ProximosEventos({...props}) {
                 >
                     {number.map((event, index) => (
                         <TicketCard 
-                            loading={true}
+                            key={"ticketcardloading" + index}
+                            loading={1}
                             mr={"12px"}
                         />
                     ))}
