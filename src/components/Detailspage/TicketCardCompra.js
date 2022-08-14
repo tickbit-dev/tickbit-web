@@ -23,7 +23,7 @@ export default function TicketCardCompra({...props}) {
             </Flex>
             
             <Flex  direction={{base:"column", md:"row"}} flex= {0.8} mt={{base:'10',md:'0'}}>
-                <Flex   direction={"column"} marginTop={"auto"} marginBottom={"auto"} flex={{base:'0.5',md:'0.65'}}  flex={{base:0.4,md:0.7}}>
+                <Flex   direction={"column"} marginTop={"auto"} marginBottom={"auto"} flex={{base:'0.5',md:'0.65'}}>
                         <Flex marginLeft={5}>
                             <IoLocationOutline  strokeWidth="0.2" size={30}/>
                             <Text fontFamily={'Montserrat'} marginTop={'auto'} marginBottom={'auto'} ml={2}  fontWeight={"bold"}>Lugar: &nbsp;</Text>

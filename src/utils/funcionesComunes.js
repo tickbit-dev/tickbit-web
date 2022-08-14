@@ -763,16 +763,16 @@ export async function createTicketOnBlockchain() {
     await transaction.wait()
 }
 
-export async function buyTicket(idEvent, price) {
+export async function buyTicket(idEvent, noOfTickets, price) {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
-
     try {
+        console.log(price.toString())
         const finalprice = ethers.utils.parseUnits(price.toString())
-        const transaction = await contract.buyTicket(idEvent, {value: finalprice});
+        const transaction = await contract.buyTicket(idEvent, noOfTickets, {value: finalprice});
         await transaction.wait()
 
         return transaction;

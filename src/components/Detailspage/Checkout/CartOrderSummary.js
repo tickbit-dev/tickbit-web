@@ -27,10 +27,8 @@ import { buyTicket } from '../../../utils/funcionesComunes'
   export const CartOrderSummary = (props) => {
     const toast = useToast();
     async function onBuyingTickets(){
-   
-
-      const transaction = await buyTicket(props.idEvento, props.precio);
-  
+      const transaction = await buyTicket(props.event._id, props.numTickets, parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket * props.numTickets).toFixed(4));
+      
       if(transaction == null){
         toast({
           title: 'Error al realizar el pago',
@@ -53,7 +51,7 @@ import { buyTicket } from '../../../utils/funcionesComunes'
         <Stack spacing="6" position={"relative"}>
           <OrderSummaryItem label="Subtotal" value={parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}/>
           <OrderSummaryItem label={"Número de tickets"} value={props.numTickets + " " + (props.numTickets == 1 ? " Ticket" : " Tickets")}/>
-          <OrderSummaryItem label="Comisión plataforma" value={'1%'}/>
+          <OrderSummaryItem label="Comisión de la plataforma" value={'1%'}/>
           <Text color={"gray.400"} fontSize={11} position={'absolute'} top={"90px"} textAlign={'left'}>(*) Comisión ya incluída en el precio</Text>
           <Flex height={"10px"}/>
           <Flex justify="space-between">
