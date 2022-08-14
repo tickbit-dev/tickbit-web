@@ -3,22 +3,6 @@ import * as React from 'react'
 
 import { CartProductMeta } from './CartProductMeta'
 
-const QuantitySelect = (props) => {
-  return (
-    <Select
-      maxW="64px"
-      aria-label="Select quantity"
-      focusBorderColor={useColorModeValue('blue.500', 'blue.200')}
-      defaultValue={1}
-    >
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </Select>
-  )
-}
-
 export const CartItem = (props) => {
   const {
     isGiftWrapping,
@@ -41,11 +25,7 @@ export const CartItem = (props) => {
       align="center"
     >
       <CartProductMeta
-        name={props.tituloevento + ' ' + '-' + ' ' + props.artista}
-        categoria={props.categoria}
-        image={props.image}
-        date={props.fecha2}
-        venue={props.recinto}
+        event={props.event}
       />
 
       {/* Desktop */}
@@ -58,7 +38,7 @@ export const CartItem = (props) => {
         }}
       >
        <Text>N.º tickets {props.numTickets}</Text>
-        <Text ml={'auto'}>{props.precio}</Text>
+        <Text ml={'auto'}>{props.usdPricePerTicket +'$'+' ' + '≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC' + '/entrada'}</Text>
       </Flex>
 
       {/* Mobile */}
@@ -73,7 +53,7 @@ export const CartItem = (props) => {
         }}
       >
          <Text>N.º tickets: {props.numTickets}</Text>
-        <Text>{props.precio.toString()}</Text>
+        <Text>{props.usdPricePerTicket +'$'+' ' + '≈' +' '+ (props.maticUsdConversion).toFixed(4) + ' ' + 'MATIC' + '/entrada'}</Text>
       </Flex>
     </Flex>
   )

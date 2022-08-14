@@ -10,7 +10,6 @@ import {
   import * as React from 'react'
   import { CartItem } from './Checkout/CartItem';
   import { CartOrderSummary } from './Checkout/CartOrderSummary'
-  import { cartData } from './Checkout/_data'
   
   export default function EventDetailsPage({...props}) {
     return(
@@ -54,12 +53,28 @@ import {
           </Heading>
   
           <Stack spacing="6">
-              <CartItem  {...props} />
+              <CartItem
+                event={props.event}
+                isEventLoaded={props.isEventLoaded}
+                isPriceLoaded={props.isPriceLoaded}
+                usdPricePerTicket={props.usdPricePerTicket}
+                maticUsdConversion={props.maticUsdConversion}
+                numTickets={props.numTickets}
+              />
           </Stack>
         </Stack>
   
         <Flex direction="column" align="center" flex="1">
-          <CartOrderSummary precio={props.precioMatic} idEvento={props.idEvento} onPrev={() => {props.onPrev()}} onNext={() => {props.onNext()}} />
+          <CartOrderSummary
+            event={props.event}
+            isEventLoaded={props.isEventLoaded}
+            isPriceLoaded={props.isPriceLoaded}
+            usdPricePerTicket={props.usdPricePerTicket}
+            maticUsdConversion={props.maticUsdConversion}
+            numTickets={props.numTickets}
+            onPrev={() => {props.onPrev()}}
+            onNext={() => {props.onNext()}}
+          />
 
         </Flex>
       </Stack>

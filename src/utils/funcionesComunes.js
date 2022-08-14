@@ -98,14 +98,14 @@ export function getValueFromMonthAbreviation(month) {
     else if (month == 'Dic') return 11;
 }
 
-export function momentDaytoSpanishDay(day){
-    if(day == 'Mon') return 'Lunes';
-    else if(day == 'Tue') return 'Martes';
-    else if(day == 'Wed') return 'Miércoles';
-    else if(day == 'Thu') return 'Jueves';
-    else if(day == 'Fri') return 'Viernes';
-    else if(day == 'Sat') return 'Sábado';
-    else if(day == 'Sun') return 'Domingo';
+export function getSpanishWeekDayString(timestamp){
+    if(timestamp.getDay() == 1) return 'Lunes';
+    else if(timestamp.getDay() == 2) return 'Martes';
+    else if(timestamp.getDay() == 3) return 'Miércoles';
+    else if(timestamp.getDay() == 4) return 'Jueves';
+    else if(timestamp.getDay() == 5) return 'Viernes';
+    else if(timestamp.getDay() == 6) return 'Sábado';
+    else if(timestamp.getDay() == 0) return 'Domingo';
 }
 
 export function dateValidation(date) {
@@ -848,4 +848,14 @@ export async function getCampaignListFromBlockchain(isPublicRead) {
     }
 
     return itemsArray.reverse();
+}
+
+export async function checkAvailabilityByEventId(eventId){
+    /* create a generic provider and query for unsold market items */
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL_PROCIVER)
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, provider)
+
+    const data = await contract.checkAvailavilityFromIdEvent(BigNumber.from(String(eventId)));
+
+    return data.toNumber();
 }

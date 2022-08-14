@@ -16,13 +16,16 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
-import { buyTicket, changeNumberforNameMonth, cutIntervalDate, getCategoryById, getVenueById, momentDaytoSpanishDay, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
+import { buyTicket, changeNumberforNameMonth, checkAvailabilityByEventId, cutIntervalDate, getCategoryById, getVenueById, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
 //import { contractAddress } from '../solidity/config';
 //import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
     const [event, setEvent] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [availability, setAvailability] = useState(0);
+
+    const [isEventLoaded, setIsEventLoaded] = useState(false);
+    const [isPriceLoaded, setIsPriceLoaded] = useState(false);
     const [usdConversion, setUsdConversion] = useState();
     const [day, setDay] = useState();
     const [numTickets, setNumTickets] = useState(1);
@@ -32,19 +35,19 @@ export default function EventDetailsPage({...props}) {
 
     async function getData(){
         const item = await readEventbyId(params.eventId, true);
+        const availabilityNumber = await checkAvailabilityByEventId(params.eventId);
 
         setEvent(item)
-        fecha = moment(item.initialDate * 1000);
-        setDay((fecha._d).toString().slice(0,3));
-        setIsLoaded(true)
+        setAvailability(availabilityNumber);
+        setIsEventLoaded(true)
     }
 
     function getEurToMaticConversion() {
         fetch('https://api.binance.com/api/v3/ticker/price?symbol=MATICUSDT')
             .then(response => response.text())
             .then(data => {
-                setUsdConversion(JSON.parse(data).price.slice(0,6))
-                //setIsPriceLoaded(true)
+                setUsdConversion(parseFloat(JSON.parse(data).price).toFixed(4))
+                setIsPriceLoaded(true)
             })
             .catch(error => {
                 // handle the error
@@ -61,43 +64,21 @@ export default function EventDetailsPage({...props}) {
         <Box maxW={"100%"} overflow={"hidden"} minH={'100vh'}>
             <NavigationBar/>
             <ContentBox>
-            <Box mt={10}>
-                <Pasos 
-                    image={event.coverImageUrl}
-                    idEvento={params.eventId}
-                    tituloevento={event.title}
-                    artista={event.artist}
-                    fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                    categoria={getCategoryById(event.idCategory).name}
-                    description={event.description}
-                    precio={event.price +'$'+' ' + '≈' +' '+(usdConversion * event.price).toString().slice(0,6)+ ' ' + 'MATIC' + '/entrada'}
-                    recinto={getVenueById(event.idVenue).name}
-                    fecha2={momentDaytoSpanishDay(day) + ',' + ' ' + cutIntervalDate(event.initialDate)}
-                    onChangeNumTickets={(num) => setNumTickets(num)}
-                    numTickets={numTickets}
-                    precio2={(event.price * numTickets) +'$'+' ' + '≈' +' '+(usdConversion * event.price * numTickets)+ ' ' + 'MATIC' + '/entrada'} 
-                    precioMatic={(usdConversion * event.price * numTickets)}     
-                />
-            </Box>
-               
-
+                <Box mt={10}>
+                    <Pasos 
+                        event={event}
+                        availability={availability}
+                        onChangeNumTickets={(num) => setNumTickets(num)}
+                        isEventLoaded={isEventLoaded}
+                        isPriceLoaded={isPriceLoaded}
+                        numTickets={numTickets}
+                        usdPricePerTicket={event.price}
+                        maticUsdConversion={parseFloat(usdConversion)}
+                    />
+                </Box>
             </ContentBox>
             <Spacer/>
             <Footer/>
-            
-
-            
-            {/*
-             <Portada image={"https://www.baccredomatic.com/sites/default/files/2022-02/GT-MOMENTOS-BANNER-BAD-BUNNY-CONCIERTO-070222_0.jpg"}/>
-                PARA EL FOOTER
-            
-            ContentBox bg={Colors.secondary.gray}>
-
-                <Flex w={"100%"} h={"300px"} bg={Colors.secondary.gray}>
-                    <Text color={"white"}>Josepe fotter</Text>
-                </Flex>
-
-            </ContentBox>*/}
         </Box>
     );
 };

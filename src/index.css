@@ -81,3 +81,8 @@ code {
 .slick-prev:before {
   content: '' !important
 }
+
+/* ---- Pasos compra ---- */
+.css-1wd0e66[aria-current="step"] {
+  border-color: transparent !important;
+}

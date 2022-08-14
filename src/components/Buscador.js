@@ -25,6 +25,7 @@ export default function Buscador({...props}) {
                     pl={{base: "62px", md: "70px"}}
                     zIndex={1}
                     fontFamily={"Montserrat"}
+                    onChange={(event) => props.onChange(event, 'TEXT')}
                     fontWeight={500}
                     _hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
                     transition="all .6s ease"
@@ -48,6 +49,7 @@ export default function Buscador({...props}) {
                     bg={"transparent"}
                     h={"50px"}
                     w={"full"}
+                    onChange={(event) => props.onChange(event, 'CITY')}
                     fontFamily={"Montserrat"}
                     borderRadius={"14px"}
                     fontWeight={500}
@@ -57,8 +59,8 @@ export default function Buscador({...props}) {
                     iconColor={'#b7bfc9'}
                     iconSize={"17px"}
                 >
-                    <option>Barcelona</option>
-                    <option>Madrid</option>
+                    <option value={1}>Barcelona</option>
+                    <option value={2}>Madrid</option>
                 </Select>
             </Flex>
             <Button 

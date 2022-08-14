@@ -24,6 +24,12 @@ export default function TicketCard({...props}) {
         }
     }, []);
 
+    useEffect(() => {
+        getAverageColor(props.imagen).then(rgb => {
+            setState(rgb)
+        })
+    }, [props.updatecolor]);
+
     return (
         <Box maxW={(1280/5) - 12 - 16/4} w={(1280/5) - 12 - 16/4} h={ALTURA_TICKET + 20 + "px"} mt={"10px"} {...props}>
             <Flex w={"100%"} transition="all .4s ease" _hover={{transform: 'scale(1.01)'}} flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} borderRadius={16} overflow="hidden">

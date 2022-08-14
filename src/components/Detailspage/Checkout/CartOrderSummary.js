@@ -42,7 +42,6 @@ import { buyTicket } from '../../../utils/funcionesComunes'
         props.onPrev();
 
       } else {
-        console.log('asssssssssssss')
         props.onNext();
       }
   }
@@ -51,17 +50,19 @@ import { buyTicket } from '../../../utils/funcionesComunes'
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
         <Heading size="md">Importe de la compra</Heading>
   
-        <Stack spacing="6">
-          <OrderSummaryItem label="Subtotal" value={props.precio.toString().slice(0,6) + ' ' + 'Matic'} />
-          <OrderSummaryItem label="Comisión plataforma" value={'1%'}>
- 
-          </OrderSummaryItem>
+        <Stack spacing="6" position={"relative"}>
+          <OrderSummaryItem label="Subtotal" value={parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}/>
+          <OrderSummaryItem label={"Número de tickets"} value={props.numTickets + " " + (props.numTickets == 1 ? " Ticket" : " Tickets")}/>
+          <OrderSummaryItem label="Comisión plataforma" value={'1%'}/>
+          <Text color={"gray.400"} fontSize={11} position={'absolute'} top={"90px"} textAlign={'left'}>(*) Comisión ya incluída en el precio</Text>
+          <Flex height={"10px"}/>
           <Flex justify="space-between">
             <Text fontSize="lg" fontWeight="semibold">
               Total
             </Text>
             <Text fontSize="xl" fontWeight="extrabold">
-              {props.precio.toString().slice(0,6) + ' ' + 'Matic'}
+              {/*props.usdPricePerTicket +'$'+' ' + '≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC' + '/entrada'*/}
+              {parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket * props.numTickets).toFixed(4) + ' ' + 'MATIC'}
             </Text>
           </Flex>
         </Stack>
