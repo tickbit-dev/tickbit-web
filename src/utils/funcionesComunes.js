@@ -750,6 +750,38 @@ export async function getTicketsListFromTest() {
         )
     ])
 }
+export async function getMyTicketsList() {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer);
+    const data = await contract.readTickets();
+    const item_data = await Promise.all(data);
+
+    let itemsArray = [];
+
+    /*
+    [0] address _owner;
+    [1] uint _id;
+    [2] uint256 _purchaseDate;
+    [3] uint256 idVenue;
+    [4] uint256 idEvent;
+    [5] uint256 idZona;
+    [6] uint256 price;
+    */
+
+    for (let item of item_data) {
+        itemsArray.push(
+            newTicket(
+                item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6].toNumber()
+            )
+        );
+    }
+
+    return itemsArray.reverse();
+}
 
 export async function createTicketOnBlockchain() {
     const web3Modal = new Web3Modal()
