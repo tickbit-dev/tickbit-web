@@ -596,8 +596,8 @@ export async function readEventbyId(eventId, isPublicRead) {
 
 ///////// TICKETS /////////
 
-function newTicket(_owner, _eventOwner, _id, _purchaseDate, idEvent, price) {
-    return { _owner, _eventOwner, _id, _purchaseDate, idEvent, price };
+function newTicket(_owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated) {
+    return { _owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated};
 }
 
 export async function getTicketsListFromBlockchain() {
@@ -614,8 +614,8 @@ export async function getTicketsListFromBlockchain() {
 
     /*
     [0] address _owner;
-    [1] address _eventOwner;
-    [2] uint _id;
+    [1] uint _eventOwner;
+    [2] uint256 _id;
     [3] uint256 _purchaseDate;
     [4] uint256 idEvent;
     [5] uint256 price;
@@ -624,7 +624,7 @@ export async function getTicketsListFromBlockchain() {
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber()
+                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6]
             )
         );
     }
@@ -764,18 +764,17 @@ export async function getMyTicketsList() {
 
     /*
     [0] address _owner;
-    [1] uint _id;
-    [2] uint256 _purchaseDate;
-    [3] uint256 idVenue;
+    [1] uint _eventOwner;
+    [2] uint256 _id;
+    [3] uint256 _purchaseDate;
     [4] uint256 idEvent;
-    [5] uint256 idZona;
-    [6] uint256 price;
+    [5] uint256 price;
     */
 
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1].toNumber(), item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6].toNumber()
+                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6]
             )
         );
     }
