@@ -1,6 +1,7 @@
 //Libraries
 import { useState, useEffect, useRef } from 'react';
 import { Box, Image, Text, Button, useToast, Flex, Menu, MenuButton, Avatar, MenuList, MenuItem, MenuDivider, Link } from '@chakra-ui/react';
+import {useNavigate} from 'react-router-dom';
 //import Cookies from 'js-cookie';
 
 //Images & Icons
@@ -17,7 +18,8 @@ import Colors from '../../constants/Colors';
 export default function MetamaskButton({...props}) {
     const [userAddress, setUserAddress] = useState(null);
     const prevUserAddress = usePrevious({userAddress});
-    const toast = useToast()
+    const toast = useToast();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getCurrentUserAddress();
@@ -169,7 +171,7 @@ export default function MetamaskButton({...props}) {
                         </Link>
                     </MenuItem>
                     <MenuItem _focus={{bg: 'none'}}>
-                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
+                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} onClick={() => navigate('/tickets')} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
                             <Flex alignItems={"center"}>
                                 <HiTicket/>
                                 <Text ml={"10px"} fontFamily={"Montserrat"} fontSize={"15px"} fontWeight={"medium"} _groupHover={{ color: 'pink.400'}} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>Mis tickets</Text>
