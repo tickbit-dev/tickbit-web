@@ -1,6 +1,6 @@
 //Libraries
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Button, Input, Heading, Image } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast } from '@chakra-ui/react';
 
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -19,20 +19,49 @@ import TickbitTicket from '../solidity/artifacts/contracts/TickbitTicket.sol/Tic
 import Web3Modal from 'web3modal';
 import moment from 'moment';
 import Portada from '../components/Portada';
-import { cutIntervalDate, getEventById, getEventsListFromBlockchain, getEventsListFromTest, getMyTicketsList, getSpanishWeekDayString, getTicketsListFromBlockchain, getTicketsListFromTest, getVenueById, newEvent, readEventbyId } from '../utils/funcionesComunes';
+import { cutIntervalDate, getEventById, getEventsListFromBlockchain, getEventsListFromTest, getMyTicketsList, getSpanishWeekDayString, getTicketsListFromBlockchain, getTicketsListFromTest, getVenueById, newEvent, readEventbyId, validateTicket } from '../utils/funcionesComunes';
 import Asientoscard from '../components/Asientoscard';
 import Colors from '../constants/Colors';
 import TipoTicketsMyTickets from '../components/TipoTicketsMyTickets';
+import { QrReader } from 'react-qr-reader';
 
 
 export default function MyTicketsPage({...props}) {
+    const toast = useToast();
+
     const [itemsList, setItemsList] = useState([]);
     const [eventsList, setEventsList] = useState([]);
     const [availableTickets, setAvailableTickets] = useState([]);
     const [endedTickets, setEndedTickets] = useState([]);
+
+    const [selectedTicket, setSelectedTicket] = useState(0);
+    const [validationHash, setValidationHash] = useState(undefined);
     
     const [isLoaded, setIsLoaded] = useState(false);
     const now = moment(new Date()).unix();
+
+    async function sendValidation(){
+        const transaction = await validateTicket(selectedTicket, validationHash)
+        if(transaction == null){
+            //Enseñamos un toast de error
+            toast({
+                title: 'Error al verificar el ticket',
+                description: "No se ha podido verificar el ticket debido a un error.",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        } else {
+            //Enseñamos un toast de éxito
+            toast({
+                title: 'Ticket validado',
+                description: "Se ha validado el ticket.",
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
+    }
 
     async function getData(){
         var items_list = [];
@@ -55,12 +84,38 @@ export default function MyTicketsPage({...props}) {
         getData();
     }, []);
 
+    useEffect(() => {
+        if(validationHash){
+            sendValidation();
+        }
+    }, [validationHash]);
+
     return (
         <Box>
             <NavigationBar/>
             <ContentBox py={"30px"}>
                 <Heading mb={"30px"}>Mis tickets</Heading>
-                <TipoTicketsMyTickets/>
+                {/*<TipoTicketsMyTickets/>*/}
+                {selectedTicket != 0 ?
+                    <Flex>
+                        <Text>LEYENDO...</Text>
+                        <QrReader
+                            constraints={{
+                                facingMode: 'environment'
+                            }}
+                            onResult={(result, error) => {
+                            if (!!result) {
+                                setValidationHash(result?.text);
+                            }
+
+                            if (!!error) {
+                                console.info(error);
+                            }
+                            }}
+                            style={{ width: '100%' }}
+                        />
+                    </Flex>
+                : null}
                 {eventsList.length == 0 && itemsList.length == 0 ?
                     <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
                         <IoIosInformationCircleOutline />
@@ -68,7 +123,11 @@ export default function MyTicketsPage({...props}) {
                     </Flex>
                 :
                     itemsList.map((item) => (
-                        <TicketCard ticket={item}  eventsList={eventsList}/>
+                        <TicketCard
+                            ticket={item}
+                            eventsList={eventsList}
+                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                        />
                     ))}
               
             </ContentBox>
@@ -94,6 +153,13 @@ function TicketCard({...props}) {
                     <Text fontFamily={'Montserrat'} fontSize={"xl"} textAlign={"left"} textOverflow={"elipsis"}>{props.ticket._id}</Text>
                 </Flex>
                 <Flex  flex={0.2} ml={'auto'}  p={{base: 0, md: 10}} py={{base:2, md: 12}}>
+                    {/*props.ticket.validated == false ?*/}
+                        <Flex as={"button"} margin={"auto"}  height='50px' width='100px' borderRadius={20}  backgroundColor='black' color='white' _hover={{backgroundColor: "#333333"}} onClick={()=> {props.onTicketValidation(props.ticket._id); console.log("selectedTicket", props.ticket._id)}}>
+                            <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validar</Text>
+                        </Flex>
+                    {/*:
+                        <Text color={'black'}>Validado</Text>
+                    }*/}
                     <AiOutlineScan cursor={'pointer'} size={70}/>
                 </Flex>
                 

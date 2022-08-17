@@ -890,3 +890,20 @@ export async function checkAvailabilityByEventId(eventId){
 
     return data.toNumber();
 }
+
+export async function validateTicket(idTicket, validationHash) {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
+
+    try {
+        const transaction = await contract.validateTicket(BigNumber.from(String(idTicket)), BigNumber.from(String(validationHash)));
+        await transaction.wait()
+
+        return transaction;
+    } catch (error) {
+        console.log(error);
+    }
+}
