@@ -85,6 +85,7 @@ export default function MyTicketsPage({...props}) {
       
 
         items_list = await getMyTicketsList();
+        console.log(items_list);
         events_list = await getEventsListFromBlockchain(true);
 
         for(let i=0; i < items_list.length; i++) {
@@ -95,13 +96,13 @@ export default function MyTicketsPage({...props}) {
             if(items_list[i].validated == true || items_list[i].finalDate < now){
                 endedTickets_list.push(items_list[i]);
             }
-        
+        }
         //setItemsList(items_list);
         setAvailableTickets(availableTickets_list);
         setEndedTickets(endedTickets_list);
         setEventsList(events_list);
         setIsLoaded(true); 
-    }
+   
 }
 
     useEffect(() => {
