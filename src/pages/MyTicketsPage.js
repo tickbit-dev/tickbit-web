@@ -1,6 +1,6 @@
 //Libraries
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
 
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -24,6 +24,7 @@ import Asientoscard from '../components/Asientoscard';
 import Colors from '../constants/Colors';
 import TipoTicketsMyTickets from '../components/TipoTicketsMyTickets';
 import { QrReader } from 'react-qr-reader';
+import Webcam from 'react-webcam';
 
 
 export default function MyTicketsPage({...props}) {
@@ -35,13 +36,23 @@ export default function MyTicketsPage({...props}) {
     const [endedTickets, setEndedTickets] = useState([]);
 
     const [selectedTicket, setSelectedTicket] = useState(0);
-    const [validationHash, setValidationHash] = useState(undefined);
+    const [qrValue, setQrValue] = useState(undefined);
+
+    const {isOpen, onOpen, onClose } = useDisclosure();
     
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isCheking, setIsCheking] = useState(false);
     const now = moment(new Date()).unix();
 
     async function sendValidation(){
-        const transaction = await validateTicket(selectedTicket, validationHash)
+        const selectedTicket_aux = selectedTicket;
+        const qrValue_aux = qrValue;
+
+        setSelectedTicket(0);
+        setQrValue(undefined);
+        setIsCheking(true);
+
+        const transaction = await validateTicket(selectedTicket_aux, JSON.parse(qrValue_aux).validationHash, JSON.parse(qrValue_aux).idEvent)
         if(transaction == null){
             //Enseñamos un toast de error
             toast({
@@ -51,6 +62,7 @@ export default function MyTicketsPage({...props}) {
                 duration: 4000,
                 isClosable: true,
             })
+            setIsCheking(false);
         } else {
             //Enseñamos un toast de éxito
             toast({
@@ -60,6 +72,7 @@ export default function MyTicketsPage({...props}) {
                 duration: 4000,
                 isClosable: true,
             })
+            setIsCheking(false);
         }
     }
 
@@ -85,37 +98,58 @@ export default function MyTicketsPage({...props}) {
     }, []);
 
     useEffect(() => {
-        if(validationHash){
+        if(qrValue){
+            onClose();
             sendValidation();
         }
-    }, [validationHash]);
+    }, [qrValue]);
 
     return (
         <Box>
             <NavigationBar/>
+            <Modal isOpen={selectedTicket != 0 ? isOpen : false} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                <ModalHeader>Escanea el código QR</ModalHeader>
+                <ModalBody>
+                    {selectedTicket != 0 ?
+                        <Flex borderRadius={"10px"} overflow={'hidden'}>
+                            <QrReader
+                                constraints={{
+                                    facingMode: 'environment'
+                                }}
+                                onResult={(result, error) => {
+                                if (!!result) {
+                                    setQrValue(result?.text);
+                                }
+
+                                /*if (!!error) {
+                                    console.info(error);
+                                }*/
+                                }}
+                                style={{ width: '100%' }}
+                            />
+                            <Webcam
+                                audio={false}
+                                height={'100%'}
+                                //screenshotFormat="image/jpeg"
+                                width={'100%'}
+                                videoConstraints={{facingMode: 'environment'}}
+                            />
+                        </Flex>
+                    : null}
+                </ModalBody>
+
+                <ModalFooter>
+                    <ModalFooter>
+                        <Button colorScheme='gray' w={'100%'} onClick={onClose}>Cerrar</Button>
+                    </ModalFooter>
+                </ModalFooter>
+                </ModalContent>
+            </Modal>
             <ContentBox py={"30px"}>
                 <Heading mb={"30px"}>Mis tickets</Heading>
                 {/*<TipoTicketsMyTickets/>*/}
-                {selectedTicket != 0 ?
-                    <Flex>
-                        <Text>LEYENDO...</Text>
-                        <QrReader
-                            constraints={{
-                                facingMode: 'environment'
-                            }}
-                            onResult={(result, error) => {
-                            if (!!result) {
-                                setValidationHash(result?.text);
-                            }
-
-                            if (!!error) {
-                                console.info(error);
-                            }
-                            }}
-                            style={{ width: '100%' }}
-                        />
-                    </Flex>
-                : null}
                 {eventsList.length == 0 && itemsList.length == 0 ?
                     <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
                         <IoIosInformationCircleOutline />
@@ -126,7 +160,7 @@ export default function MyTicketsPage({...props}) {
                         <TicketCard
                             ticket={item}
                             eventsList={eventsList}
-                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
                         />
                     ))}
               
@@ -153,13 +187,13 @@ function TicketCard({...props}) {
                     <Text fontFamily={'Montserrat'} fontSize={"xl"} textAlign={"left"} textOverflow={"elipsis"}>{props.ticket._id}</Text>
                 </Flex>
                 <Flex  flex={0.2} ml={'auto'}  p={{base: 0, md: 10}} py={{base:2, md: 12}}>
-                    {/*props.ticket.validated == false ?*/}
+                    {props.ticket.validated == false ?
                         <Flex as={"button"} margin={"auto"}  height='50px' width='100px' borderRadius={20}  backgroundColor='black' color='white' _hover={{backgroundColor: "#333333"}} onClick={()=> {props.onTicketValidation(props.ticket._id); console.log("selectedTicket", props.ticket._id)}}>
                             <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validar</Text>
                         </Flex>
-                    {/*:
+                    :
                         <Text color={'black'}>Validado</Text>
-                    }*/}
+                    }
                     <AiOutlineScan cursor={'pointer'} size={70}/>
                 </Flex>
                 
@@ -167,4 +201,3 @@ function TicketCard({...props}) {
         </Flex>
     );
 };
-
