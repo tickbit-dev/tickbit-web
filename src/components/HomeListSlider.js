@@ -28,6 +28,15 @@ const flickityLoadingOptions = {
     freeScroll: true
 }
 
+const flickityLessThan5Options = {
+    initialIndex: 0,
+    pageDots: false,
+    contain: true,
+    cellAlign: 'left',
+    prevNextButtons: false,
+    freeScroll: true
+}
+
 const flickityOptions = {
     initialIndex: 0,
     pageDots: false,
@@ -36,43 +45,36 @@ const flickityOptions = {
     freeScroll: true
 }
 
-export default function ProximosEventos({...props}) {
+export default function HomeListSlider({...props}) {
     const navigate = useNavigate();
 
-    const [featuredEvents, setFeaturedEvents] = useState([]);
-    const [featuredEventsId, setFeaturedEventsId] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [eventsList, setEventsList] = useState([]);
+    const isFullScreen = window.innerWidth >= 1280;
 
     var number = [1,2,3,4,5];
- 
-    useEffect(() => {
-        //console.log(props)
-    }, []);
   
     useEffect(() => {
-        setFeaturedEvents(props.data)
+        setEventsList(props.data)
     }, [props.data]);
-  
-    useEffect(() => {
-        setIsLoaded(props.isLoaded)
-    }, [props.isLoaded]);
 
     return (
         props.data != null || props.isLoaded == false ?
             <Flex direction={'column'}>
                 <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} alignItems={'center'}> 
-                    <Heading as='h2' color={'black'} size='lg' fontFamily={"Montserrat"} fontWeight={800}>Próximos eventos</Heading>
-                    <Flex as={'button'} role={'group'} justifyContent={'center'} alignItems={'center'} mt={'6px'}>
-                        <Text fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'} _groupHover={{color: 'black'}} cursor={'pointer'} fontWeight={500} onClick={() => navigate('/events/featured')}>Ver más</Text>
-                        <Icon
-                            fontSize={"17px"}
-                            mt={"2px"}
-                            transition={'all .6s ease'}
-                            color={'gray.400'}
-                            _groupHover={{color: 'black'}}
-                            as={FiChevronRight}
-                        />
-                    </Flex>
+                    <Heading as='h2' color={'black'} size='lg' fontFamily={"Montserrat"} fontWeight={800}>{props.title}</Heading>
+                    {props.link ? 
+                        <Flex as={'button'} role={'group'} justifyContent={'center'} alignItems={'center'} mt={'6px'}>
+                            <Text fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'} _groupHover={{color: 'black'}} cursor={'pointer'} fontWeight={500} onClick={() => navigate(props.link)}>Ver más</Text>
+                            <Icon
+                                fontSize={"17px"}
+                                mt={"2px"}
+                                transition={'all .6s ease'}
+                                color={'gray.400'}
+                                _groupHover={{color: 'black'}}
+                                as={FiChevronRight}
+                            />
+                        </Flex> 
+                    : null}
                 </Flex>
                 <Flex maxW={"100%"} direction={'column'}>
                     {props.data == null ? 
@@ -96,14 +98,14 @@ export default function ProximosEventos({...props}) {
                     : 
                         <Flickity
                             key={"Flickity"}
-                            className={'carousel'} // default ''
-                            elementType={'div'} // default 'div'
-                            options={flickityOptions} // takes flickity options {}
-                            disableImagesLoaded={false} // default false
-                            reloadOnUpdate // default false
-                            static // default false
+                            className={'carousel'} //default ''
+                            elementType={'div'} //default 'div'
+                            options={isFullScreen == true ? props.data.length <= 5 ? flickityLessThan5Options : flickityOptions : flickityOptions} //takes flickity options {}
+                            disableImagesLoaded={false} //default false
+                            reloadOnUpdate //default false
+                            static //default false
                         >
-                            {featuredEvents.map((event, index) => (
+                            {eventsList.map((event, index) => (
                                 <TicketCard 
                                     key={"ticketcard" + index}
                                     index={index}

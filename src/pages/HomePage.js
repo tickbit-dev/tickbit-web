@@ -24,6 +24,7 @@ import moment from 'moment';
 import { FiSearch } from 'react-icons/fi';
 import { QrReader } from 'react-qr-reader';
 import Webcam from 'react-webcam';
+import HomeListSlider from '../components/HomeListSlider';
 
 
 export default function HomePage() {
@@ -33,7 +34,7 @@ export default function HomePage() {
     const [initialEvents, setInitialEvents] = useState([]);
 
     const [frontPageEvent, setFrontPageEvent] = useState(null);
-    const [outstandingEvents, setOutstandingEvents] = useState([]);
+    const [outstandingEvents, setOutstandingEvents] = useState(null);
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -125,7 +126,9 @@ export default function HomePage() {
         setInitialEvents(events_list);
 
         setFrontPageEvent(front_page);
-        setOutstandingEvents(outstanding);
+        if(outstanding.length != 0) setOutstandingEvents(outstanding);
+
+        setIsLoaded(true);
     }
 
     useEffect(() => {
@@ -135,7 +138,7 @@ export default function HomePage() {
     
     return (
         <Box maxW={"100%"} overflow={"hidden"}>
-           <NavigationBar/>
+            <NavigationBar/>
             
             <ContentBox>
                 
@@ -146,37 +149,24 @@ export default function HomePage() {
                 {searchValue == '' ?
                     <Flex direction={'column'}>
                         <Portada
-                            image={frontPageEvent != null ? frontPageEvent.coverImageUrl : null}
-                            eventid={frontPageEvent != null ? frontPageEvent._id : 0}
+                            isLoaded={isLoaded}
+                            image={frontPageEvent?.coverImageUrl}
+                            eventid={frontPageEvent?._id}
                         />
-
-                        {/*<TitleHighlighted
-                            text={"Categorías"}
-                        />*/}
-                        {/*<Text fontWeight={"bold"} fontFamily={"Montserrat"} mb={"16px"} color={"black"}>Categorías</Text>*/}
 
                         {/*<Categorias/>
                         <Categorias/>*/}
 
-                        <Flex direction={'row'} mb={'20px'} mt={"20px"}  justifyContent={'space-between'} > 
-                            {/*text={"Eventos destacados"}*/}
-                            <Heading mb={"-10px"}>Eventos destacados</Heading>
-                            <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events/featured')}>Ver más</Text>
-                        </Flex> 
-
-
-                        <DestacadosEventos
+                        <HomeListSlider
+                            title={"Eventos destacados"}
                             isLoaded={isLoaded}
                             data={outstandingEvents}
                         />
 
-                        <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} > 
-                            {/*text={"Próximos eventos"}*/}
-                            <Heading mb={"-10px"}>Próximos eventos</Heading>
-                            <Text fontWeight={'bold'} textDecoration={'underline'}  mb={'auto'} mt={'auto'} cursor={'pointer'} onClick={() => navigate('/events')}>Ver más</Text>
-                        </Flex> 
-
-                        <ProximosEventos
+                        <HomeListSlider
+                            title={"Próximos eventos"}
+                            isLoaded={isLoaded}
+                            link={"/events/coming"}
                             data={events.sort((a, b) => {return a.initialDate - b.initialDate;})}
                         />
                     </Flex>
