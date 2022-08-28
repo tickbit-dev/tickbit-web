@@ -105,7 +105,7 @@ export default function HomeListSlider({...props}) {
                             reloadOnUpdate //default false
                             static //default false
                         >
-                            {eventsList.map((event, index) => (
+                            {eventsList?.map((event, index) => (
                                 <TicketCard 
                                     key={"ticketcard" + index}
                                     index={index}
@@ -125,9 +125,3 @@ export default function HomeListSlider({...props}) {
         : null
     )
 }
-
-  {/*<SimpleGrid columns={{base:'1', sm:'2', md:'2', lg:'4'}} spacing={'20px'} w={'100%'}>
-                {number.map((event) => (
-                    <TicketCardLoading /> 
-                 )) }
-                </SimpleGrid>*/}

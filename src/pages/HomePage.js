@@ -166,14 +166,14 @@ export default function HomePage() {
                     </Flex>
                 :
                     <Flex direction={'column'}>
-                        {events.length == 0 ?
+                        {events?.length == 0 ?
                             <Flex p={4} justifyContent={"center"} w={'100%'} mt={10} >
                                 <FiSearch />
                                 <Text ml={'10px'} >No se han encontrado resultados para "{searchValue}".</Text>
                             </Flex>
                         :
                             <Wrap justify={{base: 'center', 'full': 'left'}}>
-                                {events.map((event, index) => (
+                                {events?.map((event, index) => (
                                     <WrapItem key={"ticketcard" + index}>
                                         <TicketCard 
                                             updatecolor={onUpdateColor}
