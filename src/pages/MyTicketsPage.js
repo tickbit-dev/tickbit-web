@@ -1,6 +1,6 @@
 //Libraries
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Tab, TabList, Tabs, TabPanels, TabPanel  } from '@chakra-ui/react';
 
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import { ImQrcode } from "react-icons/im";
 import { AiOutlineScan} from "react-icons/ai";
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import { MdOutlineEventAvailable, MdOutlineEventBusy } from "react-icons/md";
 
 //Constants
 //Solidity
@@ -42,7 +43,7 @@ export default function MyTicketsPage({...props}) {
     
     const [isLoaded, setIsLoaded] = useState(false);
     const [isCheking, setIsCheking] = useState(false);
-    const now = moment(new Date()).unix();
+    const now = moment(new Date()).subtract(1, 'days').unix();
 
     async function sendValidation(){
         const selectedTicket_aux = selectedTicket;
@@ -79,19 +80,29 @@ export default function MyTicketsPage({...props}) {
     async function getData(){
         var items_list = [];
         var events_list = [];
+        var availableTickets_list = [];
+        var endedTickets_list = [];
       
 
         items_list = await getMyTicketsList();
         events_list = await getEventsListFromBlockchain(true);
 
         for(let i=0; i < items_list.length; i++) {
-            
-        }
-        console.log(now);
-        setItemsList(items_list);
+            if(items_list[i].validated == false || items_list[i].finalDate > now){
+                availableTickets_list.push(items_list[i]);
+            }
+
+            if(items_list[i].validated == true || items_list[i].finalDate < now){
+                endedTickets_list.push(items_list[i]);
+            }
+        
+        //setItemsList(items_list);
+        setAvailableTickets(availableTickets_list);
+        setEndedTickets(endedTickets_list);
         setEventsList(events_list);
         setIsLoaded(true); 
     }
+}
 
     useEffect(() => {
         getData();
@@ -147,22 +158,58 @@ export default function MyTicketsPage({...props}) {
                 </ModalFooter>
                 </ModalContent>
             </Modal>
+
             <ContentBox py={"30px"}>
                 <Heading mb={"30px"}>Mis tickets</Heading>
-                {/*<TipoTicketsMyTickets/>*/}
-                {eventsList.length == 0 && itemsList.length == 0 ?
-                    <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
-                        <IoIosInformationCircleOutline />
-                        <Text ml={'10px'} >No has comprado ningún ticket.</Text>
-                    </Flex>
-                :
-                    itemsList.map((item) => (
-                        <TicketCard
-                            ticket={item}
-                            eventsList={eventsList}
-                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
-                        />
-                    ))}
+                <Flex w={"full"}>
+                    <Tabs w={"full"} variant='soft-rounded' colorScheme={Colors.secondary.gray}>
+                        <Flex>
+                            <TabList>
+                                <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+                                    <MdOutlineEventAvailable  size={"20px"}/> &nbsp; <Text>Disponibles</Text>
+                                </Tab>
+                                <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px"}} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+                                    <MdOutlineEventBusy size={"20px"}/>&nbsp; <Text> Finalizados </Text>
+                                </Tab>
+
+                            </TabList>
+                        </Flex>
+                        <TabPanels>
+                            <TabPanel w={"100%"}>
+                                {availableTickets.length == 0 ?
+                                    <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
+                                        <IoIosInformationCircleOutline />
+                                        <Text ml={'10px'} >No hay ningún ticket.</Text>
+                                    </Flex>
+                                :
+                                    availableTickets.map((item) => (
+                                        <TicketCard
+                                            ticket={item}
+                                            eventsList={eventsList}
+                                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                                        />
+                                    ))}
+                            </TabPanel>
+                            <TabPanel w={"100%"}>
+                                {endedTickets.length == 0 ?
+                                    <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
+                                        <IoIosInformationCircleOutline />
+                                        <Text ml={'10px'} >No hay ningún ticket.</Text>
+                                    </Flex>
+                                :
+                                    endedTickets.map((item) => (
+                                        <TicketCard
+                                            ticket={item}
+                                            eventsList={eventsList}
+                                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                                        />
+                                    ))}
+                                
+            
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                </Flex>
               
             </ContentBox>
             <Footer/>
@@ -192,9 +239,11 @@ function TicketCard({...props}) {
                             <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validar</Text>
                         </Flex>
                     :
-                        <Text color={'black'}>Validado</Text>
-                    }
-                    <AiOutlineScan cursor={'pointer'} size={70}/>
+                        <Flex as={"button"} margin={"auto"}  height='50px' width='100px' borderRadius={20}  backgroundColor='#F0F1F8'  _hover={ {cursor:'auto'}} >
+                            <Text margin={"auto"}  color={"gray"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validado</Text>
+                        </Flex>
+            }
+                {/*<AiOutlineScan cursor={'pointer'} size={70}/>*/}
                 </Flex>
                 
             </Flex>
