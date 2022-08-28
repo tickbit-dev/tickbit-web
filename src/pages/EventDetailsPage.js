@@ -63,7 +63,7 @@ export default function EventDetailsPage({...props}) {
     return (
         <Box maxW={"100%"} overflow={"hidden"} minH={'100vh'}>
             <NavigationBar/>
-            <ContentBox>
+            <ContentBox px={{base: '10px', md: '16px'}}>
                 <Box mt={10}>
                     <Pasos 
                         event={event}
