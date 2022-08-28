@@ -1,5 +1,5 @@
 //Libraries
-import { Box, Button, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -22,8 +22,6 @@ import { useEffect, useState } from 'react';
 import { cutIntervalDate, getCampaignById, getCampaignListFromBlockchain, getEventsListFromBlockchain, getStringFromTimestamp, getVenueById, readCurrentCampaigns, readEventbyId } from '../utils/funcionesComunes';
 import moment from 'moment';
 import { FiSearch } from 'react-icons/fi';
-import { QrReader } from 'react-qr-reader';
-import Webcam from 'react-webcam';
 
 
 export default function HomePage() {
@@ -38,8 +36,6 @@ export default function HomePage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [onUpdateColor, setOnUpdateColor] = useState(null);
-
-    const {isOpen, onOpen, onClose } = useDisclosure(true)
 
     function applySearchFilter(word, list, type){
         setSearchValue(word.target.value);
@@ -130,7 +126,6 @@ export default function HomePage() {
 
     useEffect(() => {
         getData();
-        onOpen();
     }, []);
     
     return (
