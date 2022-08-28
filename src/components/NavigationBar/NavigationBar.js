@@ -15,12 +15,12 @@ export default function NavigationBar({...props}) {
     let location = useLocation();
 
     return (
-        <ContentBox>
+      <Flex justifyContent={"center"} direction={"column"}>
             <Flex
                 color={useColorModeValue('gray.600', 'white')}
                 align={'center'}
-                pt={"16px"}
-                pb={"16px"}
+                p={{base: "10px", md: "16px"}}
+                flex={1}
             >
                 <Flex
                     flex={{ base: undefined, md: 'auto' }}
@@ -60,7 +60,7 @@ export default function NavigationBar({...props}) {
             <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse>
-        </ContentBox>
+        </Flex>
     )
 }
 

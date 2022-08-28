@@ -42,6 +42,7 @@ const flickityOptions = {
     pageDots: false,
     contain: true,
     cellAlign: 'left',
+    prevNextButtons: false,
     freeScroll: true
 }
 
@@ -59,11 +60,11 @@ export default function HomeListSlider({...props}) {
 
     return (
         props.data != null || props.isLoaded == false ?
-            <Flex direction={'column'}>
-                <Flex direction={'row'} mb={'20px'} mt={"20px"} justifyContent={'space-between'} alignItems={'center'}> 
+            <Flex direction={'column'} {...props}>
+                <Flex direction={'row'} px={{base: "10px", md: "16px"}} mb={'6px'} justifyContent={'space-between'} alignItems={'center'}> 
                     <Heading as='h2' color={'black'} size='lg' fontFamily={"Montserrat"} fontWeight={800}>{props.title}</Heading>
                     {props.link ? 
-                        <Flex as={'button'} role={'group'} justifyContent={'center'} alignItems={'center'} mt={'6px'}>
+                        <Flex as={'button'} role={'group'} justifyContent={'center'} alignItems={'center'} mt={{base: '3px', md: '6px'}}>
                             <Text fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'} _groupHover={{color: 'black'}} cursor={'pointer'} fontWeight={500} onClick={() => navigate(props.link)}>Ver más</Text>
                             <Icon
                                 fontSize={"17px"}
@@ -87,12 +88,19 @@ export default function HomeListSlider({...props}) {
                             reloadOnUpdate // default false
                             static // default false
                         >
+                            <Flex w={"0px"}/>
                             {number.map((event, index) => (
-                                <TicketCard 
-                                    key={"ticketcardloading" + index}
-                                    isLoaded={props.isLoaded}
-                                    mr={"12px"}
-                                />
+                                <Flex>
+                                    <TicketCard 
+                                        key={"ticketcardloading" + index}
+                                        isLoaded={props.isLoaded}
+                                        mr={"12px"}
+                                        ml={index == 0 ? {base: "10px", md: "16px"} : null}
+                                    />
+                                    {index == (number.length - 1) ?
+                                        <Flex w={"0px"}/>
+                                    : null}
+                                </Flex>
                             ))}
                         </Flickity>
                     : 
@@ -105,18 +113,25 @@ export default function HomeListSlider({...props}) {
                             reloadOnUpdate //default false
                             static //default false
                         >
+                            <Flex w={"0px"}/>
                             {eventsList?.map((event, index) => (
-                                <TicketCard 
-                                    key={"ticketcard" + index}
-                                    index={index}
-                                    mr={"12px"}
-                                    isLoaded={props.isLoaded}
-                                    titulo={event.title}
-                                    imagen={event.coverImageUrl}
-                                    fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
-                                    sitio={getVenueById(event.idVenue).name}
-                                    url={"/event/" + event._id}
-                                />
+                                <Flex>
+                                    <TicketCard 
+                                        key={"ticketcard" + index}
+                                        index={index}
+                                        mr={"12px"}
+                                        ml={index == 0 ? {base: "10px", md: "16px"} : null}
+                                        isLoaded={props.isLoaded}
+                                        titulo={event.title}
+                                        imagen={event.coverImageUrl}
+                                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                                        sitio={getVenueById(event.idVenue).name}
+                                        url={"/event/" + event._id}
+                                    />
+                                    {index == (eventsList?.length - 1) ?
+                                        <Flex w={"0px"}/>
+                                    : null}
+                                </Flex>
                             ))}
                         </Flickity>
                     }

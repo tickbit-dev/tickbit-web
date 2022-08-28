@@ -1,5 +1,5 @@
 //Libraries
-import { Box, Flex, Heading, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Flex, Heading, Spacer, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import MyCalendar from '../components/MyCalendar';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -131,11 +131,11 @@ export default function HomePage() {
     }, []);
     
     return (
-        <Box maxW={"100%"} overflow={"hidden"}>
-            <NavigationBar/>
+        <Flex direction={'column'} maxW={"100%"} minH={'100vh'} overflow={"hidden"}>
             
-            <ContentBox>
-                
+            <ContentBox mb={{base: '20px', md: '40px'}}>
+                <NavigationBar/>
+
                 <Buscador
                     onChange={(event, type) => {setOnUpdateColor(Math.floor(Math.random() * 999999999999999999999999999)) /*!important*/; applySearchFilter(event, events, type); }}
                 />
@@ -158,6 +158,7 @@ export default function HomePage() {
                         />
 
                         <HomeListSlider
+                            mt={{base: '0px', md: '10px'}}
                             title={"Próximos eventos"}
                             isLoaded={isLoaded}
                             link={"/events/coming"}
@@ -178,6 +179,7 @@ export default function HomePage() {
                                         <TicketCard 
                                             updatecolor={onUpdateColor}
                                             index={index}
+                                            isLoaded={isLoaded}
                                             titulo={event.title}
                                             imagen={event.coverImageUrl}
                                             fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
@@ -193,7 +195,9 @@ export default function HomePage() {
 
             </ContentBox>
 
+            <Spacer/>
+
             <Footer/>
-        </Box>
+        </Flex>
     )
 }
