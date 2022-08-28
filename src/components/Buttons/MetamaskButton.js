@@ -171,7 +171,7 @@ export default function MetamaskButton({...props}) {
                         </Link>
                     </MenuItem>
                     <MenuItem _focus={{bg: 'none'}}>
-                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} onClick={() => navigate('/tickets')} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
+                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} onClick={() => window.open('/tickets','_self') } transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
                             <Flex alignItems={"center"}>
                                 <HiTicket/>
                                 <Text ml={"10px"} fontFamily={"Montserrat"} fontSize={"15px"} fontWeight={"medium"} _groupHover={{ color: 'pink.400'}} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>Mis tickets</Text>
