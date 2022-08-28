@@ -16,8 +16,6 @@ import Buscador from '../components/Buscador';
 import Categorias from '../components/Categorias2';
 import Portada from '../components/Portada';
 import Footer from '../components/Footer';
-import ProximosEventos from '../components/ProximosEventos';
-import DestacadosEventos from '../components/DestacadosEventos';
 import { useEffect, useState } from 'react';
 import { cutIntervalDate, getCampaignById, getCampaignListFromBlockchain, getEventsListFromBlockchain, getStringFromTimestamp, getVenueById, readCurrentCampaigns, readEventbyId } from '../utils/funcionesComunes';
 import moment from 'moment';
@@ -29,7 +27,7 @@ import HomeListSlider from '../components/HomeListSlider';
 export default function HomePage() {
     const navigate = useNavigate();
 
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState(null);
     const [initialEvents, setInitialEvents] = useState([]);
 
     const [frontPageEvent, setFrontPageEvent] = useState(null);
@@ -163,7 +161,7 @@ export default function HomePage() {
                             title={"Próximos eventos"}
                             isLoaded={isLoaded}
                             link={"/events/coming"}
-                            data={events.sort((a, b) => {return a.initialDate - b.initialDate;})}
+                            data={events?.sort((a, b) => {return a.initialDate - b.initialDate;})}
                         />
                     </Flex>
                 :
