@@ -1,6 +1,6 @@
 //Libraries
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Tab, TabList, Tabs, TabPanels, TabPanel  } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Tab, TabList, Tabs, TabPanels, TabPanel, Spinner  } from '@chakra-ui/react';
 
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -177,7 +177,11 @@ export default function MyTicketsPage({...props}) {
                         </Flex>
                         <TabPanels>
                             <TabPanel w={"100%"}>
-                                {availableTickets.length == 0 ?
+                                {isLoaded == false ? 
+                                    <Flex flex={1} py={'16px'}>
+                                        <Spinner size='xl' ml={'auto'} mr={'auto'}/>
+                                    </Flex>
+                                :   availableTickets.length == 0 ?
                                     <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
                                         <IoIosInformationCircleOutline />
                                         <Text ml={'10px'} >No hay ningún ticket.</Text>
@@ -192,7 +196,11 @@ export default function MyTicketsPage({...props}) {
                                     ))}
                             </TabPanel>
                             <TabPanel w={"100%"}>
-                                {endedTickets.length == 0 ?
+                                {isLoaded == false ? 
+                                    <Flex flex={1}  py={'16px'}>
+                                        <Spinner size='xl' ml={'auto'} mr={'auto'}/>
+                                    </Flex>
+                                :   endedTickets.length == 0 ?
                                     <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
                                         <IoIosInformationCircleOutline />
                                         <Text ml={'10px'} >No hay ningún ticket.</Text>
