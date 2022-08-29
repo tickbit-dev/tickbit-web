@@ -64,16 +64,15 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Que es Metamask?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Qué es Metamask?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                                 </h2>
                                 <AccordionPanel pb={4}>
                                 <Text fontFamily={"Montserrat"} textAlign={'justify'}>
-                                    MetaMask es un plugin para el navegador que sirve como wallet de activos crypto, y se instala como cualquier otro plugin normal. 
-                                    Una vez instalado, permite a los usuarios almacenar diferentes tipos de cryptomonedas y tokens, permitiéndoles realizar transacciones a cualquier 
-                                    otra dirección.
+                                   MetaMask es un plugin para el navegador que sirve como wallet de activos crypto, y se instala como cualquier otro plugin normal. 
+                                   Una vez instalado, permite a los usuarios almacenar diferentes tipos de criptomonedas y tokens, permitiéndoles realizar transacciones a cualquier otra dirección.
                                 </Text>
                                 </AccordionPanel>
                             </AccordionItem>
@@ -82,7 +81,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Como instalar Metamask?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Cómo instalar Metamask?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
@@ -106,14 +105,14 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton  _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Como configuro Metamask para realizar compras en Tickbit?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Cómo configuro Metamask para realizar compras en Tickbit?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                                 </h2>
                                 <AccordionPanel pb={4}>
                                     <Text fontFamily={"Montserrat"} textAlign={'justify'}>
-                                        Actualmente la web esta integrada en la red de pruebas Polygon Mumbai, para poder hacer compras se necesita disponer de 
+                                        Actualmente la web está integrada en la red de pruebas Polygon Mumbai, para poder realizar compras se necesita disponer de 
                                         una billetera previamente creada en Metamask y configurar la red de pruebas de Polygon Mumbai. Para configurar la red automáticamente en tu Metamask haz
                                         click <Text as={'span'} fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'}  cursor={'pointer'} fontWeight={500} onClick={() => changeNetwork() }>aquí</Text>.
                                     </Text>
@@ -148,9 +147,8 @@ export default function HelpPage({...props}) {
                                 </h2>
                                 <AccordionPanel pb={4}>
                                     <Text  fontFamily={"Montserrat"} textAlign={'justify'}>
-                                        Puedes ver todos los movimientos realizados desde tu billetera conectada a nuestra web introduciento tu dirección en:
+                                        Puedes ver todos los movimientos realizados desde tu billetera conectada a nuestra web introduciendo tu dirección en:
                                         <Text as={'span'} fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'}  cursor={'pointer'} fontWeight={500} onClick={() => window.open('https://mumbai.polygonscan.com/')}>&nbsp;https://mumbai.polygonscan.com</Text>.
-                                
                                     </Text>
                                 </AccordionPanel>
                             </AccordionItem>
