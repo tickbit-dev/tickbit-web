@@ -9,26 +9,17 @@ import Colors from '../../constants/Colors';
 import MAPAPRUEBA from '../../assets/mapaprueba.JPG';
 import TicketCardCompra from '../Detailspage/TicketCardCompra';
 import Asientoscard from '../Asientoscard';
-import { cutIntervalDate, getCategoryById } from '../../utils/funcionesComunes';
+import { cutIntervalDate, getCategoryById, getCityById, getSpanishWeekDayString } from '../../utils/funcionesComunes';
 
 const BORDER_RADIUS = {base: '10px', md: '20px'}
 
 export default function EventDetailsPage({...props}) {
 
     return (
-        <Box mb={20}>
-            <Box mt={{base:10,md:10}}  >
-                <Portada image={props.event.coverImageUrl}/>
-            </Box>
-            <Stack flex={1} spacing={"16px"}>
-                <Flex flex={1}>
-                    <Skeleton flex={1} isLoaded={props.isEventLoaded} borderRadius={"5px"}>
-                        <Heading as={"h2"} size='md' fontFamily={'Montserrat'}>{props.event.artist}</Heading>
-                        <Heading fontFamily={'Montserrat'}>{props.event.title}</Heading>
-                    </Skeleton>
-                </Flex>
-                <Stack flex={1} direction={'row'} spacing={"36px"}>
-                    <Flex flex={1} h={{base: '200px', md: '310px'}}>
+        <Box mb={20} mt={"30px"}>
+            <Stack flex={1} spacing={"16px"} px={{base: "16px", md: 'none'}}>
+                <Stack flex={1} direction={{base: 'column', md: 'row'}} spacing={"36px"}>
+                    <Flex flex={1} h={{base: undefined, md: '310px'}}>
                         <Skeleton flex={1} isLoaded={props.isEventLoaded} borderRadius={BORDER_RADIUS}>
                             <Flex
                                 w={'100%'}
@@ -38,22 +29,22 @@ export default function EventDetailsPage({...props}) {
                                 transition="all .6s ease"
                                 style={{WebkitTapHighlightColor: "transparent"}}
                             >
-                                {props.event.coverImageUrl ? <Image _hover={{base: {transform: 'scale(1.01)'}, md: {transform: 'scale(1.004)'}}} bg={Colors.secondary.gray} transition="all .6s ease" w={"full"} h={"100%"} fit={'cover'} src={props.event.coverImageUrl}/> : null}
+                                {props.event.coverImageUrl ? <Image bg={Colors.secondary.gray} transition="all .6s ease" w={"full"} h={"100%"} fit={'cover'} src={props.event.coverImageUrl}/> : null}
                             </Flex>
                         </Skeleton>
                     </Flex>
-                    <Flex flex={1.5} h={{base: '200px', md: '310px'}}>
-                        <Flex flex={1} direction={'column'}>
-                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3}>
-                                <Text fontSize={"lg"} fontFamily={'Montserrat'} fontWeight={500} mt={2} textAlign={"justify"}>{props.event.description}</Text>
-                            </Skeleton>
-                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
-                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
-                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
+                    <Flex flex={1.5} h={{base: undefined, md: '310px'}} direction={'column'}>
+                        <Flex direction={'column'}>
+                                <Flex direction={"column"}>
+                                    <Heading as={"h2"} size='md' fontFamily={'Montserrat'}>{props.event.artist}</Heading>
+                                    <Heading fontFamily={'Montserrat'}>{props.event.title}</Heading>
+                                    <Text fontFamily={'Montserrat'} fontWeight={500}>{getSpanishWeekDayString(new Date(props.event.initialDate * 1000)) + ',' + ' ' + cutIntervalDate(props.event.initialDate) + " - " + getCityById(props.event.idCity).name}</Text>
+                                </Flex>
+                                    <Text fontSize={"lg"} fontFamily={'Montserrat'} color={"gray.500"} fontWeight={500} mt={2} textAlign={"justify"}>{props.event.description}</Text>
+                                
                         </Flex>
                     </Flex>
                 </Stack>
-                <Skeleton isLoaded={props.isEventLoaded} borderRadius={BORDER_RADIUS}>
                     <Asientoscard
                         event={props.event}
                         availability={props.availability}
@@ -65,7 +56,6 @@ export default function EventDetailsPage({...props}) {
                         onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
                         numTickets={props.numTickets}
                     />
-                </Skeleton>
             </Stack>
                 
             {/*<Skeleton isLoaded={props.isEventLoaded} height='40px' width={'300px'}  borderRadius={"5px"} mt={2} mr={'auto'} ml={{base:'auto' , sm:'auto',md:'0'}}>
