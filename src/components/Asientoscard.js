@@ -7,7 +7,7 @@ const MAX_TICKETS = 5;
   
 export default function Asientoscard({...props}) {
     return (
-        <Flex h={{base:220,md:220, lg:150}}  mt={20}  backgroundColor={Colors.secondary.gray} rounded={20} _hover={{ backgroundColor: "#e1e3ed"}}direction={{base:"column", md:"row"}} >
+        <Flex h={{base:220,md:220, lg:150}} backgroundColor={Colors.secondary.gray} rounded={20} _hover={{ backgroundColor: "#e1e3ed"}}direction={{base:"column", md:"row"}} >
             <Flex  margin={"auto"}  flex={{base:0.4,md:0.4}}>
                 <Flex  display={"column"}  ml={5} mt={{base:5,md:0}} >
                     <Text fontFamily={'Montserrat'} fontWeight={'bold'} fontSize={"xl"} textAlign={"left"}>{getVenueById(props.event.idVenue).name}</Text>

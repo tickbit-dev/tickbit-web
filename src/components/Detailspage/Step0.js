@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Flex, Text, Button,Heading, Center, Image, SimpleGrid, useBreakpointValue, Skeleton, SkeletonText, } from '@chakra-ui/react';
+import { Box, Flex, Text, Button,Heading, Center, Image, SimpleGrid, useBreakpointValue, Skeleton, SkeletonText, Stack, } from '@chakra-ui/react';
 import Portada from '../Portada';
 import { FiUser } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
@@ -11,6 +11,8 @@ import TicketCardCompra from '../Detailspage/TicketCardCompra';
 import Asientoscard from '../Asientoscard';
 import { cutIntervalDate, getCategoryById } from '../../utils/funcionesComunes';
 
+const BORDER_RADIUS = {base: '10px', md: '20px'}
+
 export default function EventDetailsPage({...props}) {
 
     return (
@@ -18,8 +20,55 @@ export default function EventDetailsPage({...props}) {
             <Box mt={{base:10,md:10}}  >
                 <Portada image={props.event.coverImageUrl}/>
             </Box>
+            <Stack flex={1} spacing={"16px"}>
+                <Flex flex={1}>
+                    <Skeleton flex={1} isLoaded={props.isEventLoaded} borderRadius={"5px"}>
+                        <Heading as={"h2"} size='md' fontFamily={'Montserrat'}>{props.event.artist}</Heading>
+                        <Heading fontFamily={'Montserrat'}>{props.event.title}</Heading>
+                    </Skeleton>
+                </Flex>
+                <Stack flex={1} direction={'row'} spacing={"36px"}>
+                    <Flex flex={1} h={{base: '200px', md: '310px'}}>
+                        <Skeleton flex={1} isLoaded={props.isEventLoaded} borderRadius={BORDER_RADIUS}>
+                            <Flex
+                                w={'100%'}
+                                overflow={"hidden"}
+                                borderRadius={BORDER_RADIUS}
+                                h={{base: '200px', md: '310px'}}
+                                transition="all .6s ease"
+                                style={{WebkitTapHighlightColor: "transparent"}}
+                            >
+                                {props.event.coverImageUrl ? <Image _hover={{base: {transform: 'scale(1.01)'}, md: {transform: 'scale(1.004)'}}} bg={Colors.secondary.gray} transition="all .6s ease" w={"full"} h={"100%"} fit={'cover'} src={props.event.coverImageUrl}/> : null}
+                            </Flex>
+                        </Skeleton>
+                    </Flex>
+                    <Flex flex={1.5} h={{base: '200px', md: '310px'}}>
+                        <Flex flex={1} direction={'column'}>
+                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3}>
+                                <Text fontSize={"lg"} fontFamily={'Montserrat'} fontWeight={500} mt={2} textAlign={"justify"}>{props.event.description}</Text>
+                            </Skeleton>
+                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
+                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
+                            <Skeleton isLoaded={props.isEventLoaded} height='30px' width={'100%'} borderRadius={"5px"} mt={3} />
+                        </Flex>
+                    </Flex>
+                </Stack>
+                <Skeleton isLoaded={props.isEventLoaded} borderRadius={BORDER_RADIUS}>
+                    <Asientoscard
+                        event={props.event}
+                        availability={props.availability}
+                        isEventLoaded={props.isEventLoaded}
+                        isPriceLoaded={props.isPriceLoaded}
+                        usdPricePerTicket={props.usdPricePerTicket}
+                        maticUsdConversion={props.maticUsdConversion}
+                        onNext={() => {props.onNext()}}
+                        onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
+                        numTickets={props.numTickets}
+                    />
+                </Skeleton>
+            </Stack>
                 
-            <Skeleton isLoaded={props.isEventLoaded} height='40px' width={'300px'}  borderRadius={"5px"} mt={2} mr={'auto'} ml={{base:'auto' , sm:'auto',md:'0'}}>
+            {/*<Skeleton isLoaded={props.isEventLoaded} height='40px' width={'300px'}  borderRadius={"5px"} mt={2} mr={'auto'} ml={{base:'auto' , sm:'auto',md:'0'}}>
                 <Heading fontFamily={'Montserrat'}>{props.event.title}</Heading>
             </Skeleton>
                 
@@ -79,7 +128,7 @@ export default function EventDetailsPage({...props}) {
                     onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
                     numTickets={props.numTickets}
                 />
-            </Skeleton>
+            </Skeleton>*/}
         </Box>
     );
 };
