@@ -68,8 +68,9 @@ export default function ContactPage({...props}) {
 
     return (
         <Box>
-            <NavigationBar/>
+            
             <ContentBox>
+                <NavigationBar/>
                 <Flex direction={{base: "column", md: "row"}} pt={{base: "6px", md: "16px"}} pb={"32px"}>
                     <Flex direction={"column"} flex={1} justifyContent={"center"} pr={{base: "0px", md: "60px"}}>
                         <Heading fontFamily={"Montserrat"}>Contáctanos</Heading>

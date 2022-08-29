@@ -55,7 +55,7 @@ export default function HelpPage({...props}) {
                         <Text fontFamily={"Montserrat"} color={'#623FCF'} fontWeight={'bold'}>Soporte</Text>
                         <Heading  fontFamily={"Montserrat"} mt={4}>FAQs</Heading>
                         <Text color={Colors.text.subtitle} fontFamily={"Montserrat"} mt={5} textAlign={'justify'}> Preguntas frequentes que pueden surgir a la hora de usar nuestra plataforma. 
-                            No puedes encontrar lo que estas bucando? Por favor coméntanos tus dudas en nuestra sección de Contacto.
+                            ¿No puedes encontrar lo que estas bucando? Por favor, coméntanos tus dudas en nuestra sección de Contacto.
                         </Text>
                     </Flex>
                     <Flex direction={'column'} h={300}  p={4} mt={10} flex={0.7} ml={{base:0, lg:5}}>
@@ -64,7 +64,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Qué es Metamask?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>¿Qué es Metamask?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
@@ -81,7 +81,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Cómo instalar Metamask?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>¿Cómo instalar Metamask?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
@@ -105,7 +105,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton  _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Cómo configuro Metamask para realizar compras en Tickbit?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>¿Cómo configuro Metamask para realizar compras en Tickbit?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
@@ -123,7 +123,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton  _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Con que moneda se realizan los pagos?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>¿Con que moneda se realizan los pagos?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
@@ -140,7 +140,7 @@ export default function HelpPage({...props}) {
                                 <h2>
                                 <AccordionButton  _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}>
                                     <Box flex='1' textAlign='left'>
-                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>Cómo puedo hacer un seguimiento de mis transacciones o compras?</Text>
+                                        <Text fontWeight={'bold'} fontFamily={"Montserrat"} fontSize={'lg'}>¿Cómo puedo hacer un seguimiento de mis transacciones o compras?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
