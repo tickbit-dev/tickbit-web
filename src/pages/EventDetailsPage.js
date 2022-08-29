@@ -61,7 +61,7 @@ export default function EventDetailsPage({...props}) {
     }, []);
 
     return (
-        <Box maxW={"100%"} overflow={"hidden"} minH={'100vh'}>
+        <Flex maxW={"100%"} direction={'column'} overflow={"hidden"} minH={'100vh'}>
             <NavigationBar/>
             <ContentBox px={{base: '10px', md: '16px'}}>
                 <Box mt={10}>
@@ -79,6 +79,6 @@ export default function EventDetailsPage({...props}) {
             </ContentBox>
             <Spacer/>
             <Footer/>
-        </Box>
+        </Flex>
     );
 };
