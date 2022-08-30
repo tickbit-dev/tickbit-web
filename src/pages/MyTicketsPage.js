@@ -187,7 +187,7 @@ export default function MyTicketsPage({...props}) {
                                         <TicketCard
                                             ticket={item}
                                             eventsList={eventsList}
-                                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
                                         />
                                     ))}
                             </TabPanel>
@@ -202,7 +202,7 @@ export default function MyTicketsPage({...props}) {
                                         <TicketCard
                                             ticket={item}
                                             eventsList={eventsList}
-                                            onTicketValidation={(ticketId) => setSelectedTicket(ticketId)}
+                                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
                                         />
                                     ))}
                                 
