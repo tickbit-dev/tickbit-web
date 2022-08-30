@@ -33,18 +33,32 @@ export default function EventDetailsPage({...props}) {
                             </Flex>
                         </Skeleton>
                     </Flex>
-                    <Flex flex={1.5} h={{base: undefined, md: '310px'}} direction={'column'}>
+                    <Flex flex={1.5} minH={{base: 'undefined', md: '310px'}} direction={'column'} justifyContent={{base: 'undefined', md: 'center'}}>
                         <Flex direction={'column'}>
-                                <Flex direction={"column"}>
-                                    <Heading as={"h2"} size='md' fontFamily={'Montserrat'}>{props.event.artist}</Heading>
-                                    <Heading fontFamily={'Montserrat'}>{props.event.title}</Heading>
-                                    <Text fontFamily={'Montserrat'} fontWeight={500}>{getSpanishWeekDayString(new Date(props.event.initialDate * 1000)) + ',' + ' ' + cutIntervalDate(props.event.initialDate) + " - " + getCityById(props.event.idCity).name}</Text>
+                            {props.isEventLoaded ?
+                                <Flex direction={'column'}>
+                                    <Flex direction={"column"}>
+                                        <Heading as={"h2"} size='md' fontFamily={'Montserrat'} textAlign={'left'}>{props.event.artist}</Heading>
+                                        <Heading fontFamily={'Montserrat'} textAlign={'left'}>{props.event.title}</Heading>
+                                        <Text fontFamily={'Montserrat'} fontWeight={500} textAlign={'left'}>{getSpanishWeekDayString(new Date(props.event.initialDate * 1000)) + ',' + ' ' + cutIntervalDate(props.event.initialDate) + " - " + getCityById(props.event.idCity).name}</Text>
+                                    </Flex>
+                                    <Text fontSize={"lg"} fontFamily={'Montserrat'} color={"gray.500"} fontWeight={500} mt={{base: '40px', md: 2}} textAlign={"justify"}>{props.event.description}</Text>
                                 </Flex>
-                                    <Text fontSize={"lg"} fontFamily={'Montserrat'} color={"gray.500"} fontWeight={500} mt={2} textAlign={"justify"}>{props.event.description}</Text>
-                                
+                            : 
+                                <Flex direction={'column'}>
+                                    <Skeleton isLoaded={props.isEventLoaded} height='90px' width={'100%'} borderRadius={"5px"} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                    <Skeleton isLoaded={props.isEventLoaded} height='20px' width={'100%'} borderRadius={"5px"} mt={3} />
+                                </Flex>
+                            }
                         </Flex>
                     </Flex>
                 </Stack>
+                <Skeleton isLoaded={props.isEventLoaded && props.isPriceLoaded} width={'100%'} borderRadius={"20px"}>
                     <Asientoscard
                         event={props.event}
                         availability={props.availability}
@@ -56,6 +70,7 @@ export default function EventDetailsPage({...props}) {
                         onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
                         numTickets={props.numTickets}
                     />
+                </Skeleton>
             </Stack>
                 
             {/*<Skeleton isLoaded={props.isEventLoaded} height='40px' width={'300px'}  borderRadius={"5px"} mt={2} mr={'auto'} ml={{base:'auto' , sm:'auto',md:'0'}}>

@@ -11,6 +11,7 @@ import Colors from '../constants/Colors';
 export default function TicketCard({...props}) {
 
     const [state, setState] = useState({r:240, g:241, b:248});
+    const [isColorLoaded, setIsColorLoaded] = useState(false);
 
     const ALTURA_TICKET = 320;
     const FORMA_RECORTE_TICKET_SIZE = 40;
@@ -20,6 +21,7 @@ export default function TicketCard({...props}) {
         if(props.isLoaded){
             getAverageColor(props.imagen).then(rgb => {
                 setState(rgb)
+                setIsColorLoaded(true)
             }) // { r: 66, g: 83, b: 25 }
         }
     }, []);
@@ -27,6 +29,7 @@ export default function TicketCard({...props}) {
     useEffect(() => {
         getAverageColor(props.imagen).then(rgb => {
             setState(rgb)
+            setIsColorLoaded(true)
         })
     }, [props.updatecolor]);
 
@@ -36,7 +39,7 @@ export default function TicketCard({...props}) {
                     <Box position={"absolute"} zIndex={1} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"} mt={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"}/>
                     <Box position={"absolute"} zIndex={1} top={(ALTURA_TICKET - FORMA_RECORTE_TICKET_SIZE) / 2.5 + "px"} left={"100%"} ml={-(FORMA_RECORTE_TICKET_SIZE/2) + "px"} h={FORMA_RECORTE_TICKET_SIZE + "px"} w={FORMA_RECORTE_TICKET_SIZE + "px"} borderRadius={"full"} bg={"white"}/>
                     
-                    <Skeleton isLoaded={props.isLoaded} w={'100%'} h={'100%'} startColor={Colors.secondary.gray} endColor={"#d3d6e6"} borderRadius={16} overflow="hidden">
+                    <Skeleton isLoaded={props.isLoaded && isColorLoaded} w={'100%'} h={'100%'} startColor={Colors.secondary.gray} endColor={"#d3d6e6"} borderRadius={16} overflow="hidden">
 
                     <Flex w={"100%"} flex={1} position={"relative"} h={ALTURA_TICKET + "px"} bg={Colors.secondary.gray} borderRadius={16} overflow="hidden">
                         {props.isLoaded ? props.imagen ? <Image id={"ticketcard" + props.index} _groupHover={{transform: 'scale(1.02)'}} transition="all .4s ease" position={"absolute"} h={"55%"} w={"100%"} objectFit="cover" src={props.imagen}/> : null : null}

@@ -49,7 +49,7 @@ import {
           flex="2"
         >
           <Heading fontSize="2xl" fontWeight="extrabold">
-            Tus tickets seleccionados 
+            Carrito
           </Heading>
   
           <Stack spacing="6">

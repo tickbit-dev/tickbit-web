@@ -18,6 +18,20 @@ export default function Pasos({...props}) {
         initialStep: 0,
     })
 
+    const [finishStatus, setfinishStatus] = useState(false);
+
+    const onBackButtonEvent = (e) => {
+        e.preventDefault();
+        prevStep();
+    }
+
+    useEffect(() => {
+        window.addEventListener('popstate', onBackButtonEvent);
+        return () => {
+            window.removeEventListener('popstate', onBackButtonEvent);  
+        };
+    }, []);
+
     return (
         <Flex flexDir="column" width="100%" >
             <Steps size={"lg"} colorScheme="green" activeStep={activeStep}>
@@ -32,7 +46,7 @@ export default function Pasos({...props}) {
                             usdPricePerTicket={props.usdPricePerTicket}
                             maticUsdConversion={props.maticUsdConversion}
                             numTickets={props.numTickets}
-                            onNext={() => {nextStep()}}
+                            onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
                             onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
                         /> 
                     
@@ -44,8 +58,8 @@ export default function Pasos({...props}) {
                             usdPricePerTicket={props.usdPricePerTicket}
                             maticUsdConversion={props.maticUsdConversion}
                             numTickets={props.numTickets}
-                            onNext={() => {nextStep()}}
-                            onPrev={() => {prevStep()}}
+                            onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
+                            onPrev={() => {window.history.back()}}
                         /> 
                     : 
                         <Step2
@@ -60,8 +74,7 @@ export default function Pasos({...props}) {
                             recinto={props.recinto}
                             fecha2={props.fecha2}
                             precioMatic={props.precioMatic}
-                            onNext={() => {nextStep()}}
-                            
+                            onNext={() => {nextStep();}}
                         /> 
                     
                     }

@@ -1,7 +1,8 @@
 export default {
     primary: {
         blue: '#143ce5',
-        skyblue: '#20caf2',
+        skyblue: "#69c5d6",
+        skyblueHover: "#82d8e8",
         purple: '#602fd0',
         pink: '#fb7bbd',
     },

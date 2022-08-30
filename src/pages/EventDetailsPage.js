@@ -62,8 +62,8 @@ export default function EventDetailsPage({...props}) {
 
     return (
         <Flex maxW={"100%"} direction={'column'} overflow={"hidden"} minH={'100vh'}>
-            <NavigationBar/>
             <ContentBox px={{base: '10px', md: '16px'}}>
+                <NavigationBar/>
                 <Box mt={10}>
                     <Pasos 
                         event={event}

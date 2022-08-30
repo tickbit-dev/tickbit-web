@@ -29,7 +29,7 @@ export const CartItem = (props) => {
       />
 
       {/* Desktop */}
-      <Flex
+      {/*<Flex
         width="full"
         justify="space-between"
         display={{
@@ -39,10 +39,10 @@ export const CartItem = (props) => {
       >
        <Text>N.º tickets {props.numTickets}</Text>
         <Text ml={'auto'}>{props.usdPricePerTicket +'$'+' ' + '≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC' + '/entrada'}</Text>
-      </Flex>
+      </Flex>*/}
 
       {/* Mobile */}
-      <Flex
+      {/*<Flex
         mt="4"
         align="center"
         width="full"
@@ -54,7 +54,7 @@ export const CartItem = (props) => {
       >
          <Text>N.º tickets: {props.numTickets}</Text>
         <Text>{props.usdPricePerTicket +'$'+' ' + '≈' +' '+ (props.maticUsdConversion).toFixed(4) + ' ' + 'MATIC' + '/entrada'}</Text>
-      </Flex>
+      </Flex>*/}
     </Flex>
   )
 }

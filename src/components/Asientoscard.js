@@ -10,7 +10,7 @@ const MAX_TICKETS = 5;
   
 export default function Asientoscard({...props}) {
     return (
-        <Flex bg={'gray.100'} rounded={20} direction={{base:"column", md:"row"}} padding={"32px"} alignItems={{base: 'left', md: 'center'}}>
+        <Flex bg={'gray.100'} rounded={20} direction={{base:"column", md:"row"}} padding={"32px"} alignItems={{base: 'left', md: 'center'}} mt={{base: '40px', md: 0}}>
             <Flex direction={"column"}>
                 <Flex alignItems={'center'} direction={{base: 'column', md: 'row'}}>
                     <Text fontFamily={'Montserrat'} fontSize={"xl"} fontWeight={800} textAlign={"left"} textOverflow={"elipsis"}>Entrada general </Text>
@@ -35,7 +35,7 @@ export default function Asientoscard({...props}) {
                 </Flex>
                 <Text color={"gray.500"} fontWeight={500} fontFamily={"Montserrat"} fontSize={16} textAlign={'right'} mb={'16px'}>{'≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}</Text>
                 {props.availability == 0 ?
-                    <Flex disabled={true} borderRadius={"10px"} backgroundColor='gray.300' color='white'>
+                    <Flex disabled={true} px={"32px"} py={"12px"} borderRadius={"10px"} backgroundColor='gray.300' color='white'>
                         <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Agotado</Text>
                     </Flex>     
                 :   
@@ -53,7 +53,7 @@ export default function Asientoscard({...props}) {
                                 ))}
                             </Select>
                         }
-                        <Flex as={"button"} mt={{base: "10px", md: '0px'}} w={{base: '100%', md: undefined}} borderRadius={"6px"} bg='black' ml={{base: "0px", md: "16px"}} color='white' _hover={{backgroundColor: "#333333"}} onClick={()=> props.onNext()} px={"32px"} py={"12px"}>
+                        <Flex as={"button"} mt={{base: "10px", md: '0px'}} w={{base: '100%', md: undefined}} borderRadius={"6px"} bg={Colors.primary.skyblue} ml={{base: "0px", md: "16px"}} color='white' _hover={{backgroundColor: Colors.primary.skyblueHover}} transition="all .3s ease" onClick={()=> props.onNext()} px={"32px"} py={"12px"}>
                             <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Comprar tickets</Text>
                         </Flex>   
                     </Flex>  

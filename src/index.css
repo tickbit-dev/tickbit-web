@@ -83,6 +83,28 @@ code {
 }
 
 /* ---- Pasos compra ---- */
+.css-1wd0e66 {
+  border-color: transparent !important;
+  background-color: #b7bdc7 !important;
+}
+
 .css-1wd0e66[aria-current="step"] {
   border-color: transparent !important;
+  background-color: #69c5d6 !important;
 }
+
+.css-1f28lrh {
+  color: white !important;
+}
+
+.css-1wd0e66[data-highlighted]{
+  background-color: #69c5d6 !important;
+}
+
+.css-18dgkm2[data-highlighted] {
+  border-color: #69c5d6 !important;
+}
+
+/*.css-1ic49h{
+  color: #69c5d6 !important;
+}*/
