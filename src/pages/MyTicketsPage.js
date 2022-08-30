@@ -54,6 +54,7 @@ export default function MyTicketsPage({...props}) {
         setIsCheking(true);
 
         const transaction = await validateTicket(selectedTicket_aux, JSON.parse(qrValue_aux).validationHash, JSON.parse(qrValue_aux).idEvent)
+
         if(transaction == null){
             //Enseñamos un toast de error
             toast({
