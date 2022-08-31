@@ -28,7 +28,7 @@ import { buyTicket } from '../../../utils/funcionesComunes'
   export const CartOrderSummary = (props) => {
     const toast = useToast();
     async function onBuyingTickets(){
-      const transaction = await buyTicket(props.event._id, props.numTickets, parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket * props.numTickets).toFixed(4));
+      const transaction = await buyTicket(props.event._id, props.numTickets, parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4));
       
       if(transaction == null){
         toast({
@@ -49,10 +49,15 @@ import { buyTicket } from '../../../utils/funcionesComunes'
         <Heading size="md" fontFamily={'Montserrat'}>Importe de la compra</Heading>
   
         <Stack spacing="6" position={"relative"}>
-          <OrderSummaryItem label="Subtotal" value={parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}/>
+          <Flex direction={'column'}>
+            <OrderSummaryItem label="Subtotal" value={parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}/>
+            <Text fontSize="sm" fontWeight="500" color={"gray.500"} fontFamily={'Montserrat'} textAlign={'end'}>
+              {'≈ ' + (props.event.price) + "$"}
+            </Text>
+          </Flex>
           <OrderSummaryItem label={"Número de tickets"} value={props.numTickets + " " + (props.numTickets == 1 ? " Ticket" : " Tickets")}/>
           <OrderSummaryItem label="Comisión de la plataforma" value={'1%'}/>
-          <Text color={"gray.400"} fontFamily={'Montserrat'} fontSize={11} position={'absolute'} top={"90px"} textAlign={'left'}>(*) Comisión ya incluída en el precio</Text>
+          <Text color={"gray.400"} fontFamily={'Montserrat'} fontSize={11} position={'absolute'} top={"115px"} textAlign={'left'}>(*) Comisión ya incluída en el precio</Text>
           <Flex height={"10px"}/>
           <Flex justify="space-between">
             <Text fontSize="lg" fontWeight="semibold" fontFamily={'Montserrat'}>
@@ -61,7 +66,7 @@ import { buyTicket } from '../../../utils/funcionesComunes'
             <Flex direction={'column'}>
               <Text fontSize="xl" fontWeight="extrabold" fontFamily={'Montserrat'}>
                 {/*props.usdPricePerTicket +'$'+' ' + '≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC' + '/entrada'*/}
-                {parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket * props.numTickets).toFixed(4) + ' ' + 'MATIC'}
+                {parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4) + ' ' + 'MATIC'}
                 
               </Text>
               <Text fontSize="sm" fontWeight="500" color={"gray.500"} fontFamily={'Montserrat'} textAlign={'end'}>
@@ -71,7 +76,7 @@ import { buyTicket } from '../../../utils/funcionesComunes'
           </Flex>
         </Stack>
         <Stack spacing={"3"}>
-          <Button fontFamily={'Montserrat'} color={'white'} backgroundColor={Colors.primary.skyblue} _hover={{backgroundColor: Colors.primary.skyblueHover}} size="lg" fontSize="md" rightIcon={<FaArrowRight />} onClick={()=> {props.onNext(); onBuyingTickets()}}>
+          <Button fontFamily={'Montserrat'} color={'white'} backgroundColor={Colors.primary.skyblue} _hover={{backgroundColor: Colors.primary.skyblueHover}} size="lg" fontSize="md" /*rightIcon={<FaArrowRight />}*/ onClick={()=> {props.onNext(); onBuyingTickets()}}>
             Pagar
           </Button>
           <Button backgroundColor={"gray.300"} fontFamily={'Montserrat'} color={'white'} size="lg" fontSize="md" textColor={'black'} onClick={()=> {props.onPrev();}}>

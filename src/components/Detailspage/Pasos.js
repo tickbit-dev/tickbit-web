@@ -38,7 +38,7 @@ export default function Pasos({...props}) {
                 {steps.map(({ label }, index) => (
                 <Step label={label} key={label}>
                     {index == 0 ? 
-                        <Step0
+                        <Step3
                             event={props.event}
                             availability={props.availability}
                             isEventLoaded={props.isEventLoaded}
@@ -47,12 +47,14 @@ export default function Pasos({...props}) {
                             maticUsdConversion={props.maticUsdConversion}
                             numTickets={props.numTickets}
                             onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
+                            onPrev={() => {window.history.back()}}
                             onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
-                        /> 
+                        />
                     
                     : index == 1 ?
                         <Step1
                             event={props.event}
+                            availability={props.availability}
                             isEventLoaded={props.isEventLoaded}
                             isPriceLoaded={props.isPriceLoaded}
                             usdPricePerTicket={props.usdPricePerTicket}
@@ -60,6 +62,7 @@ export default function Pasos({...props}) {
                             numTickets={props.numTickets}
                             onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
                             onPrev={() => {window.history.back()}}
+                            onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
                         /> 
                     : 
                         <Step2

@@ -55,11 +55,13 @@ import {
           <Stack spacing="6">
               <CartItem
                 event={props.event}
+                availability={props.availability}
                 isEventLoaded={props.isEventLoaded}
                 isPriceLoaded={props.isPriceLoaded}
                 usdPricePerTicket={props.usdPricePerTicket}
                 maticUsdConversion={props.maticUsdConversion}
                 numTickets={props.numTickets}
+                onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
               />
           </Stack>
         </Stack>

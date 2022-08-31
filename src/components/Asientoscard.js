@@ -40,7 +40,7 @@ export default function Asientoscard({...props}) {
                     </Flex>     
                 :   
                     <Flex direction={{base: 'column', md: 'row'}} w={{base: '100%', md: 'undefined'}}>
-                        {props.availability < MAX_TICKETS ? 
+                        {/*props.availability < MAX_TICKETS ? 
                             <Select onChange={(e) => props.onChangeNumTickets((e.target.value))} variant='outline'  w={{base: '100%', md: "120px"}} margin={"auto"} backgroundColor={"white"} _focus={{ boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white,}} >
                                 {new Array(props.availability).fill().map((item, index) => (
                                     <option value={index + 1}>{index + 1}</option>
@@ -52,7 +52,7 @@ export default function Asientoscard({...props}) {
                                     <option value={index + 1}>{index + 1}</option>
                                 ))}
                             </Select>
-                        }
+                        */}
                         <Flex as={"button"} mt={{base: "10px", md: '0px'}} w={{base: '100%', md: undefined}} borderRadius={"6px"} bg={Colors.primary.skyblue} ml={{base: "0px", md: "16px"}} color='white' _hover={{backgroundColor: Colors.primary.skyblueHover}} transition="all .3s ease" onClick={()=> props.onNext()} px={"32px"} py={"12px"}>
                             <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Comprar tickets</Text>
                         </Flex>   

@@ -9,9 +9,9 @@ export default function Step2({...props}) {
     return (
         <Flex h={'50vh'} w={'100%'} alignItems={'center'} justifyContent={'center'}  direction={'column'}>
             <Heading fontSize="4xl" fontWeight="normal">
-                Realizando el pago...
+                Esperando confirmación de pago...
             </Heading>
-            <Spinner  mt={15} size='xl' />
+            <Spinner  mt={"32px"} size='xl' />
         </Flex> 
         
     );
