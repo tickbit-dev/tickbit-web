@@ -11,11 +11,11 @@ export default function Step3({...props}) {
     const navigate = useNavigate();
     return (
         <Flex  w={'100%'} alignItems={'center'} justifyContent={'center'} textAlign={'center'} direction={'column'} pt={"100px"} pb={"140px"}>
-            <Flex alignItems={"center"} ml={"-16px"}>
+            <Flex display={{base: 'none', md: 'flex'}} alignItems={"center"}>
                 <Image width={"30px"} src={Tickbit}/>
                 {/*<Text fontFamily={"Montserrat"} fontWeight={900} fontSize={'xl'} ml={"10px"}>Tickbit</Text>*/}
             </Flex>
-            <Stack direction={{base: 'column', md: 'row'}} alignItems={"center"} spacing={"16px"} mt={'30px'}>
+            <Stack direction={{base: 'column', md: 'row'}} alignItems={"center"} spacing={"16px"} mt={{base: '0px', md: '30px'}}>
                 <Flex borderRadius={"full"} bg={Colors.primary.skyblue} w={"40px"} h={"40px"} alignItems={'center'} justifyContent={'center'}>
                     <Icon
                         fontSize="15px"
@@ -48,25 +48,25 @@ export default function Step3({...props}) {
                         <Text textAlign={'left'}>{getCityById(props.event.idCity).name}</Text>
                     </Box>
                 </Stack>
-                <Flex direction={'column'} width={"300px"}>
+                <Flex direction={'column'} width={"300px"} mt={{base: "20px", md: "0px"}}>
                     <Flex direction={'column'}>
-                        <Text fontSize="sm" fontWeight="medium" color={'gray.500'} fontFamily={'Montserrat'} textAlign={'end'}>
+                        <Text fontSize="sm" fontWeight="medium" color={'gray.500'} fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
                             Nº de tickets:
                         </Text>
-                        <Text fontSize="lg" fontWeight="bold" fontFamily={'Montserrat'} textAlign={'end'}>
+                        <Text fontSize="lg" fontWeight="bold" fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
                             {props.numTickets}
                         </Text>
                     </Flex>
                     <Spacer/>
                     <Flex direction={'column'}>
-                        <Text fontSize="sm" fontWeight="medium" color={'gray.500'} fontFamily={'Montserrat'} textAlign={'end'}>
+                        <Text fontSize="sm" fontWeight="medium" color={'gray.500'} fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
                             Total:
                         </Text>
-                        <Text fontSize="lg" fontWeight="bold" fontFamily={'Montserrat'} textAlign={'end'}>
+                        <Text fontSize="lg" fontWeight="bold" fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
                             {/*props.usdPricePerTicket +'$'+' ' + '≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC' + '/entrada'*/}
                             {parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4) + ' ' + 'MATIC'}
                         </Text>
-                        <Text fontSize="sm" fontWeight="500" color={"gray.500"} fontFamily={'Montserrat'} textAlign={'end'}>
+                        <Text fontSize="sm" fontWeight="500" color={"gray.500"} fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
                             {'≈ ' + (props.event.price * props.numTickets) + "$"}
                         </Text>
                     </Flex>

@@ -38,7 +38,7 @@ export default function Pasos({...props}) {
                 {steps.map(({ label }, index) => (
                 <Step label={label} key={label}>
                     {index == 0 ? 
-                        <Step3
+                        <Step0
                             event={props.event}
                             availability={props.availability}
                             isEventLoaded={props.isEventLoaded}
@@ -46,11 +46,9 @@ export default function Pasos({...props}) {
                             usdPricePerTicket={props.usdPricePerTicket}
                             maticUsdConversion={props.maticUsdConversion}
                             numTickets={props.numTickets}
-                            onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
-                            onPrev={() => {window.history.back()}}
+                            onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname); props.onChangeNumTickets(1)}}
                             onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
-                        />
-                    
+                        /> 
                     : index == 1 ?
                         <Step1
                             event={props.event}
@@ -86,18 +84,17 @@ export default function Pasos({...props}) {
         </Steps>
         {activeStep === steps.length ? 
             <Step3
-                image={props.image}
-                tituloevento={props.tituloevento}
+                event={props.event}
+                availability={props.availability}
+                isEventLoaded={props.isEventLoaded}
+                isPriceLoaded={props.isPriceLoaded}
+                usdPricePerTicket={props.usdPricePerTicket}
+                maticUsdConversion={props.maticUsdConversion}
                 numTickets={props.numTickets}
-                artista={props.artista}
-                fecha={props.fecha}
-                categoria={props.categoria}
-                description={props.description}
-                precio={props.precio2}
-                recinto={props.recinto}
-                fecha2={props.fecha2}
-                precioMatic={props.precioMatic}
-            /> 
+                onNext={() => {nextStep(); window.history.pushState(null, null, window.location.pathname);}}
+                onPrev={() => {window.history.back()}}
+                onChangeNumTickets={(num) => props.onChangeNumTickets(num)}
+            />
         : 
             <Flex width="100%" justify="flex-end">
 
