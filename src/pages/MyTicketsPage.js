@@ -1,6 +1,6 @@
 //Libraries
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Tab, TabList, Tabs, TabPanels, TabPanel  } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Input, Heading, Image, toast, useToast, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Tab, TabList, Tabs, TabPanels, TabPanel, Stack, Spacer, Spinner, Icon  } from '@chakra-ui/react';
 
 //Components and Screens
 import NavigationBar from '../components/NavigationBar/NavigationBar';
@@ -20,12 +20,13 @@ import TickbitTicket from '../solidity/artifacts/contracts/TickbitTicket.sol/Tic
 import Web3Modal from 'web3modal';
 import moment from 'moment';
 import Portada from '../components/Portada';
-import { cutIntervalDate, getEventById, getEventsListFromBlockchain, getEventsListFromTest, getMyTicketsList, getSpanishWeekDayString, getTicketsListFromBlockchain, getTicketsListFromTest, getVenueById, newEvent, readEventbyId, validateTicket } from '../utils/funcionesComunes';
+import { cutIntervalDate, getCityById, getEventById, getEventsListFromBlockchain, getEventsListFromTest, getMyTicketsList, getSpanishWeekDayString, getTicketsListFromBlockchain, getTicketsListFromTest, getVenueById, newEvent, readEventbyId, validateTicket } from '../utils/funcionesComunes';
 import Asientoscard from '../components/Asientoscard';
 import Colors from '../constants/Colors';
 import TipoTicketsMyTickets from '../components/TipoTicketsMyTickets';
 import { QrReader } from 'react-qr-reader';
 import Webcam from 'react-webcam';
+import { BsCheckLg } from 'react-icons/bs';
 
 
 export default function MyTicketsPage({...props}) {
@@ -42,15 +43,13 @@ export default function MyTicketsPage({...props}) {
     const {isOpen, onOpen, onClose } = useDisclosure();
     
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isCheking, setIsCheking] = useState(false);
+    const [isCheking, setIsCheking] = useState(null);
     const now = moment(new Date()).subtract(1, 'days').unix();
 
     async function sendValidation(){
         const selectedTicket_aux = selectedTicket;
         const qrValue_aux = qrValue;
 
-        setSelectedTicket(0);
-        setQrValue(undefined);
         setIsCheking(true);
 
         const transaction = await validateTicket(selectedTicket_aux, JSON.parse(qrValue_aux).validationHash, JSON.parse(qrValue_aux).idEvent)
@@ -65,6 +64,8 @@ export default function MyTicketsPage({...props}) {
                 isClosable: true,
             })
             setIsCheking(false);
+            setSelectedTicket(0);
+            setQrValue(undefined);
         } else {
             //Enseñamos un toast de éxito
             toast({
@@ -75,6 +76,12 @@ export default function MyTicketsPage({...props}) {
                 isClosable: true,
             })
             setIsCheking(false);
+
+            setTimeout(function () {
+                onClose();
+                setSelectedTicket(0);
+                setQrValue(undefined);
+            }, 4000);
         }
     }
 
@@ -102,152 +109,194 @@ export default function MyTicketsPage({...props}) {
         setAvailableTickets(availableTickets_list);
         setEndedTickets(endedTickets_list);
         setEventsList(events_list);
-        setIsLoaded(true); 
-   
-}
+        setIsLoaded(true);
+    }
 
     useEffect(() => {
         getData();
     }, []);
 
+    function onReadedQr(){
+        //onClose();
+        sendValidation();
+    }
+
     useEffect(() => {
         if(qrValue){
-            onClose();
-            sendValidation();
+            onReadedQr();
         }
     }, [qrValue]);
 
     return (
-        <Box>
-            <NavigationBar/>
-            <Modal isOpen={selectedTicket != 0 ? isOpen : false} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                <ModalHeader>Escanea el código QR</ModalHeader>
-                <ModalBody>
-                    {selectedTicket != 0 ?
-                        <Flex borderRadius={"10px"} overflow={'hidden'}>
-                            <QrReader
-                                constraints={{
-                                    facingMode: 'environment'
-                                }}
-                                onResult={(result, error) => {
-                                if (!!result) {
-                                    setQrValue(result?.text);
-                                }
-
-                                /*if (!!error) {
-                                    console.info(error);
-                                }*/
-                                }}
-                                style={{ width: '100%' }}
-                            />
-                            <Webcam
-                                audio={false}
-                                height={'100%'}
-                                //screenshotFormat="image/jpeg"
-                                width={'100%'}
-                                videoConstraints={{facingMode: 'environment'}}
-                            />
-                        </Flex>
-                    : null}
-                </ModalBody>
-
-                <ModalFooter>
-                    <ModalFooter>
-                        <Button colorScheme='gray' w={'100%'} onClick={onClose}>Cerrar</Button>
-                    </ModalFooter>
-                </ModalFooter>
-                </ModalContent>
-            </Modal>
-
-            <ContentBox py={"30px"}>
-                <Heading mb={"30px"}>Mis tickets</Heading>
-                <Flex w={"full"}>
-                    <Tabs w={"full"} variant='soft-rounded' colorScheme={Colors.secondary.gray}>
-                        <Flex>
-                            <TabList>
-                                <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
-                                    <MdOutlineEventAvailable  size={"20px"}/> &nbsp; <Text>Disponibles</Text>
-                                </Tab>
-                                <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px"}} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
-                                    <MdOutlineEventBusy size={"20px"}/>&nbsp; <Text> Finalizados </Text>
-                                </Tab>
-
-                            </TabList>
-                        </Flex>
-                        <TabPanels>
-                            <TabPanel w={"100%"}>
-                                {availableTickets.length == 0 ?
-                                    <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
-                                        <IoIosInformationCircleOutline />
-                                        <Text ml={'10px'} >No hay ningún ticket.</Text>
-                                    </Flex>
-                                :
-                                    availableTickets.map((item) => (
-                                        <TicketCard
-                                            ticket={item}
-                                            eventsList={eventsList}
-                                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
+        <Flex maxW={"100%"} direction={'column'} overflow={"hidden"} minH={'100vh'}>
+            <ContentBox>
+                <NavigationBar/>
+                <Flex direction={"column"} px={{base: '10px', md: '16px'}}>
+                    <Modal isOpen={selectedTicket != 0 ? isOpen : false} onClose={onClose}>
+                        <ModalOverlay />
+                        <ModalContent>
+                        <ModalHeader>Escanea el código QR</ModalHeader>
+                        <ModalBody>
+                            {selectedTicket != 0 ?
+                                <Flex borderRadius={"10px"} overflow={'hidden'}>
+                                    <QrReader
+                                        constraints={{facingMode: 'environment'}}
+                                        style={{ width: '100%' }}
+                                        onResult={(result, error) => {
+                                            if (!!result) {
+                                                setQrValue(result?.text);
+                                            }
+                                            /*if (!!error) {
+                                                console.info(error);
+                                            }*/
+                                        }}
+                                    />
+                                    {!qrValue ?
+                                        <Webcam
+                                            audio={false}
+                                            height={'100%'}
+                                            //screenshotFormat="image/jpeg"
+                                            width={'100%'}
+                                            videoConstraints={{facingMode: 'environment'}}
                                         />
-                                    ))}
-                            </TabPanel>
-                            <TabPanel w={"100%"}>
-                                {endedTickets.length == 0 ?
-                                    <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
-                                        <IoIosInformationCircleOutline />
-                                        <Text ml={'10px'} >No hay ningún ticket.</Text>
-                                    </Flex>
-                                :
-                                    endedTickets.map((item) => (
-                                        <TicketCard
-                                            ticket={item}
-                                            eventsList={eventsList}
-                                            onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
-                                        />
-                                    ))}
-                                
-            
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                                    : isCheking == true ?
+                                        <Flex width={"100%"} height={'100%'} alignItems={'center'} justifyContent={'center'}>
+                                            <Spinner mt={"32px"} size='xl'/>
+                                        </Flex>
+                                    : isCheking == false ?
+                                        <Flex width={"100%"} height={'100%'} alignItems={'center'} justifyContent={'center'}>
+                                            <Flex borderRadius={"full"} bg={Colors.primary.skyblue} w={"70px"} h={"70px"} alignItems={'center'} justifyContent={'center'}>
+                                                <Icon
+                                                    fontSize="30"
+                                                    color={"white"}
+                                                    as={BsCheckLg}
+                                                />
+                                            </Flex>
+                                        </Flex>
+                                    : 
+                                        null
+                                    }
+                                </Flex>
+                            : null}
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <ModalFooter w={'100%'}>
+                                <Button colorScheme='gray' w={'100%'} onClick={onClose}>Cerrar</Button>
+                            </ModalFooter>
+                        </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                    <Heading mb={"30px"}>Mis tickets</Heading>
+                    <Flex w={"full"}>
+                        <Tabs w={"full"} variant='soft-rounded' colorScheme={Colors.secondary.gray}>
+                            <Flex>
+                                <TabList>
+                                    <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px" }} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+                                        <MdOutlineEventAvailable  size={"20px"}/> &nbsp; <Text>Disponibles</Text>
+                                    </Tab>
+                                    <Tab isFitted="true" _selected={{ color: 'black', bg: '#F0F1F8'}} _hover={{color: 'black'}} py={"13px"} pl={"20px"} pr={"26px"} textColor={'#AFB1C5'} fontFamily={"Montserrat"} style={{WebkitTapHighlightColor: "transparent", marginRight:"20px"}} _focus={{boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white, }} >
+                                        <MdOutlineEventBusy size={"20px"}/>&nbsp; <Text> Finalizados </Text>
+                                    </Tab>
+                                </TabList>
+                            </Flex>
+                            <TabPanels>
+                                <TabPanel w={"100%"}>
+                                    {isLoaded == false ?
+                                        <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10}>
+                                            <Spinner mt={"32px"} mb={"32px"} size='lg' />
+                                        </Flex>
+                                    : availableTickets.length == 0 ?
+                                        <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
+                                            <IoIosInformationCircleOutline />
+                                            <Text ml={'10px'} >No hay ningún ticket.</Text>
+                                        </Flex>
+                                    :
+                                        availableTickets.map((item) => (
+                                            <TicketCard
+                                                ticket={item}
+                                                eventsList={eventsList}
+                                                onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
+                                            />
+                                        ))}
+                                </TabPanel>
+                                <TabPanel w={"100%"}>
+                                    {isLoaded == false ?
+                                        <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10}>
+                                            <Spinner mt={"32px"} mb={"32px"} size='lg' />
+                                        </Flex>
+                                    : endedTickets.length == 0 ?
+                                        <Flex p={4} alignItems={"center"} justifyContent={'center'} w={'100%'} mt={10} >
+                                            <IoIosInformationCircleOutline />
+                                            <Text ml={'10px'} >No hay ningún ticket.</Text>
+                                        </Flex>
+                                    :
+                                        endedTickets.map((item) => (
+                                            <TicketCard
+                                                ticket={item}
+                                                eventsList={eventsList}
+                                                onTicketValidation={(ticketId) => {setSelectedTicket(ticketId); onOpen();}}
+                                            />
+                                        ))}
+                                    
+                
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+                    </Flex>
                 </Flex>
-              
             </ContentBox>
             <Footer/>
-        </Box>
+        </Flex>
     );
 };
 
 
 function TicketCard({...props}) {
     return (
-        <Flex h={{base: undefined, md: 200}} backgroundColor={'#FDFDFD'} rounded={20} direction={{base:"column", md:"row"}} p={4} mb={'16px'}  boxShadow='lg'>
-            <Flex flex={1} h={'full'} direction={{base: "column", md: "row"}}>
-                <Image w={{base: "full", md: "300px"}} h={"full"} fit={'cover'} src={getEventById(props.ticket.idEvent, props.eventsList).coverImageUrl} borderRadius={"10px"}/>
-                <Flex  flex={0.6} direction={"column"} justifyContent={"center"} p={{base: 0, md: 12}} py={{base: 6, md: 12}} >
-                    <Text fontFamily={'Montserrat'} fontWeight={'bold'} fontSize={"2xl"}>{getEventById(props.ticket.idEvent, props.eventsList).title}</Text>
-                    <Text fontFamily={'Montserrat'} fontSize={"md"} pt={5} >Fecha y lugar:</Text>
-                    <Text fontFamily={'Montserrat'} fontSize={"xl"} textAlign={"left"}  >{getSpanishWeekDayString(new Date(getEventById(props.ticket.idEvent, props.eventsList).initialDate * 1000)) + ',' + ' ' + cutIntervalDate(getEventById(props.ticket.idEvent, props.eventsList).initialDate)}</Text>
-                    <Text fontFamily={'Montserrat'} fontSize={"xl"} textAlign={"left"} textOverflow={"elipsis"}>{getVenueById(getEventById(props.ticket.idEvent, props.eventsList).idVenue).name}</Text>
+        <Flex flex={1} rounded={20} direction={{base:"column", md:"row"}} p={4} mb={'16px'} borderWidth={1}>
+            <Stack direction="row" spacing="5" width="full">
+                <Image
+                    rounded="lg"
+                    width="140px"
+                    height="140px"
+                    fit="cover"
+                    src={getEventById(props.ticket.idEvent, props.eventsList).coverImageUrl}
+                    backgroundColor={'gray.100'}
+                    borderWidth={0}
+                    alt={" "}
+                    draggable="false"
+                    loading="lazy"
+                />
+                <Box>
+                    <Stack spacing={0}>
+                        <Text fontWeight="bold" fontSize={'xl'} textAlign={'left'}>{getEventById(props.ticket.idEvent, props.eventsList).title}</Text>
+                        <Text fontWeight="medium" mt={"-10px"} textAlign={'left'}>{getEventById(props.ticket.idEvent, props.eventsList).artist}</Text>
+                    </Stack>
+                    <Text mt={'10px'} textAlign={'left'}>{getSpanishWeekDayString(new Date(getEventById(props.ticket.idEvent, props.eventsList).initialDate * 1000)) + ',' + ' ' + cutIntervalDate(getEventById(props.ticket.idEvent, props.eventsList).initialDate)}</Text>
+                    <Text textAlign={'left'}>{getVenueById(getEventById(props.ticket.idEvent, props.eventsList).idVenue).name}</Text>
+                    <Text textAlign={'left'}>{getCityById(getEventById(props.ticket.idEvent, props.eventsList).idCity).name}</Text>
+                </Box>
+            </Stack>
+            <Flex direction={'column'} width={"300px"} mt={{base: "20px", md: "0px"}}>
+                <Flex direction={'column'}>
+                    <Text fontSize="sm" fontWeight="medium" color={'gray.500'} fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
+                        Id de ticket:
+                    </Text>
+                    <Text fontSize="lg" fontWeight="bold" fontFamily={'Montserrat'} textAlign={{base: 'start', md: 'end'}}>
+                        {props.ticket._id}
+                    </Text>
                 </Flex>
-                <Flex flex={0.2} direction={"column"} justifyContent={"center"} p={{base: 0, md: 12}} py={{base: 2, md: 12}}>
-                    <Text fontFamily={'Montserrat'} fontSize={"md"} pt={{base:0,md:5}} >N.º ticket:</Text>
-                    <Text fontFamily={'Montserrat'} fontSize={"xl"} textAlign={"left"} textOverflow={"elipsis"}>{props.ticket._id}</Text>
-                </Flex>
-                <Flex  flex={0.2} ml={'auto'}  p={{base: 0, md: 10}} py={{base:2, md: 12}}>
+                <Spacer/>
+                <Flex direction={'column'}>
                     {props.ticket.validated == false ?
-                        <Flex as={"button"} margin={"auto"}  height='50px' width='100px' borderRadius={20}  backgroundColor='black' color='white' _hover={{backgroundColor: "#333333"}} onClick={()=> {props.onTicketValidation(props.ticket._id); console.log("selectedTicket", props.ticket._id)}}>
-                            <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validar</Text>
-                        </Flex>
+                        <Button w={{base: 'full', md: '300px'}} h={'50px'} bg={Colors.primary.skyblue} _active={{bg: Colors.primary.skyblue}} _hover={{bg: Colors.primary.skyblueHover}} color={'white'} fontFamily={'Montserrat'} mt={"32px"} onClick={()=> {props.onTicketValidation(props.ticket._id); console.log("selectedTicket", props.ticket._id)}}>Validar ticket</Button>
                     :
-                        <Flex as={"button"} margin={"auto"}  height='50px' width='100px' borderRadius={20}  backgroundColor='#F0F1F8'  _hover={ {cursor:'auto'}} >
-                            <Text margin={"auto"}  color={"gray"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validado</Text>
+                        <Flex w={{base: 'full', md: '300px'}} h={'50px'} backgroundColor='#F0F1F8' fontFamily={'Montserrat'} mt={"32px"} borderRadius={"6px"} alignItems={'center'} justifyContent={'center'}>
+                            <Text color={"gray"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Validado</Text>
                         </Flex>
-            }
-                {/*<AiOutlineScan cursor={'pointer'} size={70}/>*/}
+                    }
                 </Flex>
-                
             </Flex>
         </Flex>
     );
