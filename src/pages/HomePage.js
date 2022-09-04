@@ -161,7 +161,7 @@ export default function HomePage() {
                             mt={{base: '0px', md: '10px'}}
                             title={"Próximos eventos"}
                             isLoaded={isLoaded}
-                            link={"/events/coming"}
+                            link={"/events"}
                             data={events?.sort((a, b) => {return a.initialDate - b.initialDate;})}
                         />
                     </Flex>
