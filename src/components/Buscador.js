@@ -31,12 +31,12 @@ export default function Buscador({...props}) {
                     transition="all .6s ease"
                     _focus={{base: {boxShadow: "0 0 0px 0px " + Colors.secondary.grayHover}, md: {boxShadow: "0 0 0px 0px " + Colors.secondary.grayHover}}}
                 />
-                <Flex /*as={"button"} _focus={{boxShadow: "0 0 0px 3px " + Colors.secondary.grayHover}}*/ style={{WebkitTapHighlightColor: "transparent"}} w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"} /*_hover={{transform: 'scale(1.08)'}}*/ transition="all .6s ease">
+                <Flex style={{WebkitTapHighlightColor: "transparent"}} w={"50px"} h={"50px"} position={"absolute"} borderRadius={"full"} bg={"black"} zIndex={2} alignItems={"center"} justifyContent={"center"} transition="all .6s ease">
                     <Flex ml={"-3px"} mt={"1px"}><CgSearch color={"white"} size={"20px"}/></Flex>
                 </Flex>
             </Flex>
-            <Flex cursor={'pointer'} w={"300px"} h={"50px"} ml={"10px"} display={{base: 'none', md: 'flex'}} borderRadius={"14px"} bg={Colors.secondary.gray} overflow={"hidden"} alignItems="center" position={"relative"}
-                //_hover={{ bg: Colors.secondary.grayHover, /*transform: 'scale(1.01)'*/ }}
+            {/*<Flex cursor={'pointer'} w={"300px"} h={"50px"} ml={"10px"} display={{base: 'none', md: 'flex'}} borderRadius={"14px"} bg={Colors.secondary.gray} overflow={"hidden"} alignItems="center" position={"relative"}
+                //_hover={{ bg: Colors.secondary.grayHover, }}
                 transition="all .6s ease"
             >
                 <Flex position={"absolute"} left={"14px"}>
@@ -79,7 +79,7 @@ export default function Buscador({...props}) {
                 _focus={{boxShadow: "0 0 0px 0px" + Colors.secondary.grayHover}}
             >
                 <Flex mt={"5px"} ml={"-1px"}><FiChevronDown size={"22px"}/></Flex>
-            </Button>
+            </Button>*/}
         </Flex>
     );
 };
