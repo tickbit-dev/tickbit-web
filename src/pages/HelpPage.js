@@ -6,7 +6,7 @@ import { Box, Text, Flex, Heading, AccordionPanel, AccordionIcon, AccordionButto
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import ContentBox from '../components/Utils/ContentBox';
 import Footer from '../components/Footer';
-import HelpImage from '../assets/help.png';
+import HelpImage from '../assets/help.webp';
 
 //Constants
 import Colors from '../constants/Colors';

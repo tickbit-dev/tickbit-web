@@ -8,8 +8,8 @@ import ContentBox from '../components/Utils/ContentBox';
 import Footer from '../components/Footer';
 import Colors from '../constants/Colors';
 import { AiFillLinkedin } from "react-icons/ai";
-import Albert from '../assets/albert.png';
-import Josep from '../assets/josep.png';
+import Albert from '../assets/albert.webp';
+import Josep from '../assets/josep.webp';
 
 
 //Constants
