@@ -27,6 +27,7 @@ import TipoTicketsMyTickets from '../components/TipoTicketsMyTickets';
 import { QrReader } from 'react-qr-reader';
 import Webcam from 'react-webcam';
 import { BsCheckLg } from 'react-icons/bs';
+import { IoClose } from 'react-icons/io5';
 
 
 export default function MyTicketsPage({...props}) {
@@ -44,6 +45,7 @@ export default function MyTicketsPage({...props}) {
     
     const [isLoaded, setIsLoaded] = useState(false);
     const [isCheking, setIsCheking] = useState(null);
+    const [isError, setIsError] = useState(false);
     const now = moment(new Date()).subtract(1, 'days').unix();
 
     async function sendValidation(){
@@ -63,9 +65,13 @@ export default function MyTicketsPage({...props}) {
                 duration: 4000,
                 isClosable: true,
             })
+            setIsError(true)
             setIsCheking(false);
             setSelectedTicket(0);
             setQrValue(undefined);
+            setTimeout(function () {
+                setIsError(false)
+            }, 4000);
         } else {
             //Enseñamos un toast de éxito
             toast({
@@ -135,13 +141,13 @@ export default function MyTicketsPage({...props}) {
                     <Modal isOpen={selectedTicket != 0 ? isOpen : false} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
-                        <ModalHeader>Escanea el código QR</ModalHeader>
+                        <ModalHeader fontFamily={'Montserrat'}>Escanea el código QR</ModalHeader>
                         <ModalBody>
                             {selectedTicket != 0 ?
-                                <Flex borderRadius={"10px"} overflow={'hidden'}>
+                                <Flex minH={{base: '55vh', md: '50vh'}}>
                                     <QrReader
                                         constraints={{facingMode: 'environment'}}
-                                        style={{ width: '100%' }}
+                                        style={{ width: '100%', height: '100%' }}
                                         onResult={(result, error) => {
                                             if (!!result) {
                                                 setQrValue(result?.text);
@@ -151,38 +157,52 @@ export default function MyTicketsPage({...props}) {
                                             }*/
                                         }}
                                     />
-                                    {!qrValue ?
-                                        <Webcam
-                                            audio={false}
-                                            height={'100%'}
-                                            //screenshotFormat="image/jpeg"
-                                            width={'100%'}
-                                            videoConstraints={{facingMode: 'environment'}}
-                                        />
-                                    : isCheking == true ?
-                                        <Flex width={"100%"} height={'100%'} alignItems={'center'} justifyContent={'center'}>
-                                            <Spinner mt={"32px"} size='xl'/>
-                                        </Flex>
-                                    : isCheking == false ?
-                                        <Flex width={"100%"} height={'100%'} alignItems={'center'} justifyContent={'center'}>
-                                            <Flex borderRadius={"full"} bg={Colors.primary.skyblue} w={"70px"} h={"70px"} alignItems={'center'} justifyContent={'center'}>
-                                                <Icon
-                                                    fontSize="30"
-                                                    color={"white"}
-                                                    as={BsCheckLg}
-                                                />
+                                    <Flex borderRadius={"10px"} width={"100%"} overflow={'hidden'}>
+                                        {!qrValue ?
+                                            <Webcam
+                                                audio={false}
+                                                //screenshotFormat="image/jpeg"
+                                                width={'100%'}
+                                                videoConstraints={{facingMode: 'environment'}}
+                                            />
+                                        : isCheking == true ?
+                                            <Flex flex={1} width={"100%"} height={'100%'} alignItems={'center'} justifyContent={'center'}>
+                                                <Spinner mt={"32px"} size='xl'/>
                                             </Flex>
-                                        </Flex>
-                                    : 
-                                        null
-                                    }
+                                        : isCheking == false ?
+                                            isError == true ?
+                                                <Flex width={"100%"} height={'100%'} alignItems={'center'} direction={'column'} justifyContent={'center'}>
+                                                    <Flex borderRadius={"full"} bg={"#e05a65"} w={"70px"} h={"70px"} alignItems={'center'} justifyContent={'center'}>
+                                                        <Icon
+                                                            fontSize="30"
+                                                            color={"white"}
+                                                            as={IoClose}
+                                                        />
+                                                    </Flex>
+                                                    <Text mt={"16px"} fontFamily={'Montserrat'} fontWeight={500}>Error al validar</Text>
+                                                </Flex>
+                                            :
+                                                <Flex width={"100%"} height={'100%'} alignItems={'center'} direction={'column'} justifyContent={'center'}>
+                                                    <Flex borderRadius={"full"} bg={Colors.primary.skyblue} w={"70px"} h={"70px"} alignItems={'center'} justifyContent={'center'}>
+                                                        <Icon
+                                                            fontSize="30"
+                                                            color={"white"}
+                                                            as={BsCheckLg}
+                                                        />
+                                                    </Flex>
+                                                    <Text mt={"16px"} fontFamily={'Montserrat'} fontWeight={500}>Ticket validado</Text>
+                                                </Flex>
+                                        : 
+                                            null
+                                        }
+                                    </Flex>
                                 </Flex>
                             : null}
                         </ModalBody>
 
                         <ModalFooter>
                             <ModalFooter w={'100%'}>
-                                <Button colorScheme='gray' w={'100%'} onClick={onClose}>Cerrar</Button>
+                                <Button colorScheme='gray' w={'100%'} onClick={onClose} fontFamily={'Montserrat'}>Cerrar</Button>
                             </ModalFooter>
                         </ModalFooter>
                         </ModalContent>
