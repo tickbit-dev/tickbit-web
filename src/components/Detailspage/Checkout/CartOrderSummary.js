@@ -1,7 +1,9 @@
 import {
+  Badge,
     Button,
     Flex,
     Heading,
+    Icon,
     Link,
     Stack,
     Text,
@@ -9,9 +11,10 @@ import {
     useToast
   } from '@chakra-ui/react'
   import * as React from 'react'
+import { BsShieldFillCheck } from 'react-icons/bs'
   import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import Colors from '../../../constants/Colors'
-import { buyTicket } from '../../../utils/funcionesComunes'
+import { buyTicket, buyTicketResale } from '../../../utils/funcionesComunes'
   
   const OrderSummaryItem = (props) => {
     const { label, value, children } = props
@@ -28,7 +31,9 @@ import { buyTicket } from '../../../utils/funcionesComunes'
   export const CartOrderSummary = (props) => {
     const toast = useToast();
     async function onBuyingTickets(){
-      const transaction = await buyTicket(props.event._id, props.numTickets, parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4));
+      const transaction = props.isResale ?
+      await buyTicketResale(props.event._id, props.numTickets, parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4))
+      : await buyTicket(props.event._id, props.numTickets, parseFloat((1/(props.maticUsdConversion).toFixed(4)) * props.usdPricePerTicket * props.numTickets).toFixed(4));
       
       if(transaction == null){
         toast({
@@ -45,8 +50,8 @@ import { buyTicket } from '../../../utils/funcionesComunes'
   }
 
     return (
-      <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
-        <Heading size="md" fontFamily={'Montserrat'}>Importe de la compra</Heading>
+      <Stack spacing="8" borderWidth="1px" rounded="lg" padding={{base: "20px", md: 8}} width="full">
+        <Heading size="md" fontFamily={'Montserrat'} textAlign={{base: "left", md: undefined}} mt={{base: "10px", md: "0px"}}>Importe de la compra</Heading>
   
         <Stack spacing="6" position={"relative"}>
           <Flex direction={'column'}>
@@ -75,14 +80,27 @@ import { buyTicket } from '../../../utils/funcionesComunes'
             </Flex>
           </Flex>
         </Stack>
-        <Stack spacing={"3"}>
+        <Flex direction={"column"}>
+          {props.isResale ?
+            <Flex flex={1} justifyContent={"flex-end"} alignItems={'center'} mt={"-10px"}>
+              <Badge colorScheme='cyan' pt={"6px"} pb={"16px"} borderTopRadius={'6px'} px={"10px"} mb={"-10px"} flex={1}>
+                  <Flex alignItems={'center'} justifyContent={'center'}>
+                      <Icon
+                          fontSize={"15px"}
+                          as={BsShieldFillCheck}
+                      />
+                      <Text ml={"10px"}>Reventa segura con Tickbit</Text>
+                  </Flex>
+              </Badge>
+            </Flex> 
+          : null}
           <Button fontFamily={'Montserrat'} color={'white'} backgroundColor={Colors.primary.skyblue} _hover={{backgroundColor: Colors.primary.skyblueHover}} size="lg" fontSize="md" /*rightIcon={<FaArrowRight />}*/ onClick={()=> {props.onNext(); onBuyingTickets()}}>
             Pagar
           </Button>
-          <Button backgroundColor={"gray.300"} fontFamily={'Montserrat'} color={'white'} size="lg" fontSize="md" textColor={'black'} onClick={()=> {props.onPrev();}}>
+          <Button backgroundColor={"gray.300"} mt={"12px"} fontFamily={'Montserrat'} color={'white'} size="lg" fontSize="md" textColor={'black'} onClick={()=> {props.onPrev();}}>
             Atrás
           </Button>
-        </Stack>
+        </Flex>
       </Stack>
     )
   }

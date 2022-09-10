@@ -16,13 +16,14 @@ import { useParams } from 'react-router-dom';
 
 //Solidity
 import { ethers, BigNumber } from 'ethers'
-import { buyTicket, changeNumberforNameMonth, checkAvailabilityByEventId, cutIntervalDate, getCategoryById, getVenueById, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
+import { buyTicket, changeNumberforNameMonth, checkAvailabilityByEventId, checkResaleAvailabilityByEventId, cutIntervalDate, getCategoryById, getVenueById, readEventbyId, timestampToDate } from '../utils/funcionesComunes';
 //import { contractAddress } from '../solidity/config';
 //import Tickbit from '../solidity/artifacts/contracts/Tickbit.sol/Tickbit.json';
 
 export default function EventDetailsPage({...props}) {
     const [event, setEvent] = useState([]);
     const [availability, setAvailability] = useState(0);
+    const [isResale, setIsResale] = useState(false);
 
     const [isEventLoaded, setIsEventLoaded] = useState(false);
     const [isPriceLoaded, setIsPriceLoaded] = useState(false);
@@ -35,10 +36,13 @@ export default function EventDetailsPage({...props}) {
 
     async function getData(){
         const item = await readEventbyId(params.eventId, true);
-        const availabilityNumber = await checkAvailabilityByEventId(params.eventId);
+        const availabilityNumber = window.location.hostname === 'localhost' ? 0 : await checkAvailabilityByEventId(params.eventId);
+        const resaleAvailabilityNumber = window.location.hostname === 'localhost' ? 4 : availabilityNumber == 0 ? await checkResaleAvailabilityByEventId(params.eventId) : 0;
 
+        console.log(item)
         setEvent(item)
-        setAvailability(availabilityNumber);
+        setAvailability(availabilityNumber != 0 ? availabilityNumber : resaleAvailabilityNumber);
+        setIsResale(availabilityNumber != 0 ? false : true);
         setIsEventLoaded(true)
     }
 
@@ -68,6 +72,7 @@ export default function EventDetailsPage({...props}) {
                     <Pasos 
                         event={event}
                         availability={availability}
+                        isResale={isResale}
                         onChangeNumTickets={(num) => setNumTickets(num)}
                         isEventLoaded={isEventLoaded}
                         isPriceLoaded={isPriceLoaded}

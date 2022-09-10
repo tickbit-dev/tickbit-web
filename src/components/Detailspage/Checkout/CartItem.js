@@ -28,6 +28,7 @@ export const CartItem = (props) => {
     >
       <CartProductMeta
         event={props.event}
+        isResale={props.isResale}
       />
 
       <Flex direction={'column'} mt={{base: "30px", md: "0px"}}>

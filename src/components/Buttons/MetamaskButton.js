@@ -34,7 +34,8 @@ export default function MetamaskButton({...props}) {
                 status: 'info',
                 duration: 2000,
                 isClosable: true,
-              })
+            })
+            window.open("/", "_self");
         }
     }, [userAddress]);
 
@@ -50,6 +51,7 @@ export default function MetamaskButton({...props}) {
                     isClosable: true,
                 })
             });
+            window.open("/", "_self");
         } else {
             window.open("https://metamask.app.link/dapp/tickb.it", "_blank")
         }
@@ -75,6 +77,7 @@ export default function MetamaskButton({...props}) {
                         duration: 2000,
                         isClosable: true,
                     })
+                    window.open("/", "_self");
                 }
                 setUserAddress(accounts[0]);
             });

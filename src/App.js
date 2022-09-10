@@ -1,5 +1,5 @@
 //Libraries
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import CookiesBar from './components/CookiesBar';
 import Cookies from 'js-cookie';
@@ -16,6 +16,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import HelpPage from './pages/HelpPage';
 import MyTicketsPage from './pages/MyTicketsPage';
 import EventsListPage from './pages/EventsListPage';
+import Data from './data/Data';
 
 
 
@@ -35,6 +36,9 @@ const theme = extendTheme({
 	  }, })
 
 function App() {
+	const [isOwner, setIsOwner] = useState('');
+	const [isConnected, setIsConnected] = useState(null);
+	const [currentAccount, setCurrentAccount] = useState('');
 
 	useEffect(() => {
 		if(Cookies.get("cookies")){
@@ -42,6 +46,36 @@ function App() {
 			Cookies.set("cookies", true, {expires: 9999, sameSite: 'None', secure: true});
 		}
     }, []);
+
+	function checkIsMetamaskInstalled() {
+        return typeof window.ethereum !== 'undefined'
+    }
+
+	function checkConnection() {
+		if(checkIsMetamaskInstalled()){
+			window.ethereum.request({ method: 'eth_accounts' }).then(handleAccountsChanged).catch(console.error);
+		}
+  	}
+  
+	function handleAccountsChanged(accounts) {
+		if (accounts.length === 0) {
+			setIsConnected(false)
+			setCurrentAccount('')
+		} else {
+			console.log("Conectado")
+			setIsConnected(true)
+			console.log("[0]", accounts[0])
+			console.log("Data.ownerAddress", Data.ownerAddress)
+			if(String(accounts[0]).toLowerCase() == String(Data.ownerAddress).toLowerCase()){
+				setIsOwner(true)
+			}
+			setCurrentAccount(accounts[0])
+		}
+	}
+
+	useEffect(() => {
+		checkConnection();
+	}, []);
 
 
 	return (
@@ -53,7 +87,7 @@ function App() {
 					<Route path="/help" element={<HelpPage/>} />
 					<Route path="/contact" element={<ContactPage/>} />
 					<Route path="/about" element={<AboutUsPage/>} />
-					<Route path="/tickets" element={<MyTicketsPage/>} />
+					<Route path="/tickets" isOwner={isOwner} currentAccount={currentAccount} element={<MyTicketsPage/>} />
 					<Route path="/events" element={<EventsListPage/>} />
 				</Routes>
 			</BrowserRouter>

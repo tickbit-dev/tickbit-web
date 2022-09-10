@@ -41,6 +41,7 @@ export default function Pasos({...props}) {
                         <Step0
                             event={props.event}
                             availability={props.availability}
+                            isResale={props.isResale}
                             isEventLoaded={props.isEventLoaded}
                             isPriceLoaded={props.isPriceLoaded}
                             usdPricePerTicket={props.usdPricePerTicket}
@@ -53,6 +54,7 @@ export default function Pasos({...props}) {
                         <Step1
                             event={props.event}
                             availability={props.availability}
+                            isResale={props.isResale}
                             isEventLoaded={props.isEventLoaded}
                             isPriceLoaded={props.isPriceLoaded}
                             usdPricePerTicket={props.usdPricePerTicket}

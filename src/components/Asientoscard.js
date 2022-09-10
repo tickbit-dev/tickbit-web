@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Flex, Text, Select, Skeleton, Icon, Center, Badge, Spacer } from '@chakra-ui/react';
 import Colors from '../constants/Colors';
 import { cutIntervalDate, getCityById, getSpanishWeekDayString, getVenueById, momentDaytoSpanishDay } from '../utils/funcionesComunes';
-import { BsCalendarFill } from 'react-icons/bs';
+import { BsCalendarFill, BsShieldFillCheck } from 'react-icons/bs';
 import { MdLocationOn } from 'react-icons/md';
 import { FaLocationArrow } from 'react-icons/fa';
 
@@ -12,18 +12,21 @@ export default function Asientoscard({...props}) {
     return (
         <Flex bg={'gray.100'} rounded={20} direction={{base:"column", md:"row"}} padding={"32px"} alignItems={{base: 'left', md: 'center'}} mt={{base: '40px', md: 0}}>
             <Flex direction={"column"}>
+                {/*<Flex>
+                    <Badge colorScheme='cyan' mb={"4px"}>Tickets de reventa</Badge>
+                </Flex>*/}
                 <Flex alignItems={'center'} direction={{base: 'column', md: 'row'}}>
                     <Text fontFamily={'Montserrat'} fontSize={"xl"} fontWeight={800} textAlign={"left"} textOverflow={"elipsis"}>Entrada general </Text>
                     <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"} color={'gray.500'} ml={{base: '0px', md: '6px'}}>(No numerada)</Text>
                 </Flex>
                 <Flex alignItems={{base: 'center', md: 'flex-start'}} justifyContent={{base: 'center', md: 'flex-start'}} mt={"6px"}>
-                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{getSpanishWeekDayString(new Date(props.event.initialDate * 1000)) + ',' + ' ' + cutIntervalDate(props.event.initialDate)}</Text>
+                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{props.isEventLoaded == true ? (getSpanishWeekDayString(new Date(props.event.initialDate * 1000)) + ',' + ' ' + cutIntervalDate(props.event.initialDate)) : ""}</Text>
                 </Flex>
                 <Flex alignItems={'center'} justifyContent={{base: 'center', md: 'flex-start'}}>
-                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{getVenueById(props.event.idVenue).name}</Text>
+                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{props.isEventLoaded == true ? getVenueById(props.event.idVenue).name : ""}</Text>
                 </Flex>
                 <Flex alignItems={'center'} justifyContent={{base: 'center', md: 'flex-start'}}>
-                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{getCityById(props.event.idCity).name}</Text>
+                    <Text fontFamily={'Montserrat'} fontSize={"md"} fontWeight={500} textAlign={"left"} textOverflow={"elipsis"}>{props.isEventLoaded == true ? getCityById(props.event.idCity).name : ""}</Text>
                 </Flex>
             </Flex>
             <Spacer/>
@@ -36,10 +39,10 @@ export default function Asientoscard({...props}) {
                 <Text color={"gray.500"} fontWeight={500} fontFamily={"Montserrat"} fontSize={16} textAlign={'right'} mb={'16px'}>{'≈' +' '+ parseFloat((props.maticUsdConversion).toFixed(4) * props.usdPricePerTicket).toFixed(4) + ' ' + 'MATIC'}</Text>
                 {props.availability == 0 ?
                     <Flex disabled={true} px={"32px"} py={"12px"} borderRadius={"10px"} backgroundColor='gray.300' color='white'>
-                        <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Agotado</Text>
+                        <Text margin={"auto"}  color={"gray.500"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Agotado</Text>
                     </Flex>     
                 :   
-                    <Flex direction={{base: 'column', md: 'row'}} w={{base: '100%', md: 'undefined'}}>
+                    <Flex direction={{base: 'column', md: 'column'}} w={{base: '100%', md: 'undefined'}} mt={{base: "10px", md: '0px'}}>
                         {/*props.availability < MAX_TICKETS ? 
                             <Select onChange={(e) => props.onChangeNumTickets((e.target.value))} variant='outline'  w={{base: '100%', md: "120px"}} margin={"auto"} backgroundColor={"white"} _focus={{ boxShadow:"0 0 0px 0px " + Colors.primary.white + ", 0 0px 0px " + Colors.primary.white,}} >
                                 {new Array(props.availability).fill().map((item, index) => (
@@ -53,9 +56,23 @@ export default function Asientoscard({...props}) {
                                 ))}
                             </Select>
                         */}
-                        <Flex as={"button"} mt={{base: "10px", md: '0px'}} w={{base: '100%', md: undefined}} borderRadius={"6px"} bg={Colors.primary.skyblue} ml={{base: "0px", md: "16px"}} color='white' _hover={{backgroundColor: Colors.primary.skyblueHover}} transition="all .3s ease" onClick={()=> props.onNext()} px={"32px"} py={"12px"}>
-                            <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>Comprar tickets</Text>
-                        </Flex>   
+                        {props.isResale ?
+                            <Flex flex={1} justifyContent={"flex-end"} alignItems={'center'} mt={"-10px"}>
+                                <Badge colorScheme='cyan' pt={"6px"} pb={"16px"} borderTopRadius={'6px'} px={"10px"} mb={"-10px"} flex={1}>
+                                    <Flex alignItems={'center'} justifyContent={'center'}>
+                                        <Icon
+                                            fontSize={"15px"}
+                                            as={BsShieldFillCheck}
+                                        />
+                                        <Text ml={"10px"}>Reventa segura con Tickbit</Text>
+                                    </Flex>
+                                </Badge>
+                            </Flex> 
+                        : null}
+                        <Flex as={"button"} w={{base: '100%', md: undefined}} borderRadius={"6px"} bg={props.isResale ? Colors.primary.skyblue : Colors.primary.skyblue} color='white' _hover={{backgroundColor: props.isResale ? Colors.primary.skyblueHover : Colors.primary.skyblueHover}} transition="all .3s ease" onClick={()=> props.onNext()} px={"32px"} py={"12px"}>
+                            <Text margin={"auto"}  color={"white"} fontWeight={"bold"} fontFamily={"Montserrat"} fontSize={14}>{props.isResale ? "Comprar tickets en reventa" : "Comprar tickets"}</Text>
+                        </Flex>  
+                        
                     </Flex>  
                 }
             </Flex>

@@ -48,14 +48,15 @@ import {
           }}
           flex="2"
         >
-          <Heading fontSize="2xl" fontWeight="extrabold">
+          {/*<Heading fontSize="2xl" fontWeight="extrabold">
             Carrito
-          </Heading>
+          </Heading>*/}
   
           <Stack spacing="6">
               <CartItem
                 event={props.event}
                 availability={props.availability}
+                isResale={props.isResale}
                 isEventLoaded={props.isEventLoaded}
                 isPriceLoaded={props.isPriceLoaded}
                 usdPricePerTicket={props.usdPricePerTicket}
@@ -69,6 +70,7 @@ import {
         <Flex direction="column" align="center" flex="1">
           <CartOrderSummary
             event={props.event}
+            isResale={props.isResale}
             isEventLoaded={props.isEventLoaded}
             isPriceLoaded={props.isPriceLoaded}
             usdPricePerTicket={props.usdPricePerTicket}

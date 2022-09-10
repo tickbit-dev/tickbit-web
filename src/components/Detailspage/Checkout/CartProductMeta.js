@@ -1,5 +1,7 @@
 import {
+  Badge,
     Box,
+    Flex,
     HStack,
     Icon,
     Image,
@@ -17,8 +19,8 @@ import { cutIntervalDate, getCityById, getSpanishWeekDayString, getVenueById } f
       <Stack direction="row" spacing="5" width="full">
         <Image
           rounded="lg"
-          width="140px"
-          height="140px"
+          width="155px"
+          height="155px"
           fit="cover"
           src={props.event.coverImageUrl}
           alt={props.event.title}
@@ -26,6 +28,12 @@ import { cutIntervalDate, getCityById, getSpanishWeekDayString, getVenueById } f
           loading="lazy"
         />
         <Box>
+          
+          {props.isResale == true ?
+            <Flex>
+                <Badge colorScheme='cyan' mb={"4px"}>Tickets de reventa</Badge>
+            </Flex>
+          : null}
           <Stack spacing={0}>
             <Text fontWeight="bold" fontSize={'xl'} textAlign={'left'}>{props.event.title}</Text>
             <Text fontWeight="medium" mt={"-10px"} textAlign={'left'}>{props.event.artist}</Text>

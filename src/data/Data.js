@@ -6,7 +6,7 @@ export default {
             "name": "Sin definir",
             "venues": [
                 {
-                    "id": 0,
+                    "id": 1,
                     "name": "Sin definir",
                     "capacity":  99999,
                     "address": "Sin definir"
@@ -14,61 +14,81 @@ export default {
             ]
         },
         {
-            "id": 1,
+            "id": 11,
             "name": "Barcelona",
             "venues": [
                 {
-                    "id": 0,
+                    "id": 1,
                     "name": "Sin definir",
                     "capacity":  99999,
                     "address": "Sin definir"
                 },
                 {
-                    "id": 1,
+                    "id": 10,
                     "name": "Palau Sant Jordi",
                     "capacity":  17000,
                     "address": "Passeig Olímpic, 5-7, 08038 Barcelona"
-                }
+                },
+                {
+                    "id": 11,
+                    "name": "Spotify Camp Nou",
+                    "capacity":  99354,
+                    "address": "C. d'Arístides Maillol, 12, 08028 Barcelona"
+                },
+                {
+                    "id": 12,
+                    "name": "Teatre Tívoli",
+                    "capacity": 1643,
+                    "address": "Carrer de Casp, 8, 08010 Barcelona"
+                },
             ]
         },
         {
-            "id": 2,
+            "id": 12,
             "name": "Madrid",
             "venues": [
                 {
-                    "id": 0,
+                    "id": 1,
                     "name": "Sin definir",
                     "capacity":  99999,
                     "address": "Sin definir"
                 },
                 {
-                    "id": 2,
+                    "id": 100,
                     "name": "Wizink Center",
                     "capacity": 17453,
                     "address": "Av. Felipe II, s/n, 28009 Madrid"
-                }
+                },
+                {
+                    "id": 101,
+                    "name": "Estadio Santiago Bernabéu",
+                    "capacity": 81044,
+                    "address": "Av. de Concha Espina, 1, 28036 Madrid"
+                },
+                {
+                    "id": 102,
+                    "name": "Teatro Capitol Madrid",
+                    "capacity": 1357,
+                    "address": "C/ Gran Vía, 41, 28013 Madrid"
+                },
             ]
         },
     ],
     categories: [
         {
-            "id": 1,
-            "name": "Conciertos"
+            "id": 10,
+            "name": "Conciertos y festivales"
         },
         {
-            "id": 2,
-            "name": "Festivales"
+            "id": 11,
+            "name": "Teatro y arte"
         },
         {
-            "id": 3,
-            "name": "Teatro"
-        },
-        {
-            "id": 4,
+            "id": 12,
             "name": "Deportes"
         },
         {
-            "id": 0,
+            "id": 1,
             "name": "Otros"
         },
     ],

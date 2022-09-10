@@ -62,6 +62,7 @@ export default function EventDetailsPage({...props}) {
                     <Asientoscard
                         event={props.event}
                         availability={props.availability}
+                        isResale={props.isResale}
                         isEventLoaded={props.isEventLoaded}
                         isPriceLoaded={props.isPriceLoaded}
                         usdPricePerTicket={props.usdPricePerTicket}

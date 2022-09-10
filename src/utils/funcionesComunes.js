@@ -596,8 +596,8 @@ export async function readEventbyId(eventId, isPublicRead) {
 
 ///////// TICKETS /////////
 
-function newTicket(_owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated) {
-    return { _owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated};
+function newTicket(_owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated, isOnSale) {
+    return { _owner, _eventOwner, _id, _purchaseDate, idEvent, price, validated, isOnSale};
 }
 
 export async function getTicketsListFromBlockchain() {
@@ -624,7 +624,7 @@ export async function getTicketsListFromBlockchain() {
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6]
+                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6], item[7]
             )
         );
     }
@@ -774,7 +774,7 @@ export async function getMyTicketsList() {
     for (let item of item_data) {
         itemsArray.push(
             newTicket(
-                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6]
+                item[0], item[1], item[2].toNumber(), item[3].toNumber(), item[4].toNumber(), item[5].toNumber(), item[6], item[7]
             )
         );
     }
@@ -804,6 +804,57 @@ export async function buyTicket(idEvent, noOfTickets, price) {
         console.log(price.toString())
         const finalprice = ethers.utils.parseUnits(price.toString())
         const transaction = await contract.buyTicket(idEvent, noOfTickets, {value: finalprice});
+        await transaction.wait()
+
+        return transaction;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function buyTicketResale(idEvent, noOfTickets, price) {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
+
+    try {
+        console.log(price.toString())
+        const finalprice = ethers.utils.parseUnits(price.toString())
+        const transaction = await contract.buyResaleTicket(idEvent, noOfTickets, {value: finalprice});
+        await transaction.wait()
+
+        return transaction;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function resaleTicket(idTicket) {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
+    try {
+        const transaction = await contract.resaleTicket(idTicket);
+        await transaction.wait()
+
+        return transaction;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function cancelResale(idTicket) {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, signer)
+    try {
+        const transaction = await contract.cancelResale(idTicket);
         await transaction.wait()
 
         return transaction;
@@ -888,6 +939,16 @@ export async function checkAvailabilityByEventId(eventId){
 
     const data = await contract.checkAvailavilityFromIdEvent(BigNumber.from(String(eventId)));
 
+    return data.toNumber();
+}
+
+export async function checkResaleAvailabilityByEventId(eventId){
+    /* create a generic provider and query for unsold market items */
+    const provider = new ethers.providers.JsonRpcProvider(RPC_URL_PROCIVER)
+    const contract = new ethers.Contract(contractAddressTickets, TickbitTicket.abi, provider)
+    
+    const data = await contract.checkResaleAvailability(BigNumber.from(String(eventId)));
+    
     return data.toNumber();
 }
 
