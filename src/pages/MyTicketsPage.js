@@ -348,7 +348,7 @@ function TicketCard({...props}) {
                     <AlertDialogBody>
                         {isOnSale == true ? '¿Estás seguro que quieres cancelar la venta del ticket?' : '¿Estás seguro que quieres poner a la venta este ticket?'}
                         <Alert flexDirection={{base: 'column', md: 'row'}} textAlign={{base: 'center', md: 'left'}} status='warning' bg={'rgb(254, 235, 200)'} mb={'16px'} color={"gray.700"} mt={"30px"}>
-                            <AlertIcon alignSelf={"flex-start"} color={'orange.500'} mb={{base: "10px", md: "0px"}}/>
+                            <AlertIcon alignSelf={{base: "center", md: "flex-start"}} color={'orange.500'} mb={{base: "10px", md: "0px"}}/>
                             El ticket se pondrá a la venta a su precio oficial. En caso de que el ticket sea vendido se te abonará en la cartera ese importe aplicando un 10% de comisión en concepto de gestión.
                         </Alert>
                     </AlertDialogBody>
