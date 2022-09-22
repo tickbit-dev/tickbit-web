@@ -77,7 +77,7 @@ export default function HomeListSlider({...props}) {
                         </Flex> 
                     : null}
                 </Flex>
-                <Flex maxW={"100%"} direction={'column'}>
+                <Flex maxW={"100%"} direction={'column'} position={'relative'}>
                     {props.data == null ? 
                         <Flickity
                             key={"FlickityLoading"}
@@ -137,6 +137,8 @@ export default function HomeListSlider({...props}) {
                             ))}
                         </Flickity>
                     }
+                    <Flex style={{position: 'absolute', right: 0}} w={{base: '0px', md: '16px'}} h={'100%'} bgGradient={'linear(to-r, transparent, white)'}/>
+                    <Flex style={{position: 'absolute', left: 0}} w={{base: '0px', md: '16px'}} h={'100%'} bgGradient={'linear(to-l, transparent, white)'}/>
                 </Flex>
             </Flex>
         : null
