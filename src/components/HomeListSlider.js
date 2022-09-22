@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Icon, SimpleGrid, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/Colors';
 import TicketCard from '../components/TicketCard2';
-import { cutIntervalDate, getCampaignListFromBlockchain, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
+import { cutIntervalDate, getCampaignListFromBlockchain, getCityById, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
 import moment from 'moment';
 import Flickity from 'react-flickity-component';
 import "../flickity.css";
@@ -122,10 +122,12 @@ export default function HomeListSlider({...props}) {
                                         mr={"12px"}
                                         ml={index == 0 ? {base: "10px", md: "16px"} : null}
                                         isLoaded={props.isLoaded}
+                                        artist={event.artist}
                                         titulo={event.title}
                                         imagen={event.coverImageUrl}
-                                        fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                                        fecha={cutIntervalDate(event.initialDate) != cutIntervalDate(event.finalDate) ? (cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)) : cutIntervalDate(event.initialDate)}
                                         sitio={getVenueById(event.idVenue).name}
+                                        city={getCityById(event.idCity).name}
                                         url={"/event/" + event._id}
                                     />
                                     {index == (eventsList?.length - 1) ?

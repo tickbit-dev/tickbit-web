@@ -96,12 +96,12 @@ export default {
         {
             "id": 1,
             "name": "Portada",
-            "price": 0.1 //EUR
+            "price": 10 //EUR
         },
         {
             "id": 2,
             "name": "Destacado",
-            "price": 0.05 //EUR
+            "price": 2 //EUR
         },
     ]
 };

@@ -8,7 +8,7 @@ import ContentBox from '../components/Utils/ContentBox';
 import Footer from '../components/Footer';
 import TicketCard from '../components/TicketCard2';
 import { useLocation } from 'react-router-dom';
-import { cutIntervalDate, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
+import { cutIntervalDate, getCityById, getEventsListFromBlockchain, getVenueById } from '../utils/funcionesComunes';
 import { FiSearch } from 'react-icons/fi';
 import Colors from '../constants/Colors';
 
@@ -137,9 +137,11 @@ export default function EventsListPage({...props}) {
                                     updateColor={onUpdateColor}
                                     index={index}
                                     titulo={event.title}
+                                    artist={event.artist}
                                     imagen={event.coverImageUrl}
-                                    fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                                    fecha={cutIntervalDate(event.initialDate) != cutIntervalDate(event.finalDate) ? (cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)) : cutIntervalDate(event.initialDate)}
                                     sitio={getVenueById(event.idVenue).name}
+                                    city={getCityById(event.idCity).name}
                                     url={"/event/" + event._id}
                                     isLoaded={isLoaded}
                                 />

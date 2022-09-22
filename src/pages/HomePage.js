@@ -17,7 +17,7 @@ import Categorias from '../components/Categorias2';
 import Portada from '../components/Portada';
 import Footer from '../components/Footer';
 import { useEffect, useState } from 'react';
-import { cutIntervalDate, getCampaignById, getCampaignListFromBlockchain, getEventsListFromBlockchain, getStringFromTimestamp, getVenueById, readCurrentCampaigns, readEventbyId } from '../utils/funcionesComunes';
+import { cutIntervalDate, getCampaignById, getCampaignListFromBlockchain, getCityById, getEventsListFromBlockchain, getStringFromTimestamp, getVenueById, readCurrentCampaigns, readEventbyId } from '../utils/funcionesComunes';
 import moment from 'moment';
 import { FiSearch } from 'react-icons/fi';
 import { QrReader } from 'react-qr-reader';
@@ -181,9 +181,11 @@ export default function HomePage() {
                                             index={index}
                                             isLoaded={isLoaded}
                                             titulo={event.title}
+                                            artist={event.artist}
                                             imagen={event.coverImageUrl}
-                                            fecha={cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)}
+                                            fecha={cutIntervalDate(event.initialDate) != cutIntervalDate(event.finalDate) ? (cutIntervalDate(event.initialDate) + ' ' + '-' + ' ' + cutIntervalDate(event.finalDate)) : cutIntervalDate(event.initialDate)}
                                             sitio={getVenueById(event.idVenue).name}
+                                            city={getCityById(event.idCity).name}
                                             url={"/event/" + event._id}
                                         />
                                     </WrapItem>
