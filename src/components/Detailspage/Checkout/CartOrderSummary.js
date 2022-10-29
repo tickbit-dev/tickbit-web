@@ -61,7 +61,7 @@ import { buyTicket, buyTicketResale } from '../../../utils/funcionesComunes'
             </Text>
           </Flex>
           <OrderSummaryItem label={"Número de tickets"} value={props.numTickets + " " + (props.numTickets == 1 ? " Ticket" : " Tickets")}/>
-          <OrderSummaryItem label="Comisión de la plataforma" value={'1%'}/>
+          <OrderSummaryItem label="Comisión de la plataforma" value={props.isResale ? '1%' : '5%'}/>
           <Text color={"gray.400"} fontFamily={'Montserrat'} fontSize={11} position={'absolute'} top={"115px"} textAlign={'left'}>(*) Comisión ya incluída en el precio</Text>
           <Flex height={"10px"}/>
           <Flex justify="space-between">
