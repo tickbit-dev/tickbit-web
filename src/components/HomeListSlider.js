@@ -63,7 +63,7 @@ export default function HomeListSlider({...props}) {
             <Flex direction={'column'} {...props}>
                 <Flex direction={'row'} px={{base: "10px", md: "16px"}} mb={'6px'} justifyContent={'space-between'} alignItems={'center'}> 
                     <Heading as='h2' color={'black'} size='lg' fontFamily={"Montserrat"} fontWeight={800}>{props.title}</Heading>
-                    {props.link ? 
+                    {/*props.link ? 
                         <Flex as={'button'} role={'group'} justifyContent={'center'} alignItems={'center'} mt={{base: '3px', md: '6px'}}>
                             <Text fontFamily={"Montserrat"} transition={'all .6s ease'} color={'gray.400'} _groupHover={{color: 'black'}} cursor={'pointer'} fontWeight={500} onClick={() => navigate(props.link)}>Ver más</Text>
                             <Icon
@@ -75,7 +75,7 @@ export default function HomeListSlider({...props}) {
                                 as={FiChevronRight}
                             />
                         </Flex> 
-                    : null}
+                    : null*/}
                 </Flex>
                 <Flex maxW={"100%"} direction={'column'} position={'relative'}>
                     {props.data == null ? 

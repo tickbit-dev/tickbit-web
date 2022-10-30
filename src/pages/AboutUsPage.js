@@ -23,7 +23,7 @@ export default function AboutUsPage({...props}) {
     }, []);
 
     return (
-        <Box>
+        <Flex direction={'column'} maxW={"100%"} minH={'100vh'} overflow={"hidden"}>
             
             <ContentBox>
                 <NavigationBar/>
@@ -63,7 +63,7 @@ export default function AboutUsPage({...props}) {
 `
             </ContentBox>
             <Footer/>
-        </Box>
+        </Flex>
     );
 };
 

@@ -23,7 +23,7 @@ export default function Buscador({...props}) {
                     borderTopRightRadius={"30px"} borderBottomRightRadius={"30px"} borderTopLeftRadius={"60px"} borderBottomLeftRadius={"60px"}
                     placeholder={"Busca por conciertos, artistas, eventos..."}
                     pl={{base: "62px", md: "70px"}}
-                    zIndex={1}
+                    zIndex={0}
                     fontFamily={"Montserrat"}
                     onChange={(event) => props.onChange(event, 'TEXT')}
                     fontWeight={500}

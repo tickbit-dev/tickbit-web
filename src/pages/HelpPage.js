@@ -38,7 +38,7 @@ export default function HelpPage({...props}) {
     }, []);
 
     return (
-        <Box>
+        <Flex direction={'column'} maxW={"100%"} minH={'100vh'} overflow={"hidden"}>
             
             <ContentBox>
                 <NavigationBar/>
@@ -156,7 +156,7 @@ export default function HelpPage({...props}) {
                     </Flex>
                 </Flex>
             </ContentBox>
-            {/*<Footer/>*/}
-        </Box>
+            <Footer/>
+        </Flex>
     );
 };

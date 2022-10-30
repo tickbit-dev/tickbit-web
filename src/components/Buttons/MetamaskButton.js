@@ -120,6 +120,7 @@ export default function MetamaskButton({...props}) {
                     boxShadow:
                     '0 0 1px 3px rgba(64, 153, 255, 0.6), 0 1px 1px rgba(0, 0, 0, .15)',
                 }}*/
+                zIndex={99999}
                 _focus={{boxShadow:'0 0 0px 0px rgba(0, 0, 0, 0)'}}
                 style={{WebkitTapHighlightColor: "transparent"}}
                 onClick={() => userAddress == null ? connectMetamaskWallet() : null}
@@ -165,14 +166,6 @@ export default function MetamaskButton({...props}) {
                     </Box>
                 </MenuButton> 
                 <MenuList borderWidth={"0px"} boxShadow={"lg"}>
-                    <MenuItem _focus={{bg: 'none'}}>
-                        <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
-                            <Flex alignItems={"center"}>
-                                <FaUser/>
-                                <Text ml={"10px"} fontFamily={"Montserrat"} fontSize={"15px"} fontWeight={"medium"} _groupHover={{ color: 'pink.400'}} transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>Mi cuenta</Text>
-                            </Flex>
-                        </Link>
-                    </MenuItem>
                     <MenuItem _focus={{bg: 'none'}}>
                         <Link py={"6px"} px={"16px"} width={"full"} height={"full"} role={'group'} _hover={{bg: Colors.primary.pink + '22'}} borderRadius={"5px"} onClick={() => window.open('/tickets','_self') } transition='all 0.2s cubic-bezier(.08,.52,.52,1)'>
                             <Flex alignItems={"center"}>
